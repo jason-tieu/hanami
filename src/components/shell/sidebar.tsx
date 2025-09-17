@@ -16,7 +16,7 @@ const navigation = [
 const socialLinks = [
   { name: "GitHub", href: "https://github.com/jason-tieu", icon: Github },
   { name: "LinkedIn", href: "https://www.linkedin.com/in/jason-tieu-engineer/", icon: Linkedin },
-  { name: "Email", href: "mailto:jason@example.com", icon: Mail },
+  { name: "Email", href: "mailto:jason.tieu04@gmail.com", icon: Mail },
 ];
 
 const normalize = (p: string) => (p.endsWith("/") && p !== "/" ? p.slice(0, -1) : p);
