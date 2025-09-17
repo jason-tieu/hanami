@@ -1,7 +1,23 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
+
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+});
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Enable static export
+  output: "export",
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
+  // Configure MDX
+  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  // Note: Headers are configured in vercel.json for static export
 };
 
-export default nextConfig;
+export default withMDX(nextConfig);

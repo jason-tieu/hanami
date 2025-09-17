@@ -1,17 +1,23 @@
 "use client";
 
+// import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Github, Download, ArrowRight } from "lucide-react";
+import { Github, Download, ArrowRight, Code, Cpu, Cloud, Database } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { TechPill } from "@/components/tech-pill";
-import SectionWrapper from "@/components/SectionWrapper";
-import UIButton from "@/components/UIButton";
-import AccentButton from "@/components/AccentButton";
-import SakuraCanvas from "@/components/SakuraCanvas";
-import { skills } from "@/components/skills";
-import SkillCard from "@/components/SkillCard";
 
+const skills = [
+  { name: "C/C++", category: "Languages", icon: Code },
+  { name: "Python", category: "Languages", icon: Code },
+  { name: "FreeRTOS", category: "Embedded", icon: Cpu },
+  { name: "TensorFlow", category: "AI/ML", icon: Cpu },
+  { name: "Docker", category: "DevOps", icon: Cloud },
+  { name: "AWS", category: "Cloud", icon: Cloud },
+  { name: "PostgreSQL", category: "Database", icon: Database },
+  { name: "MATLAB", category: "Tools", icon: Code },
+];
 
 const featuredProjects = [
   {
@@ -39,17 +45,15 @@ const featuredProjects = [
 
 export default function Home() {
   return (
-    <main className="relative">
-      {/* HERO */}
-      <SectionWrapper className="overflow-hidden">
-        <SakuraCanvas enabled density={0.85} hue={345} opacity={0.18} />
-        <div className="relative z-20 mx-auto max-w-6xl px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
                 Hi, I&apos;m{" "}
-                <span className="bg-gradient-to-r from-white to-brand bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-brand to-accent-brand bg-clip-text text-transparent">
                   Jason Tieu
                 </span>
               </h1>
@@ -64,27 +68,27 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <UIButton asChild variant="primary" className="text-lg px-8 py-6">
+              <Button asChild size="lg" className="text-lg px-8 py-6">
                 <Link href="/projects" className="flex items-center gap-2">
                   View Projects
                   <ArrowRight className="h-5 w-5" />
                 </Link>
-              </UIButton>
-              <AccentButton asChild variant="secondary" className="text-lg px-8 py-6">
-                <Link href="https://github.com/jason-tieu" className="flex items-center gap-2">
+              </Button>
+              <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
+                <Link href="https://github.com/jasontieu" className="flex items-center gap-2">
                   <Github className="h-5 w-5" />
                   GitHub
                 </Link>
-              </AccentButton>
+              </Button>
             </div>
 
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <UIButton asChild variant="secondary" className="text-sm px-3 py-1">
+              <Button asChild variant="ghost" size="sm">
                 <Link href="/resume.pdf" className="flex items-center gap-2">
                   <Download className="h-4 w-4" />
                   Download Resume
                 </Link>
-              </UIButton>
+              </Button>
               <span>•</span>
               <span>Available for opportunities</span>
             </div>
@@ -104,12 +108,11 @@ export default function Home() {
             <div className="absolute -top-4 -left-4 w-16 h-16 bg-accent-brand rounded-full opacity-30 animate-pulse delay-1000" />
           </div>
         </div>
-        </div>
-      </SectionWrapper>
+      </section>
 
-      {/* TECHNICAL SKILLS */}
-      <SectionWrapper id="skills">
-        <div className="relative z-10 mx-auto max-w-6xl px-6">
+      {/* Skills Section */}
+      <section className="bg-muted/30 py-16">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center space-y-12">
             <div className="space-y-4">
               <h2 className="text-3xl sm:text-4xl font-bold">Technical Skills</h2>
@@ -118,18 +121,27 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {skills.map((skill) => (
-                <SkillCard key={skill.id} skill={skill} />
-              ))}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {skills.map((skill) => {
+                const Icon = skill.icon;
+                return (
+                  <Card key={skill.name} className="p-4 text-center group hover:shadow-md transition-all duration-300">
+                    <CardContent className="p-0">
+                      <Icon className="h-8 w-8 mx-auto mb-2 text-brand group-hover:text-accent-brand transition-colors" />
+                      <h3 className="font-semibold text-sm">{skill.name}</h3>
+                      <p className="text-xs text-muted-foreground">{skill.category}</p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </div>
         </div>
-      </SectionWrapper>
+      </section>
 
       {/* Featured Projects Section */}
-      <SectionWrapper>
-        <div className="relative z-10 mx-auto max-w-6xl px-6">
+      <section className="py-16">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="space-y-12">
             <div className="text-center space-y-4">
               <h2 className="text-3xl sm:text-4xl font-bold">Featured Projects</h2>
@@ -165,32 +177,32 @@ export default function Home() {
                         </TechPill>
                       ))}
                     </div>
-                    <AccentButton asChild variant="secondary" className="w-full">
-                      <Link href={project.link} className="flex items-center gap-2">
+                    <Button asChild variant="outline" className="w-full">
+                      <Link href={project.link}>
                         View Project
-                        <ArrowRight className="h-4 w-4" />
+                        <ArrowRight className="h-4 w-4 ml-2" />
                       </Link>
-                    </AccentButton>
+                    </Button>
                   </CardContent>
                 </Card>
               ))}
             </div>
 
             <div className="text-center">
-              <UIButton asChild variant="primary" className="text-lg px-8 py-6">
-                <Link href="/projects" className="flex items-center gap-2">
+              <Button asChild size="lg">
+                <Link href="/projects">
                   View All Projects
-                  <ArrowRight className="h-5 w-5" />
+                  <ArrowRight className="h-5 w-5 ml-2" />
                 </Link>
-              </UIButton>
+              </Button>
             </div>
           </div>
         </div>
-      </SectionWrapper>
+      </section>
 
       {/* CTA Section */}
-      <SectionWrapper>
-        <div className="relative z-10 mx-auto max-w-6xl px-6">
+      <section className="bg-muted/30 py-16">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center space-y-8">
             <div className="space-y-4">
               <h2 className="text-3xl sm:text-4xl font-bold">Let&apos;s Work Together</h2>
@@ -201,22 +213,21 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <UIButton asChild variant="primary" className="text-lg px-8 py-6">
-                <Link href="/contact" className="flex items-center gap-2">
+              <Button asChild size="lg" className="text-lg px-8 py-6">
+                <Link href="/contact">
                   Get In Touch
-                  <ArrowRight className="h-5 w-5" />
+                  <ArrowRight className="h-5 w-5 ml-2" />
                 </Link>
-              </UIButton>
-              <AccentButton asChild variant="secondary" className="text-lg px-8 py-6">
-                <Link href="/experience" className="flex items-center gap-2">
+              </Button>
+              <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
+                <Link href="/experience">
                   View Experience
-                  <ArrowRight className="h-5 w-5" />
                 </Link>
-              </AccentButton>
+              </Button>
             </div>
           </div>
         </div>
-      </SectionWrapper>
-    </main>
+      </section>
+    </div>
   );
 }

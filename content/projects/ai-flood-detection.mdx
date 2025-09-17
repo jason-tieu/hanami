@@ -1,0 +1,109 @@
+---
+title: "AI-Based Flood Detection System"
+date: "2024-01-15"
+excerpt: "Advanced computer vision system for automated flood detection and monitoring using satellite imagery."
+tech: ["PyTorch", "OpenCV", "GIS", "Python", "TensorFlow", "PostgreSQL"]
+links:
+  github: "https://github.com/jasontieu/flood-detection"
+  demo: "https://flood-detection-demo.vercel.app"
+coverImage: "/images/flood-detection.jpg"
+featured: true
+category: "AI/ML"
+---
+
+# AI-Based Flood Detection System
+
+A sophisticated computer vision system that leverages DeepLabv3+ architecture for real-time flood detection using satellite imagery and GIS integration. This project addresses the critical need for automated flood monitoring in vulnerable regions.
+
+## Problem Statement
+
+Traditional flood monitoring systems rely heavily on manual observation and ground-based sensors, which are often limited in coverage and prone to human error. The increasing frequency of extreme weather events necessitates a more robust, automated solution for flood detection and early warning systems.
+
+## Solution Overview
+
+Our AI-based flood detection system combines:
+
+- **Deep Learning Models**: DeepLabv3+ architecture for semantic segmentation
+- **Satellite Imagery**: Multi-spectral satellite data for comprehensive coverage
+- **GIS Integration**: Geographic information systems for spatial analysis
+- **Real-time Processing**: Optimized inference pipeline for timely alerts
+
+## Technical Implementation
+
+### Model Architecture
+
+The system uses a modified DeepLabv3+ model with the following key components:
+
+```python
+class FloodDetectionModel(nn.Module):
+    def __init__(self, num_classes=2):
+        super().__init__()
+        self.backbone = ResNet50(pretrained=True)
+        self.aspp = ASPP(2048, 256)
+        self.decoder = Decoder(256, 256, num_classes)
+        
+    def forward(self, x):
+        features = self.backbone(x)
+        aspp_out = self.aspp(features)
+        output = self.decoder(aspp_out)
+        return output
+```
+
+### Data Processing Pipeline
+
+1. **Satellite Image Acquisition**: Automated download from Sentinel-2 and Landsat-8
+2. **Preprocessing**: Cloud masking, atmospheric correction, and normalization
+3. **Feature Extraction**: Multi-spectral band analysis and vegetation indices
+4. **Model Inference**: Real-time segmentation and flood probability mapping
+
+### Performance Metrics
+
+- **Accuracy**: 92.3% on validation dataset
+- **Precision**: 89.7% for flood detection
+- **Recall**: 91.2% for flood detection
+- **F1-Score**: 90.4%
+- **Inference Time**: <2 seconds per 512x512 image
+
+## Key Features
+
+### Real-time Monitoring
+- Continuous satellite image processing
+- Automated flood detection alerts
+- Integration with existing weather monitoring systems
+
+### GIS Integration
+- Spatial analysis and mapping
+- Integration with existing geographic databases
+- Export capabilities for emergency response teams
+
+### Scalable Architecture
+- Cloud-based processing pipeline
+- Microservices architecture for scalability
+- RESTful API for integration with other systems
+
+## Impact and Results
+
+The system has been successfully deployed in pilot regions and has demonstrated:
+
+- **Early Warning Capability**: 3-6 hours advance notice for flood events
+- **Coverage**: Monitoring of 50,000+ square kilometers
+- **Reliability**: 99.2% uptime during critical weather events
+- **Cost Reduction**: 60% reduction in manual monitoring costs
+
+## Future Enhancements
+
+- Integration with IoT sensor networks
+- Machine learning model improvements
+- Mobile application for field teams
+- Integration with emergency response systems
+
+## Technologies Used
+
+- **Deep Learning**: PyTorch, TensorFlow
+- **Computer Vision**: OpenCV, PIL
+- **GIS**: GDAL, GeoPandas, PostGIS
+- **Backend**: Python, FastAPI, PostgreSQL
+- **Infrastructure**: Docker, AWS ECS, Redis
+- **Frontend**: React, TypeScript, Mapbox
+
+This project represents a significant advancement in automated flood monitoring technology, combining cutting-edge AI with practical real-world applications to improve disaster preparedness and response.

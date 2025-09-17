@@ -1,0 +1,11 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="800" height="450" fill="#1F2937"/>
+<rect x="50" y="50" width="700" height="350" fill="#374151" rx="20"/>
+<rect x="80" y="80" width="640" height="290" fill="#111827" rx="10"/>
+<rect x="100" y="100" width="200" height="120" fill="#FF4D6D" rx="5"/>
+<rect x="320" y="100" width="200" height="120" fill="#6C63FF" rx="5"/>
+<rect x="540" y="100" width="160" height="120" fill="#10B981" rx="5"/>
+<rect x="100" y="240" width="300" height="100" fill="#F59E0B" rx="5"/>
+<rect x="420" y="240" width="280" height="100" fill="#8B5CF6" rx="5"/>
+<text x="400" y="30" text-anchor="middle" fill="white" font-family="Arial" font-size="20" font-weight="bold">EV Dashboard GUI</text>
+</svg>

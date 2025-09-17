@@ -1,0 +1,9 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="800" height="500" fill="#1F2937"/>
+<rect x="50" y="50" width="700" height="400" fill="#374151" rx="20"/>
+<rect x="100" y="100" width="200" height="150" fill="#FF4D6D" rx="10"/>
+<rect x="350" y="100" width="200" height="150" fill="#6C63FF" rx="10"/>
+<rect x="100" y="300" width="300" height="100" fill="#10B981" rx="10"/>
+<rect x="450" y="300" width="250" height="100" fill="#F59E0B" rx="10"/>
+<text x="400" y="50" text-anchor="middle" fill="white" font-family="Arial" font-size="20" font-weight="bold">About Jason Tieu</text>
+</svg>

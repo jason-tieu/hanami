@@ -1,0 +1,150 @@
+---
+title: "Embedded GUI for Electric Vehicle"
+date: "2023-11-20"
+excerpt: "Real-time embedded system with touchscreen interface for electric vehicle dashboard control."
+tech: ["FreeRTOS", "C", "Touchscreen", "CAN Bus", "STM32", "LVGL"]
+links:
+  github: "https://github.com/jasontieu/ev-gui"
+  demo: "https://ev-gui-demo.vercel.app"
+coverImage: "/images/ev-gui.jpg"
+featured: true
+category: "Embedded"
+---
+
+# Embedded GUI for Electric Vehicle
+
+A comprehensive embedded system solution for electric vehicle dashboard control, featuring a responsive touchscreen interface built on FreeRTOS and STM32 microcontroller platform.
+
+## Project Overview
+
+This project involved developing a complete dashboard control system for electric vehicles, including real-time data display, user interface controls, and CAN bus communication for vehicle integration.
+
+## Key Features
+
+### Real-time Dashboard
+- Battery status and charging information
+- Speed, range, and efficiency metrics
+- Navigation and GPS integration
+- Climate control interface
+
+### Touchscreen Interface
+- 7-inch capacitive touchscreen display
+- Intuitive user interface with LVGL graphics library
+- Multi-page navigation system
+- Customizable dashboard layouts
+
+### CAN Bus Integration
+- Real-time vehicle data acquisition
+- Bidirectional communication with vehicle systems
+- Error detection and reporting
+- Data logging and diagnostics
+
+## Technical Implementation
+
+### Hardware Platform
+- **Microcontroller**: STM32F429ZIT6 (ARM Cortex-M4)
+- **Display**: 7-inch 800x480 capacitive touchscreen
+- **Memory**: 2MB Flash, 256KB RAM
+- **Connectivity**: CAN, UART, SPI, I2C interfaces
+
+### Software Architecture
+
+```c
+// Main application structure
+typedef struct {
+    TaskHandle_t gui_task;
+    TaskHandle_t can_task;
+    TaskHandle_t data_task;
+    QueueHandle_t can_queue;
+    QueueHandle_t gui_queue;
+} app_handle_t;
+
+// FreeRTOS task priorities
+#define GUI_TASK_PRIORITY    3
+#define CAN_TASK_PRIORITY    4
+#define DATA_TASK_PRIORITY   2
+```
+
+### Real-time Data Processing
+
+The system implements a multi-threaded architecture using FreeRTOS:
+
+1. **GUI Task**: Handles user interface updates and touch input
+2. **CAN Task**: Manages vehicle data communication
+3. **Data Task**: Processes and filters incoming sensor data
+
+### User Interface Design
+
+Built using LVGL (Light and Versatile Graphics Library) for optimal performance on embedded systems:
+
+- Custom widget library for automotive applications
+- Smooth animations and transitions
+- Memory-efficient graphics rendering
+- Touch gesture recognition
+
+## Performance Optimizations
+
+### Memory Management
+- Dynamic memory allocation with custom allocator
+- Efficient graphics buffer management
+- Memory pool for frequent allocations
+
+### Real-time Constraints
+- Task scheduling optimized for 60 FPS display updates
+- CAN message processing within 10ms
+- Touch response time <50ms
+
+### Power Efficiency
+- Dynamic clock scaling based on system load
+- Sleep modes for idle periods
+- Optimized display refresh rates
+
+## Integration Challenges
+
+### CAN Bus Communication
+- Implemented custom protocol for vehicle data
+- Error handling and recovery mechanisms
+- Data validation and integrity checks
+
+### Touchscreen Calibration
+- Custom calibration algorithm for capacitive touch
+- Multi-point calibration for accuracy
+- Gesture recognition for improved usability
+
+### Real-time Performance
+- Optimized FreeRTOS task scheduling
+- Interrupt-driven data acquisition
+- Efficient memory management
+
+## Results and Impact
+
+### Performance Metrics
+- **Display Refresh Rate**: 60 FPS
+- **Touch Response Time**: <50ms
+- **CAN Message Processing**: <10ms
+- **Memory Usage**: 85% of available RAM
+- **CPU Usage**: 70% average load
+
+### User Experience
+- Intuitive interface design
+- Smooth animations and transitions
+- Reliable touch input recognition
+- Customizable dashboard layouts
+
+## Future Enhancements
+
+- Voice control integration
+- Wireless connectivity (WiFi/Bluetooth)
+- Advanced diagnostics and logging
+- Over-the-air updates capability
+
+## Technologies Used
+
+- **RTOS**: FreeRTOS
+- **Programming**: C, Assembly
+- **Graphics**: LVGL
+- **Hardware**: STM32, CAN Bus
+- **Tools**: STM32CubeIDE, Keil MDK
+- **Protocols**: CAN 2.0B, UART, SPI, I2C
+
+This project demonstrates expertise in embedded systems development, real-time programming, and automotive electronics integration, showcasing the ability to deliver complex solutions for demanding applications.
