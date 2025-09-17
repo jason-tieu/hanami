@@ -286,7 +286,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-- **Email**: jason@example.com
+- **Email**: jason.tieu04@gmail.com
 - **GitHub**: [@jasontieu](https://github.com/jasontieu)
 - **LinkedIn**: [Jason Tieu](https://linkedin.com/in/jasontieu)
 
