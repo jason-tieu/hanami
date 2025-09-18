@@ -46,7 +46,7 @@ export function Footer() {
                 Jason Tieu
               </h3>
               <p className="text-sm text-muted-foreground max-w-xs">
-                Embedded Systems • AI/ML • Software Engineering
+                Full-Stack Development • Cloud & DevOps • AI/ML
               </p>
             </motion.div>
           </div>

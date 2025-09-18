@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "/",
-    title: "Jason Tieu - Embedded Systems • AI/ML • Software Engineering",
+    title: "Jason Tieu - Full-Stack Development • Cloud & DevOps • AI/ML",
     description: "Professional portfolio showcasing embedded systems, AI/ML, and software engineering expertise.",
     siteName: "Jason Tieu Portfolio",
     images: [
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jason Tieu - Embedded Systems • AI/ML • Software Engineering",
+    title: "Jason Tieu - Full-Stack Development • Cloud & DevOps • AI/ML",
     description: "Professional portfolio showcasing embedded systems, AI/ML, and software engineering expertise.",
     images: ["/og.svg"],
   },

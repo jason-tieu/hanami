@@ -31,12 +31,12 @@ export default function Home() {
                 </span>
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Embedded Systems • AI/ML • Software Engineering
+              Full-Stack Development • Cloud & DevOps • AI/ML
               </p>
               <p className="text-lg text-muted-foreground">
-                I specialize in building robust embedded systems, implementing AI/ML solutions, 
-                and designing scalable cloud architectures. Passionate about real-time control, 
-                computer vision, and distributed systems.
+              I specialize in building full-stack applications, deploying scalable cloud systems, 
+              and delivering applied AI/ML solutions. Passionate about clean architecture, 
+              real-time performance, and creating software that solves real problems.
               </p>
             </div>
 
@@ -68,17 +68,19 @@ export default function Home() {
           </div>
 
           <div className="relative">
-            <div className="relative w-full h-96 lg:h-[500px] rounded-2xl overflow-hidden bg-gradient-to-br from-brand/20 to-accent-brand/20">
+            <div className="relative w-full h-96 lg:h-[500px] rounded-2xl overflow-hidden bg-gradient-to-br from-brand/20 to-accent-brand/20 border-4 border-brand">
               <Image
-                src="/images/avatar.svg"
+                src="/images/avatar.jpg"
                 alt="Jason Tieu"
                 fill
                 className="object-cover"
                 priority
               />
             </div>
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-brand rounded-full opacity-20 animate-pulse" />
-            <div className="absolute -top-4 -left-4 w-16 h-16 bg-accent-brand rounded-full opacity-30 animate-pulse delay-1000" />
+            {/* Top-left partial rounded corner */}
+            <div className="absolute -top-3 -left-3 w-4 h-4 bg-white rounded-tl-lg" />
+            {/* Bottom-right partial rounded corner */}
+            <div className="absolute -bottom-3 -right-3 w-4 h-4 bg-white rounded-br-lg" />
           </div>
         </div>
         </div>

@@ -74,7 +74,7 @@ export function Sidebar() {
   }, [measure]);
 
   return (
-    <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 z-20">
+    <div className="hidden lg:flex lg:w-96 lg:flex-col lg:fixed lg:inset-y-0 z-20">
       {/* NOTE: removed transform-gpu to avoid transform-based layout offsets */}
       <div className="flex flex-col h-screen bg-background/80 backdrop-blur-md border-r border-border">
         <div className="flex flex-col h-full pt-5 pb-4">
@@ -86,7 +86,7 @@ export function Sidebar() {
               </div>
               <div>
                 <h1 className="text-lg font-bold">Jason Tieu</h1>
-                <p className="text-xs text-muted-foreground">Embedded • AI/ML • Software</p>
+                <p className="text-xs text-muted-foreground">Full-Stack Development • Cloud & DevOps • AI/ML</p>
               </div>
             </div>
           </div>

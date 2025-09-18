@@ -58,7 +58,7 @@ export function MobileNav() {
                   </div>
                   <div>
                     <h2 className="text-lg font-bold text-white">Jason Tieu</h2>
-                    <p className="text-xs text-neutral-400">Embedded • AI/ML • Software</p>
+                    <p className="text-xs text-neutral-400">Full-Stack Development • Cloud & DevOps • AI/ML</p>
                   </div>
                 </div>
               </div>

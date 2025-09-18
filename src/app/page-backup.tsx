@@ -58,12 +58,12 @@ export default function Home() {
                 </span>
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Embedded Systems • AI/ML • Software Engineering
+              Full-Stack Development • Cloud & DevOps • AI/ML
               </p>
               <p className="text-lg text-muted-foreground">
-                I specialize in building robust embedded systems, implementing AI/ML solutions, 
-                and designing scalable cloud architectures. Passionate about real-time control, 
-                computer vision, and distributed systems.
+              I specialize in building full-stack applications, deploying scalable cloud systems, 
+              and delivering applied AI/ML solutions. Passionate about clean architecture, 
+              real-time performance, and creating software that solves real problems.
               </p>
             </div>
 
@@ -97,7 +97,7 @@ export default function Home() {
           <div className="relative">
             <div className="relative w-full h-96 lg:h-[500px] rounded-2xl overflow-hidden bg-gradient-to-br from-brand/20 to-accent-brand/20">
               <Image
-                src="/images/avatar.svg"
+                src="/images/avatar.jpg"
                 alt="Jason Tieu"
                 fill
                 className="object-cover"
