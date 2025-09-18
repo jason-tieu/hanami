@@ -13,7 +13,8 @@
     "typecheck": "tsc --noEmit",
     "postbuild": "next-sitemap",
     "export": "next build && next export",
-    "convert-og": "node scripts/convert-og.js"
+    "convert-og": "node scripts/convert-og.js",
+    "optimg": "node scripts/optimize-images.mjs"
   },
   "engines": {
     "node": ">=18.17.0"

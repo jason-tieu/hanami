@@ -1,8 +1,14 @@
 {
   "redirects": [
     {
-      "source": "/www/(.*)",
-      "destination": "https://example.com/$1",
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "jasontieu.com"
+        }
+      ],
+      "destination": "https://www.jasontieu.com/:path*",
       "permanent": true
     }
   ],

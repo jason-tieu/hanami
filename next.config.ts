@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true,
+    formats: ['image/avif', 'image/webp'],
+    dangerouslyAllowSVG: false,
   },
   // Configure MDX
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],

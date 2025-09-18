@@ -43,7 +43,7 @@ export const projects: Project[] = [
       demo: '#TODO',
       report: '#TODO',
     },
-    image: '/images/projects/flood_detection.png',
+    image: '/images/projects/flood_detection.avif',
     bullets: [
       'Built deep learning models (DeepLabv3+, SRGAN) with PyTorch for flood recognition',
       'Integrated GIS metadata for spatial flood mapping and emergency response coordination',
@@ -67,7 +67,7 @@ export const projects: Project[] = [
       github: '#TODO',
       demo: '#TODO',
     },
-    image: '/images/projects/video-microservices.png',
+    image: '/images/projects/video-microservices.avif',
     bullets: [
       'Implemented Node.js/Express backend APIs for video workflows and processing pipelines',
       'Built responsive Next.js UI with TailwindCSS + Framer Motion for enhanced user experience',
@@ -99,7 +99,7 @@ export const projects: Project[] = [
       demo: '#TODO',
       docs: '#TODO',
     },
-    image: '/images/projects/gcs.png',
+    image: '/images/projects/gcs.avif',
     bullets: [
       'Designed Flask + Socket.IO backend for real-time UAV telemetry and data streaming',
       'Built PostgreSQL schema for structured sensor and payload storage with optimized queries',
@@ -128,7 +128,7 @@ export const projects: Project[] = [
     links: {
       github: '#TODO',
     },
-    image: '/images/projects/embedded.png',
+    image: '/images/projects/embedded.avif',
     bullets: [
       'Built FreeRTOS task system for concurrent sensor + GUI operations with real-time constraints',
       'Developed multi-screen GUI with TivaWare grlib for intuitive user experience',
@@ -261,7 +261,7 @@ export const projects: Project[] = [
     links: {
       github: '#TODO',
     },
-    image: '/images/projects/sokoban.png',
+    image: '/images/projects/sokoban.avif',
     bullets: [
       'Implemented A* search algorithm with Manhattan heuristic for optimal pathfinding',
       'Developed efficient state representation with optimized data structures for memory management',
@@ -285,7 +285,7 @@ export const projects: Project[] = [
       github: '#TODO',
       report: '#TODO',
     },
-    image: '/images/projects/motorsport.png',
+    image: '/images/projects/motorsport.avif',
     bullets: [
       'Built MATLAB pipeline to process InfluxDB telemetry data for performance insights',
       'Analyzed speed, lap times, battery voltage for performance tuning and optimization',
