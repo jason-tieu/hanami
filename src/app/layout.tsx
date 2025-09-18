@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Geist_Mono } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
+import { Analytics } from '@vercel/analytics/react';
 import { Shell } from '@/components/shell/shell';
 import SpeedInsightsClient from '@/components/SpeedInsightsClient';
 import './globals.css';
@@ -155,6 +156,7 @@ export default function RootLayout({
           <Shell>{children}</Shell>
         </ThemeProvider>
         <SpeedInsightsClient />
+        <Analytics />
       </body>
     </html>
   );
