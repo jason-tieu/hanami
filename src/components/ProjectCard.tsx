@@ -10,7 +10,15 @@ import type { Project } from "@/components/projects.data";
 const ACCENT = "rgb(255, 75, 138)";
 const BASE = "rgb(229, 231, 235)"; // ~text-neutral-200
 
-export default function ProjectCard({ project }: { project: Project }) {
+export default function ProjectCard({ 
+  project, 
+  autoOpen = false, 
+  onAutoOpenComplete 
+}: { 
+  project: Project;
+  autoOpen?: boolean;
+  onAutoOpenComplete?: () => void;
+}) {
   const [open, setOpen] = React.useState(false);
   const [hovered, setHovered] = React.useState(false);
   const [hoverEnabled, setHoverEnabled] = React.useState(true);
@@ -38,10 +46,13 @@ export default function ProjectCard({ project }: { project: Project }) {
       resetHoverState();
       setHoverEnabled(false);
     } else {
-      // Modal is closing - re-enable hover immediately
+      // Modal is closing - re-enable hover immediately and reset auto-open
       setHoverEnabled(true);
+      if (onAutoOpenComplete) {
+        onAutoOpenComplete();
+      }
     }
-  }, [open]);
+  }, [open, onAutoOpenComplete]);
 
   // Cleanup on unmount
   React.useEffect(() => {
@@ -49,6 +60,14 @@ export default function ProjectCard({ project }: { project: Project }) {
       resetHoverState();
     };
   }, []);
+
+  // Handle auto-open from hash routing
+  React.useEffect(() => {
+    if (autoOpen && !open) {
+      setOpen(true);
+      // Don't call onAutoOpenComplete here - it will be called when modal closes
+    }
+  }, [autoOpen, open]);
 
   // Ripple
   const createRipple = (hostEl: HTMLElement, e: React.MouseEvent<HTMLElement>) => {

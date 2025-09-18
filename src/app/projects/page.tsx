@@ -4,10 +4,56 @@ import FeaturedCarousel from "@/components/FeaturedCarousel";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectFilters, { useProjectFilters } from "@/components/ProjectFilters";
 import { motion } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ProjectsPage() {
   const featuredProjects = projects.filter(p => p.featured);
   const { filters, updateFilters, clearFilters, allTech, filteredProjects, CATEGORIES } = useProjectFilters(projects);
+  const router = useRouter();
+  const projectRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const [autoOpenProject, setAutoOpenProject] = React.useState<string | null>(null);
+
+  // Handle hash routing and filter management
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1); // Remove the #
+      if (hash) {
+        const project = projects.find(p => p.id === hash);
+        if (project) {
+          // Clear filters to ensure the project is visible
+          clearFilters();
+          
+          // Wait a bit for filters to clear, then scroll to project and auto-open modal
+          setTimeout(() => {
+            if (projectRefs.current[hash]) {
+              projectRefs.current[hash]?.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+              });
+              // Auto-open the project modal
+              setAutoOpenProject(hash);
+              // Add highlight effect
+              projectRefs.current[hash]?.classList.add('ring-2', 'ring-brand', 'ring-opacity-50');
+              setTimeout(() => {
+                projectRefs.current[hash]?.classList.remove('ring-2', 'ring-brand', 'ring-opacity-50');
+              }, 3000);
+            }
+          }, 200);
+        }
+      }
+    };
+
+    // Handle initial load with hash
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []); // Remove all dependencies to prevent infinite loop
 
   return (
     <main className="relative min-h-screen">
@@ -74,7 +120,20 @@ export default function ProjectsPage() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredProjects.map((project) => (
-                  <ProjectCard key={project.id} project={project} />
+                  <div
+                    key={project.id}
+                    ref={(el) => {
+                      projectRefs.current[project.id] = el;
+                    }}
+                    id={project.id}
+                    className="transition-all duration-300"
+                  >
+                    <ProjectCard 
+                      project={project} 
+                      autoOpen={autoOpenProject === project.id}
+                      onAutoOpenComplete={() => setAutoOpenProject(null)}
+                    />
+                  </div>
                 ))}
               </div>
             </>
