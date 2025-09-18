@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Shell } from "@/components/shell/shell";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const inter = Inter({
@@ -101,6 +102,7 @@ export default function RootLayout({
         >
           <Shell>{children}</Shell>
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );

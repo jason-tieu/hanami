@@ -5,12 +5,10 @@ import ProjectCard from "@/components/ProjectCard";
 import ProjectFilters, { useProjectFilters } from "@/components/ProjectFilters";
 import { motion } from "framer-motion";
 import React, { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
 
 export default function ProjectsPage() {
   const featuredProjects = projects.filter(p => p.featured);
   const { filters, updateFilters, clearFilters, allTech, filteredProjects, CATEGORIES } = useProjectFilters(projects);
-  const router = useRouter();
   const projectRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const [autoOpenProject, setAutoOpenProject] = React.useState<string | null>(null);
 
