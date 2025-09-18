@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     siteName: 'Jason Tieu — Portfolio',
     images: [
       {
-        url: '/og.svg',
+        url: '/og.png',
         width: 1200,
         height: 630,
         alt: 'Jason Tieu — Full-Stack & AI Engineer Portfolio',
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     title: 'Jason Tieu — Full-Stack & AI Engineer (Next.js, Node, AWS)',
     description:
       'Brisbane-based full-stack & AI engineer building production-ready web apps and applied computer vision. Next.js, Node.js, PostgreSQL/MongoDB, AWS ECS, Docker, PyTorch.',
-    images: ['/og.svg'],
+    images: ['/og.png'],
     creator: '@jason_tieu',
   },
   robots: {

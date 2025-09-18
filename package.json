@@ -12,7 +12,8 @@
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
     "postbuild": "next-sitemap",
-    "export": "next build && next export"
+    "export": "next build && next export",
+    "convert-og": "node scripts/convert-og.js"
   },
   "engines": {
     "node": ">=18.17.0"
