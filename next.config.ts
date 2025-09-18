@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
   },
   // Configure MDX
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  // Performance optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
   // Note: Headers are configured in vercel.json for static export
 };
 

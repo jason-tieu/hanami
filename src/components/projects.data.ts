@@ -43,7 +43,7 @@ export const projects: Project[] = [
       demo: '#TODO',
       report: '#TODO',
     },
-    image: '/images/projects/flood_detection.avif',
+    image: '/images/projects/flood_detection_optimized.avif',
     bullets: [
       'Built deep learning models (DeepLabv3+, SRGAN) with PyTorch for flood recognition',
       'Integrated GIS metadata for spatial flood mapping and emergency response coordination',

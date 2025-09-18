@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ExternalLink, Github, FileText } from 'lucide-react';
@@ -10,7 +10,7 @@ import type { Project } from '@/components/projects.data';
 const ACCENT = 'rgb(255, 75, 138)';
 const BASE = 'rgb(229, 231, 235)'; // ~text-neutral-200
 
-export default function ProjectCard({
+const ProjectCard = memo(function ProjectCard({
   project,
   autoOpen = false,
   onAutoOpenComplete,
@@ -230,4 +230,6 @@ export default function ProjectCard({
       <ProjectModal open={open} onClose={() => setOpen(false)} project={project} />
     </>
   );
-}
+});
+
+export default ProjectCard;

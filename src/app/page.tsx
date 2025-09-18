@@ -7,7 +7,7 @@ import SectionWrapper from '@/components/SectionWrapper';
 import UIButton from '@/components/UIButton';
 import AccentButton from '@/components/AccentButton';
 import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
+import { Suspense, memo } from 'react';
 import { GridSkeleton, CardSkeleton } from '@/components/Skeleton';
 
 const SakuraCanvas = dynamic(() => import('@/components/SakuraCanvas'), {
@@ -23,7 +23,7 @@ const LazyFeaturedProjects = dynamic(() => import('@/components/FeaturedProjects
   loading: () => <div className="h-64 bg-muted/5 rounded-2xl animate-pulse" />,
 });
 
-export default function Home() {
+const Home = memo(function Home() {
   return (
     <main className="relative">
       {/* HERO */}
@@ -67,7 +67,7 @@ export default function Home() {
 
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
                 <UIButton asChild variant="secondary" className="text-sm px-3 py-1">
-                  <Link href="/resume.pdf" className="flex items-center gap-2">
+                  <Link href="/Jason Tieu Resume - 2025.pdf" className="flex items-center gap-2">
                     <Download className="h-4 w-4" />
                     Download Resume
                   </Link>
@@ -80,7 +80,7 @@ export default function Home() {
             <div className="relative">
               <div className="relative w-full h-96 lg:h-[500px] rounded-2xl overflow-hidden bg-gradient-to-br from-brand/20 to-accent-brand/20 border-4 border-brand">
                 <Image
-                  src="/images/avatar.webp"
+                  src="/images/avatar_optimized.webp"
                   alt="Jason Tieu"
                   fill
                   className="object-cover"
@@ -176,4 +176,6 @@ export default function Home() {
       </SectionWrapper>
     </main>
   );
-}
+});
+
+export default Home;

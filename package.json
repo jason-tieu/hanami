@@ -14,10 +14,23 @@
     "postbuild": "next-sitemap",
     "export": "next build && next export",
     "convert-og": "node scripts/convert-og.js",
-    "optimg": "node scripts/optimize-images.mjs"
+    "optimg": "node scripts/optimize-images.mjs",
+    "pre-commit": "node scripts/pre-commit-check.mjs"
   },
   "engines": {
     "node": ">=18.17.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

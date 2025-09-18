@@ -97,7 +97,7 @@ export function MobileNav() {
               {/* Resume Download */}
               <div className="px-6 py-4 border-t border-neutral-700/50">
                 <a
-                  href="/resume.pdf"
+                  href="/Jason Tieu Resume - 2025.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-brand/20 to-brand/10 text-white rounded-xl border border-brand/30 hover:from-brand/30 hover:to-brand/20 transition-all duration-200 hover:scale-105"
