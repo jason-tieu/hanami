@@ -138,7 +138,7 @@ export default function ProjectFilters({
               onClick={() => updateFilters({ category: category as (typeof CATEGORIES)[number] })}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
                 filters.category === category
-                  ? 'bg-pink-400/20 border border-pink-400/30 text-pink-300'
+                  ? 'bg-pink-400/20 border border-pink-400/30 text-white'
                   : 'bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20'
               }`}
             >
@@ -170,7 +170,7 @@ export default function ProjectFilters({
                 onClick={() => toggleTech(tech)}
                 className={`transition-colors ${
                   isSelected
-                    ? 'bg-pink-400/20 border border-pink-400/30 text-pink-300'
+                    ? 'bg-pink-400/20 border border-pink-400/30 text-white'
                     : 'bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20'
                 }`}
               >
@@ -188,20 +188,20 @@ export default function ProjectFilters({
         <div className="flex items-center justify-between pt-4 border-t border-white/10">
           <div className="flex flex-wrap gap-2">
             {filters.category !== 'All' && (
-              <span className="px-3 py-1 rounded-full bg-pink-400/20 border border-pink-400/30 text-pink-300 text-xs">
+              <span className="px-3 py-1 rounded-full bg-pink-400/20 border border-pink-400/30 text-white text-xs">
                 {filters.category}
               </span>
             )}
             {filters.tech.map(tech => (
               <span
                 key={tech}
-                className="px-3 py-1 rounded-full bg-pink-400/20 border border-pink-400/30 text-pink-300 text-xs"
+                className="px-3 py-1 rounded-full bg-pink-400/20 border border-pink-400/30 text-white text-xs"
               >
                 {tech}
               </span>
             ))}
             {filters.search && (
-              <span className="px-3 py-1 rounded-full bg-pink-400/20 border border-pink-400/30 text-pink-300 text-xs">
+              <span className="px-3 py-1 rounded-full bg-pink-400/20 border border-pink-400/30 text-white text-xs">
                 &ldquo;{filters.search}&rdquo;
               </span>
             )}

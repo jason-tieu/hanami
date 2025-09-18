@@ -53,7 +53,7 @@ export default function FeaturedCarousel({ projects, className = '' }: FeaturedC
   return (
     <div className={`relative ${className}`}>
       {/* Main Carousel */}
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur">
+      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur h-96 md:h-[28rem]">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentProject.id}
@@ -61,10 +61,10 @@ export default function FeaturedCarousel({ projects, className = '' }: FeaturedC
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.5, ease: 'easeInOut' }}
-            className="grid md:grid-cols-2 gap-0"
+            className="grid md:grid-cols-2 gap-0 h-full"
           >
             {/* Image Section */}
-            <div className="relative h-64 md:h-80">
+            <div className="relative h-full">
               <Image
                 src={currentProject.image}
                 alt={currentProject.title}
@@ -76,14 +76,14 @@ export default function FeaturedCarousel({ projects, className = '' }: FeaturedC
 
               {/* Featured Badge */}
               <div className="absolute top-4 left-4">
-                <TechPill variant="brand" className="text-sm">
+                <TechPill variant="brand" className="text-sm text-white">
                   Featured Project
                 </TechPill>
               </div>
             </div>
 
             {/* Content Section */}
-            <div className="pl-6 pr-16 pt-6 pb-6 md:pl-8 md:pr-20 md:pt-8 md:pb-8 space-y-4">
+            <div className="pl-6 pr-16 pt-6 pb-6 md:pl-8 md:pr-20 md:pt-8 md:pb-8 space-y-4 h-full flex flex-col justify-center">
               {/* Categories */}
               <div className="flex flex-wrap gap-2">
                 {currentProject.categories.map(category => (

@@ -144,7 +144,7 @@ const ProjectCard = memo(function ProjectCard({
         {/* Featured Badge */}
         {project.featured && (
           <div className="absolute top-3 right-3">
-            <TechPill variant="brand" className="text-xs">
+            <TechPill variant="brand" className="text-xs text-white">
               Featured
             </TechPill>
           </div>

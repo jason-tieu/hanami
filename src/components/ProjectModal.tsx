@@ -86,7 +86,7 @@ export default function ProjectModal({ open, onClose, project }: Props) {
               {/* Featured Badge */}
               {project.featured && (
                 <div className="absolute top-4 left-4">
-                  <TechPill variant="brand" className="text-sm">
+                  <TechPill variant="brand" className="text-sm text-white">
                     Featured Project
                   </TechPill>
                 </div>

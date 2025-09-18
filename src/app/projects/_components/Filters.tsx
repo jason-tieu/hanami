@@ -56,7 +56,7 @@ export function FiltersBar({ state, setState, techUniverse, TABS }: ReturnType<t
             className={clsx(
               'rounded-xl px-3 py-1.5 text-sm border transition-colors',
               state.tab === tab
-                ? 'border-pink-400/30 bg-pink-400/10 text-pink-300'
+                ? 'border-pink-400/30 bg-pink-400/20 text-white'
                 : 'border-white/10 bg-white/5 text-white/70 hover:text-white',
             )}
           >
@@ -87,7 +87,7 @@ export function FiltersBar({ state, setState, techUniverse, TABS }: ReturnType<t
                 className={clsx(
                   'rounded-full border px-3 py-1 text-xs',
                   active
-                    ? 'border-pink-400/30 bg-pink-400/10 text-pink-300'
+                    ? 'border-pink-400/30 bg-pink-400/20 text-white'
                     : 'border-white/10 bg-white/5 text-white/70 hover:text-white',
                 )}
               >

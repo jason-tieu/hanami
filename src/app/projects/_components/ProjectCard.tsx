@@ -17,6 +17,13 @@ export function ProjectCard({ p }: { p: Project }) {
             sizes="(max-width: 768px) 100vw, 33vw"
           />
           <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 group-hover:ring-pink-500/20" />
+          {p.featured && (
+            <div className="absolute top-2 right-2">
+              <Badge className="bg-pink-500 text-white text-xs px-2 py-1">
+                Featured
+              </Badge>
+            </div>
+          )}
         </div>
       )}
       <h3 className="text-base font-semibold text-white">{p.title}</h3>

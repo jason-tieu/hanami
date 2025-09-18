@@ -23,8 +23,8 @@ export function FeaturedCarousel({ items }: { items: Project[] }) {
 
   return (
     <CardBase className="mb-10 p-0">
-      <div className="grid md:grid-cols-2 gap-0">
-        <div className="relative h-64 md:h-80">
+      <div className="grid md:grid-cols-2 gap-0 h-96 md:h-[28rem]">
+        <div className="relative h-full">
           <AnimatePresence mode="wait">
             <motion.div
               key={current?.image ?? current?.id}
@@ -45,7 +45,7 @@ export function FeaturedCarousel({ items }: { items: Project[] }) {
             </motion.div>
           </AnimatePresence>
         </div>
-        <div className="p-6 md:p-8">
+        <div className="p-6 md:p-8 h-full flex flex-col justify-center">
           <div className="flex flex-wrap gap-2">
             {current?.categories.map(c => (
               <Badge key={c} className="border-pink-500/20 text-pink-300">

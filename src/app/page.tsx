@@ -67,7 +67,7 @@ const Home = memo(function Home() {
 
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
                 <UIButton asChild variant="secondary" className="text-sm px-3 py-1">
-                  <Link href="/Jason Tieu Resume - 2025.pdf" className="flex items-center gap-2">
+                  <Link href="/resume.pdf" className="flex items-center gap-2">
                     <Download className="h-4 w-4" />
                     Download Resume
                   </Link>
