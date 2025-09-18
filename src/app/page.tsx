@@ -80,7 +80,7 @@ const Home = memo(function Home() {
             <div className="relative">
               <div className="relative w-full h-96 lg:h-[500px] rounded-2xl overflow-hidden bg-gradient-to-br from-brand/20 to-accent-brand/20 border-4 border-brand">
                 <Image
-                  src="/images/avatar_optimized.webp"
+                  src="/images/avatar.webp"
                   alt="Jason Tieu"
                   fill
                   className="object-cover"

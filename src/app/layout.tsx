@@ -109,7 +109,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
 
         {/* Preload hero image */}
-        <link rel="preload" as="image" href="/images/avatar_optimized.webp" />
+        <link rel="preload" as="image" href="/images/avatar.webp" />
         
         {/* JSON-LD Structured Data */}
         <script
