@@ -1,7 +1,7 @@
-"use client";
-import { motion } from "framer-motion";
-import { clsx } from "clsx";
-import React from "react";
+'use client';
+import { motion } from 'framer-motion';
+import { clsx } from 'clsx';
+import React from 'react';
 
 type Props = React.PropsWithChildren<{
   className?: string;
@@ -10,25 +10,25 @@ type Props = React.PropsWithChildren<{
   href?: string;
 }>;
 
-export default function CardBase({ className, as = "div", children, onClick, href }: Props) {
-  const Comp = href ? "a" : as;
+export default function CardBase({ className, as = 'div', children, onClick, href }: Props) {
+  const Comp = href ? 'a' : as;
   return (
     <motion.div
       initial={{ opacity: 0, y: 10, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-10%" }}
-      transition={{ type: "spring", stiffness: 220, damping: 24 }}
+      viewport={{ once: true, margin: '-10%' }}
+      transition={{ type: 'spring', stiffness: 220, damping: 24 }}
     >
       <Comp
         href={href}
         onClick={onClick}
         className={clsx(
-          "group relative overflow-hidden rounded-2xl border p-4",
-          "border-white/10 bg-white/5 backdrop-blur",
-          "shadow-sm hover:shadow-md transition-all",
-          "focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40",
-          "hover:border-pink-500/30",
-          className
+          'group relative overflow-hidden rounded-2xl border p-4',
+          'border-white/10 bg-white/5 backdrop-blur',
+          'shadow-sm hover:shadow-md transition-all',
+          'focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40',
+          'hover:border-pink-500/30',
+          className,
         )}
       >
         {/* subtle inner ring */}

@@ -1,14 +1,14 @@
 ---
-title: "AI-Based Flood Detection System"
-date: "2024-01-15"
-excerpt: "Advanced computer vision system for automated flood detection and monitoring using satellite imagery."
-tech: ["PyTorch", "OpenCV", "GIS", "Python", "TensorFlow", "PostgreSQL"]
+title: 'AI-Based Flood Detection System'
+date: '2024-01-15'
+excerpt: 'Advanced computer vision system for automated flood detection and monitoring using satellite imagery.'
+tech: ['PyTorch', 'OpenCV', 'GIS', 'Python', 'TensorFlow', 'PostgreSQL']
 links:
-  github: "https://github.com/jasontieu/flood-detection"
-  demo: "https://flood-detection-demo.vercel.app"
-coverImage: "/images/flood-detection.jpg"
+  github: 'https://github.com/jasontieu/flood-detection'
+  demo: 'https://flood-detection-demo.vercel.app'
+coverImage: '/images/flood-detection.jpg'
 featured: true
-category: "AI/ML"
+category: 'AI/ML'
 ---
 
 # AI-Based Flood Detection System
@@ -41,7 +41,7 @@ class FloodDetectionModel(nn.Module):
         self.backbone = ResNet50(pretrained=True)
         self.aspp = ASPP(2048, 256)
         self.decoder = Decoder(256, 256, num_classes)
-        
+
     def forward(self, x):
         features = self.backbone(x)
         aspp_out = self.aspp(features)
@@ -67,16 +67,19 @@ class FloodDetectionModel(nn.Module):
 ## Key Features
 
 ### Real-time Monitoring
+
 - Continuous satellite image processing
 - Automated flood detection alerts
 - Integration with existing weather monitoring systems
 
 ### GIS Integration
+
 - Spatial analysis and mapping
 - Integration with existing geographic databases
 - Export capabilities for emergency response teams
 
 ### Scalable Architecture
+
 - Cloud-based processing pipeline
 - Microservices architecture for scalability
 - RESTful API for integration with other systems

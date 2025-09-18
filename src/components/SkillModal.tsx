@@ -1,8 +1,8 @@
-"use client";
-import React from "react";
-import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+'use client';
+import React from 'react';
+import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X } from 'lucide-react';
 
 type Props = {
   open: boolean;
@@ -20,9 +20,11 @@ export default function SkillModal({ open, onClose, title, subtitle, icon, bulle
 
   React.useEffect(() => setMounted(true), []);
   React.useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
-    if (open) document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    if (open) document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
   React.useEffect(() => {
@@ -41,23 +43,25 @@ export default function SkillModal({ open, onClose, title, subtitle, icon, bulle
       {open && (
         <motion.div
           className="fixed inset-0 z-[60] flex items-center justify-center"
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }} 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.15, ease: "easeOut" }}
+          transition={{ duration: 0.15, ease: 'easeOut' }}
         >
           <div className="absolute inset-0 bg-black/70" onClick={onClose} />
           <motion.div
-            role="dialog" aria-modal="true" aria-label={`${title} details`}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${title} details`}
             className="relative z-10 w-full max-w-lg rounded-2xl bg-[#0B0B0D] border border-white/10 shadow-2xl p-6"
             initial={{ y: 16, scale: 0.98, opacity: 0 }}
             animate={{ y: 0, scale: 1, opacity: 1 }}
             exit={{ y: 16, scale: 0.98, opacity: 0 }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 400, 
+            transition={{
+              type: 'spring',
+              stiffness: 400,
               damping: 30,
-              mass: 0.8
+              mass: 0.8,
             }}
           >
             <button
@@ -80,12 +84,17 @@ export default function SkillModal({ open, onClose, title, subtitle, icon, bulle
             </div>
 
             <ul className="space-y-2 text-sm text-neutral-200">
-              {bullets.map((b, i) => (<li key={i}>• {b}</li>))}
+              {bullets.map((b, i) => (
+                <li key={i}>• {b}</li>
+              ))}
             </ul>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              {tags.map((t) => (
-                <span key={t} className="text-xs px-2 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300">
+              {tags.map(t => (
+                <span
+                  key={t}
+                  className="text-xs px-2 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300"
+                >
                   {t}
                 </span>
               ))}
@@ -94,6 +103,6 @@ export default function SkillModal({ open, onClose, title, subtitle, icon, bulle
         </motion.div>
       )}
     </AnimatePresence>,
-    document.body
+    document.body,
   );
 }

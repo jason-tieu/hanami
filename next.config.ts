@@ -1,5 +1,5 @@
-import type { NextConfig } from "next";
-import createMDX from "@next/mdx";
+import type { NextConfig } from 'next';
+import createMDX from '@next/mdx';
 
 const withMDX = createMDX({
   options: {
@@ -10,13 +10,13 @@ const withMDX = createMDX({
 
 const nextConfig: NextConfig = {
   // Enable static export
-  output: "export",
+  output: 'export',
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
   // Configure MDX
-  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   // Note: Headers are configured in vercel.json for static export
 };
 

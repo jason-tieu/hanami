@@ -1,0 +1,19 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="630" fill="#0b0b0c"/>
+<rect x="0" y="0" width="1200" height="630" fill="url(#gradient)"/>
+<svg x="50" y="50" width="500" height="530" viewBox="0 0 500 530">
+<text x="0" y="80" font-family="Inter, sans-serif" font-size="64" font-weight="700" fill="white">Jason Tieu</text>
+<text x="0" y="140" font-family="Inter, sans-serif" font-size="32" font-weight="400" fill="#FF4D6D">Full-Stack • Cloud & DevOps • AI/ML</text>
+<text x="0" y="200" font-family="Inter, sans-serif" font-size="24" font-weight="300" fill="#cccccc">Next.js, Node.js, AWS, Docker, PyTorch</text>
+</svg>
+<circle cx="950" cy="315" r="100" fill="#FF4D6D"/>
+<circle cx="950" cy="315" r="80" fill="#0b0b0c"/>
+<text x="950" y="325" font-family="Inter, sans-serif" font-size="48" font-weight="700" fill="white" text-anchor="middle">JT</text>
+<text x="50" y="580" font-family="Inter, sans-serif" font-size="24" font-weight="400" fill="#cccccc" text-anchor="start">jason-tieu.dev</text>
+<defs>
+<linearGradient id="gradient" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#0b0b0c"/>
+<stop offset="1" stop-color="#1a1a1c"/>
+</linearGradient>
+</defs>
+</svg>

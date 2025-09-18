@@ -1,14 +1,15 @@
-"use client";
-import { projects } from "@/components/projects.data";
-import FeaturedCarousel from "@/components/FeaturedCarousel";
-import ProjectCard from "@/components/ProjectCard";
-import ProjectFilters, { useProjectFilters } from "@/components/ProjectFilters";
-import { motion } from "framer-motion";
-import React, { useEffect, useRef } from "react";
+'use client';
+import { projects } from '@/components/projects.data';
+import FeaturedCarousel from '@/components/FeaturedCarousel';
+import ProjectCard from '@/components/ProjectCard';
+import ProjectFilters, { useProjectFilters } from '@/components/ProjectFilters';
+import { motion } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
 
 export default function ProjectsPage() {
   const featuredProjects = projects.filter(p => p.featured);
-  const { filters, updateFilters, clearFilters, allTech, filteredProjects, CATEGORIES } = useProjectFilters(projects);
+  const { filters, updateFilters, clearFilters, allTech, filteredProjects, CATEGORIES } =
+    useProjectFilters(projects);
   const projectRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const [autoOpenProject, setAutoOpenProject] = React.useState<string | null>(null);
 
@@ -21,20 +22,24 @@ export default function ProjectsPage() {
         if (project) {
           // Clear filters to ensure the project is visible
           clearFilters();
-          
+
           // Wait a bit for filters to clear, then scroll to project and auto-open modal
           setTimeout(() => {
             if (projectRefs.current[hash]) {
-              projectRefs.current[hash]?.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'center' 
+              projectRefs.current[hash]?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
               });
               // Auto-open the project modal
               setAutoOpenProject(hash);
               // Add highlight effect
               projectRefs.current[hash]?.classList.add('ring-2', 'ring-brand', 'ring-opacity-50');
               setTimeout(() => {
-                projectRefs.current[hash]?.classList.remove('ring-2', 'ring-brand', 'ring-opacity-50');
+                projectRefs.current[hash]?.classList.remove(
+                  'ring-2',
+                  'ring-brand',
+                  'ring-opacity-50',
+                );
               }, 3000);
             }
           }, 200);
@@ -51,47 +56,44 @@ export default function ProjectsPage() {
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Remove all dependencies to prevent infinite loop
 
   return (
     <main className="relative min-h-screen">
       <div className="mx-auto max-w-7xl px-6 py-16">
         {/* Header */}
-        <motion.div 
+        <motion.div
           className="text-center space-y-6 mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
         >
-          <h1 className="text-4xl sm:text-5xl font-bold text-white">
-            My Projects
-          </h1>
+          <h1 className="text-4xl sm:text-5xl font-bold text-white">My Projects</h1>
           <p className="text-xl text-white/70 max-w-3xl mx-auto">
-            A collection of my work in embedded systems, AI/ML, cloud architecture, 
-            and software engineering. Each project represents a unique challenge 
-            and learning opportunity.
+            A collection of my work in embedded systems, AI/ML, cloud architecture, and software
+            engineering. Each project represents a unique challenge and learning opportunity.
           </p>
         </motion.div>
 
         {/* Featured Carousel */}
         {featuredProjects.length > 0 && (
-          <motion.div 
+          <motion.div
             className="mb-16"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
           >
             <FeaturedCarousel projects={featuredProjects} />
           </motion.div>
         )}
 
         {/* Filters */}
-        <motion.div 
+        <motion.div
           className="mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.3 }}
         >
           <ProjectFilters
             filters={filters}
@@ -103,11 +105,11 @@ export default function ProjectsPage() {
         </motion.div>
 
         {/* Projects Grid */}
-        <motion.div 
+        <motion.div
           className="space-y-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
         >
           {filteredProjects.length > 0 ? (
             <>
@@ -116,19 +118,19 @@ export default function ProjectsPage() {
                   All Projects ({filteredProjects.length})
                 </h2>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredProjects.map((project) => (
+                {filteredProjects.map(project => (
                   <div
                     key={project.id}
-                    ref={(el) => {
+                    ref={el => {
                       projectRefs.current[project.id] = el;
                     }}
                     id={project.id}
                     className="transition-all duration-300"
                   >
-                    <ProjectCard 
-                      project={project} 
+                    <ProjectCard
+                      project={project}
                       autoOpen={autoOpenProject === project.id}
                       onAutoOpenComplete={() => setAutoOpenProject(null)}
                     />
@@ -141,7 +143,8 @@ export default function ProjectsPage() {
               <div className="space-y-4">
                 <h3 className="text-xl font-semibold text-white/80">No projects found</h3>
                 <p className="text-white/60">
-                  No projects match your current filters. Try adjusting your search or category selection.
+                  No projects match your current filters. Try adjusting your search or category
+                  selection.
                 </p>
                 <button
                   onClick={clearFilters}

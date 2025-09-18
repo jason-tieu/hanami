@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useState, useEffect } from "react";
-import { AvatarSkeleton } from "./Skeleton";
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import { AvatarSkeleton } from './Skeleton';
 
 interface ImageWithSkeletonProps {
   src: string;
@@ -23,11 +23,11 @@ export default function ImageWithSkeleton({
   fill = false,
   width,
   height,
-  className = "",
+  className = '',
   priority = false,
   sizes,
   quality,
-  skeletonClassName = "",
+  skeletonClassName = '',
 }: ImageWithSkeletonProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -54,7 +54,9 @@ export default function ImageWithSkeleton({
 
   if (hasError) {
     return (
-      <div className={`${className} bg-muted/10 border border-border/20 rounded-2xl flex items-center justify-center`}>
+      <div
+        className={`${className} bg-muted/10 border border-border/20 rounded-2xl flex items-center justify-center`}
+      >
         <div className="text-muted-foreground text-sm">Failed to load image</div>
       </div>
     );
@@ -71,14 +73,14 @@ export default function ImageWithSkeleton({
         src={src}
         alt={alt}
         fill={fill}
-        width={width}
-        height={height}
+        {...(width !== undefined && { width })}
+        {...(height !== undefined && { height })}
         className={`object-cover transition-opacity duration-300 ${
-          isLoading ? "opacity-0" : "opacity-100"
+          isLoading ? 'opacity-0' : 'opacity-100'
         }`}
         priority={priority}
-        sizes={sizes}
-        quality={quality}
+        {...(sizes !== undefined && { sizes })}
+        {...(quality !== undefined && { quality })}
         onLoad={handleLoad}
         onError={handleError}
       />

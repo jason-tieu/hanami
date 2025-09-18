@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import UIButton from "@/components/UIButton";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { cn } from "@/lib/utils";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
+import UIButton from '@/components/UIButton';
+import { ThemeToggle } from '@/components/theme-toggle';
+import { cn } from '@/lib/utils';
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Projects", href: "/projects" },
-  { name: "Experience", href: "/experience" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
+  { name: 'Home', href: '/' },
+  { name: 'Projects', href: '/projects' },
+  { name: 'Experience', href: '/experience' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
 ];
 
 export function Header() {
@@ -27,20 +27,18 @@ export function Header() {
       setScrolled(window.scrollY > 10);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
-          ? "bg-background/80 backdrop-blur-md border-b border-border"
-          : "bg-transparent"
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+        scrolled ? 'bg-background/80 backdrop-blur-md border-b border-border' : 'bg-transparent',
       )}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -55,15 +53,13 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navigation.map((item) => (
+            {navigation.map(item => (
               <Link
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-brand",
-                  pathname === item.href
-                    ? "text-brand"
-                    : "text-muted-foreground"
+                  'text-sm font-medium transition-colors hover:text-brand',
+                  pathname === item.href ? 'text-brand' : 'text-muted-foreground',
                 )}
               >
                 {item.name}
@@ -74,7 +70,7 @@ export function Header() {
           {/* Theme Toggle & Mobile Menu Button */}
           <div className="flex items-center space-x-2">
             <ThemeToggle />
-            
+
             {/* Mobile menu button */}
             <UIButton
               variant="ghost"
@@ -82,11 +78,7 @@ export function Header() {
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
             >
-              {isOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </UIButton>
           </div>
         </div>
@@ -96,21 +88,21 @@ export function Header() {
           {isOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
+              animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
               className="md:hidden border-t border-border bg-background/95 backdrop-blur-md"
             >
               <div className="px-2 pt-2 pb-3 space-y-1">
-                {navigation.map((item) => (
+                {navigation.map(item => (
                   <Link
                     key={item.name}
                     href={item.href}
                     className={cn(
-                      "block px-3 py-2 text-base font-medium rounded-md transition-colors",
+                      'block px-3 py-2 text-base font-medium rounded-md transition-colors',
                       pathname === item.href
-                        ? "text-brand bg-brand/10"
-                        : "text-muted-foreground hover:text-brand hover:bg-accent"
+                        ? 'text-brand bg-brand/10'
+                        : 'text-muted-foreground hover:text-brand hover:bg-accent',
                     )}
                     onClick={() => setIsOpen(false)}
                   >

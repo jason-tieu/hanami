@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -132,45 +132,50 @@
   body {
     @apply bg-background text-foreground font-sans;
   }
-  
+
   /* Typography for MDX content */
   .prose {
     @apply text-foreground;
   }
-  
-  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
     @apply text-foreground font-semibold;
   }
-  
+
   .prose a {
     @apply text-brand hover:text-accent-brand transition-colors;
   }
-  
+
   .prose code {
     @apply bg-muted text-foreground px-1.5 py-0.5 rounded text-sm;
   }
-  
+
   .prose pre {
     @apply bg-muted border rounded-lg;
   }
-  
+
   .prose pre code {
     @apply bg-transparent p-0;
   }
-  
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     @apply w-2;
   }
-  
+
   ::-webkit-scrollbar-track {
     @apply bg-muted;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     @apply bg-border rounded-full;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-muted-foreground/50;
   }
@@ -180,15 +185,15 @@
   .text-gradient {
     @apply bg-gradient-to-r from-white to-brand bg-clip-text text-transparent;
   }
-  
+
   .animate-fade-in {
     animation: fadeIn 0.6s ease-out;
   }
-  
+
   .animate-slide-up {
     animation: slideUp 0.6s ease-out;
   }
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -197,7 +202,7 @@
       opacity: 1;
     }
   }
-  
+
   @keyframes slideUp {
     from {
       opacity: 0;
@@ -213,7 +218,7 @@
 /* Brand pink hotspot that follows the cursor on hover */
 .ui-btn {
   isolation: isolate;
-  overflow: hidden;            /* keep effects inside rounded corners */
+  overflow: hidden; /* keep effects inside rounded corners */
   /* default/off states for CSS vars */
   --ui-x: 50%;
   --ui-y: 50%;
@@ -222,34 +227,32 @@
 
 /* Pink glow layer sits above background, below content */
 .ui-btn::before {
-  content: "";
+  content: '';
   position: absolute;
-  inset: -1px;                 /* bleed 1px to avoid gaps on scale */
+  inset: -1px; /* bleed 1px to avoid gaps on scale */
   border-radius: inherit;
   pointer-events: none;
   opacity: var(--ui-o, 0);
   transition: opacity 160ms ease-out;
   /* Same pink as Tailwind accent: #FF4B8A */
-  background:
-    radial-gradient(
-      160px 160px at var(--ui-x) var(--ui-y),
-      rgba(255, 75, 138, 0.30),
-      rgba(255, 75, 138, 0.12) 45%,
-      rgba(255, 75, 138, 0.00) 65%
-    );
-  mix-blend-mode: screen;      /* pleasing additive glow on dark UI */
+  background: radial-gradient(
+    160px 160px at var(--ui-x) var(--ui-y),
+    rgba(255, 75, 138, 0.3),
+    rgba(255, 75, 138, 0.12) 45%,
+    rgba(255, 75, 138, 0) 65%
+  );
+  mix-blend-mode: screen; /* pleasing additive glow on dark UI */
   will-change: background-position;
 }
 
 /* Reduced motion: just fade, no hotspot tracking */
 @media (prefers-reduced-motion: reduce) {
   .ui-btn::before {
-    background:
-      radial-gradient(
-        140px 140px at 50% 50%,
-        rgba(255, 75, 138, 0.22),
-        rgba(255, 75, 138, 0.00) 60%
-      );
+    background: radial-gradient(
+      140px 140px at 50% 50%,
+      rgba(255, 75, 138, 0.22),
+      rgba(255, 75, 138, 0) 60%
+    );
   }
 }
 
@@ -266,17 +269,29 @@
   border-radius: 9999px;
   transform: scale(0);
   opacity: 0.35;
-  background: radial-gradient(circle, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.1) 60%, rgba(255,255,255,0) 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0) 70%
+  );
   animation: ui-ripple 600ms ease-out forwards;
   pointer-events: none;
 }
 @keyframes ui-ripple {
-  to { transform: scale(1); opacity: 0; }
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ui-btn { transition: background-color 200ms ease; }
-  .ui-btn .ui-ripple { display: none; }
+  .ui-btn {
+    transition: background-color 200ms ease;
+  }
+  .ui-btn .ui-ripple {
+    display: none;
+  }
 }
 
 /* Accent Button Styles - Solid gradient with border accent */
@@ -292,8 +307,10 @@
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   mask-composite: xor;
   opacity: 0;
   transition: opacity 200ms ease;
@@ -316,7 +333,12 @@
   border-radius: 9999px;
   transform: scale(0);
   opacity: 0.3;
-  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 60%, rgba(255,255,255,0) 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0) 70%
+  );
   animation: accent-ripple 500ms ease-out forwards;
   pointer-events: none;
 }
@@ -329,15 +351,22 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .accent-btn { transition: background-color 200ms ease; }
-  .accent-btn .accent-ripple { display: none; }
-  .accent-btn::before { display: none; }
+  .accent-btn {
+    transition: background-color 200ms ease;
+  }
+  .accent-btn .accent-ripple {
+    display: none;
+  }
+  .accent-btn::before {
+    display: none;
+  }
 }
 
 /* Global surface background fallback */
-html, body {
+html,
+body {
   height: 100%;
-  background-color: #0B0B0D; /* fallback for non-tailwind environments */
+  background-color: #0b0b0d; /* fallback for non-tailwind environments */
 }
 
 /* === Technical Skill card hover hotspot + ripple === */
@@ -350,32 +379,30 @@ html, body {
 }
 
 .skill-card::before {
-  content: "";
+  content: '';
   position: absolute;
-  inset: -1px;            /* slight bleed prevents edge gaps */
+  inset: -1px; /* slight bleed prevents edge gaps */
   border-radius: inherit;
   pointer-events: none;
   opacity: var(--ui-o, 0);
   transition: opacity 160ms ease-out;
   /* Same pink as your accent (#FF4B8A) */
-  background:
-    radial-gradient(
-      170px 170px at var(--ui-x) var(--ui-y),
-      rgba(255, 75, 138, 0.22),
-      rgba(255, 75, 138, 0.10) 44%,
-      rgba(255, 75, 138, 0.00) 66%
-    );
+  background: radial-gradient(
+    170px 170px at var(--ui-x) var(--ui-y),
+    rgba(255, 75, 138, 0.22),
+    rgba(255, 75, 138, 0.1) 44%,
+    rgba(255, 75, 138, 0) 66%
+  );
   mix-blend-mode: screen; /* pleasing additive glow on dark glass */
 }
 
 @media (prefers-reduced-motion: reduce) {
   .skill-card::before {
-    background:
-      radial-gradient(
-        150px 150px at 50% 50%,
-        rgba(255, 75, 138, 0.18),
-        rgba(255, 75, 138, 0) 60%
-      );
+    background: radial-gradient(
+      150px 150px at 50% 50%,
+      rgba(255, 75, 138, 0.18),
+      rgba(255, 75, 138, 0) 60%
+    );
   }
 }
 
@@ -392,12 +419,20 @@ html, body {
   border-radius: 9999px;
   transform: scale(0);
   opacity: 0.35;
-  background: radial-gradient(circle, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.1) 60%, rgba(255,255,255,0) 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0) 70%
+  );
   animation: skill-ripple 600ms ease-out forwards;
   pointer-events: none;
 }
 @keyframes skill-ripple {
-  to { transform: scale(1); opacity: 0; }
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
 }
 
 /* Ripple for project cards */
@@ -413,10 +448,18 @@ html, body {
   border-radius: 9999px;
   transform: scale(0);
   opacity: 0.35;
-  background: radial-gradient(circle, rgba(255,75,138,0.45) 0%, rgba(255,75,138,0.1) 60%, rgba(255,75,138,0) 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 75, 138, 0.45) 0%,
+    rgba(255, 75, 138, 0.1) 60%,
+    rgba(255, 75, 138, 0) 70%
+  );
   animation: project-ripple 600ms ease-out forwards;
   pointer-events: none;
 }
 @keyframes project-ripple {
-  to { transform: scale(1); opacity: 0; }
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
 }

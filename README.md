@@ -26,12 +26,14 @@ A modern, professional portfolio website built with Next.js, TypeScript, Tailwin
 ## 📦 Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/jasontieu/portfolio.git
    cd portfolio
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    # or
@@ -41,6 +43,7 @@ A modern, professional portfolio website built with Next.js, TypeScript, Tailwin
    ```
 
 3. **Run the development server**
+
    ```bash
    npm run dev
    # or
@@ -55,22 +58,26 @@ A modern, professional portfolio website built with Next.js, TypeScript, Tailwin
 ## 🏗️ Building and Deployment
 
 ### Development
+
 ```bash
 npm run dev
 ```
 
 ### Production Build
+
 ```bash
 npm run build
 ```
 
 ### Static Export
+
 ```bash
 npm run build
 # The static files will be generated in the 'out' directory
 ```
 
 ### Deploy to Vercel
+
 1. Push your code to GitHub
 2. Connect your repository to Vercel
 3. Deploy automatically
@@ -80,23 +87,25 @@ npm run build
 ### Adding a New Project
 
 1. **Create a new MDX file** in `content/projects/`
+
    ```bash
    touch content/projects/my-new-project.mdx
    ```
 
 2. **Add frontmatter** to the file:
+
    ```mdx
    ---
-   title: "My New Project"
-   date: "2024-01-15"
-   excerpt: "Brief description of the project"
-   tech: ["React", "TypeScript", "Node.js"]
+   title: 'My New Project'
+   date: '2024-01-15'
+   excerpt: 'Brief description of the project'
+   tech: ['React', 'TypeScript', 'Node.js']
    links:
-     github: "https://github.com/username/repo"
-     demo: "https://demo-url.com"
-   coverImage: "/images/project-image.svg"
+     github: 'https://github.com/username/repo'
+     demo: 'https://demo-url.com'
+   coverImage: '/images/project-image.svg'
    featured: true
-   category: "Web Development"
+   category: 'Web Development'
    ---
 
    # My New Project
@@ -109,18 +118,20 @@ npm run build
 ### Adding a Blog Post
 
 1. **Create a new MDX file** in `content/posts/`
+
    ```bash
    touch content/posts/my-blog-post.mdx
    ```
 
 2. **Add frontmatter**:
+
    ```mdx
    ---
-   title: "My Blog Post"
-   date: "2024-01-15"
-   excerpt: "Brief description of the post"
-   tags: ["AI", "Machine Learning", "Technology"]
-   coverImage: "/images/blog-image.svg"
+   title: 'My Blog Post'
+   date: '2024-01-15'
+   excerpt: 'Brief description of the post'
+   tags: ['AI', 'Machine Learning', 'Technology']
+   coverImage: '/images/blog-image.svg'
    featured: false
    ---
 
@@ -148,15 +159,16 @@ The site uses Inter font by default. To change fonts, update `src/app/layout.tsx
 
 ```typescript
 const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
+  variable: '--font-inter',
+  subsets: ['latin'],
+  display: 'swap',
 });
 ```
 
 ### Adding New Pages
 
 1. **Create a new page** in `src/app/(routes)/`
+
    ```bash
    mkdir src/app/(routes)/new-page
    touch src/app/(routes)/new-page/page.tsx
@@ -202,8 +214,8 @@ Update metadata in `src/app/layout.tsx`:
 
 ```typescript
 export const metadata: Metadata = {
-  title: "Your Name - Your Title",
-  description: "Your description",
+  title: 'Your Name - Your Title',
+  description: 'Your description',
   // ... other metadata
 };
 ```

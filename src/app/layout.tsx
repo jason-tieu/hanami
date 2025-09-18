@@ -1,64 +1,80 @@
-import type { Metadata } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "next-themes";
-import { Shell } from "@/components/shell/shell";
-import SpeedInsightsClient from "@/components/SpeedInsightsClient";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Inter, Geist_Mono } from 'next/font/google';
+import { ThemeProvider } from 'next-themes';
+import { Shell } from '@/components/shell/shell';
+import SpeedInsightsClient from '@/components/SpeedInsightsClient';
+import './globals.css';
 
 const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
+  variable: '--font-inter',
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://jason-tieu.dev'),
   title: {
-    default: "Jason Tieu | Portfolio",
-    template: "%s | Jason Tieu | Portfolio",
+    default: 'Jason Tieu — Full-Stack & AI Engineer (Next.js, Node, AWS)',
+    template: '%s | Jason Tieu — Full-Stack & AI Engineer',
   },
-  description: "Professional portfolio showcasing embedded systems, AI/ML, and software engineering expertise. Specializing in microcontrollers, FreeRTOS, computer vision, and scalable cloud architectures.",
+  description:
+    'Brisbane-based full-stack & AI engineer building production-ready web apps and applied computer vision. Next.js, Node.js, PostgreSQL/MongoDB, AWS ECS, Docker, PyTorch.',
   keywords: [
-    "embedded systems",
-    "microcontrollers",
-    "FreeRTOS",
-    "AI/ML",
-    "computer vision",
-    "distributed systems",
-    "cloud architecture",
-    "real-time control",
-    "scalable software design",
-    "Jason Tieu"
+    'full-stack developer',
+    'AI engineer',
+    'Next.js',
+    'Node.js',
+    'AWS',
+    'Docker',
+    'PostgreSQL',
+    'MongoDB',
+    'PyTorch',
+    'computer vision',
+    'embedded systems',
+    'microcontrollers',
+    'FreeRTOS',
+    'real-time systems',
+    'cloud architecture',
+    'Jason Tieu',
+    'Brisbane developer',
+    'software engineer',
   ],
-  authors: [{ name: "Jason Tieu" }],
-  creator: "Jason Tieu",
+  authors: [{ name: 'Jason Tieu', url: 'https://jason-tieu.dev' }],
+  creator: 'Jason Tieu',
+  publisher: 'Jason Tieu',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "/",
-    title: "Jason Tieu - Full-Stack Development • Cloud & DevOps • AI/ML",
-    description: "Professional portfolio showcasing embedded systems, AI/ML, and software engineering expertise.",
-    siteName: "Jason Tieu Portfolio",
+    type: 'website',
+    locale: 'en_AU',
+    url: 'https://jason-tieu.dev/',
+    title: 'Jason Tieu — Full-Stack & AI Engineer (Next.js, Node, AWS)',
+    description:
+      'Brisbane-based full-stack & AI engineer building production-ready web apps and applied computer vision. Next.js, Node.js, PostgreSQL/MongoDB, AWS ECS, Docker, PyTorch.',
+    siteName: 'Jason Tieu — Portfolio',
     images: [
       {
-        url: "/og.svg",
+        url: '/og.svg',
         width: 1200,
         height: 630,
-        alt: "Jason Tieu Portfolio",
+        alt: 'Jason Tieu — Full-Stack & AI Engineer Portfolio',
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Jason Tieu - Full-Stack Development • Cloud & DevOps • AI/ML",
-    description: "Professional portfolio showcasing embedded systems, AI/ML, and software engineering expertise.",
-    images: ["/og.svg"],
+    card: 'summary_large_image',
+    title: 'Jason Tieu — Full-Stack & AI Engineer (Next.js, Node, AWS)',
+    description:
+      'Brisbane-based full-stack & AI engineer building production-ready web apps and applied computer vision. Next.js, Node.js, PostgreSQL/MongoDB, AWS ECS, Docker, PyTorch.',
+    images: ['/og.svg'],
+    creator: '@jason_tieu',
   },
   robots: {
     index: true,
@@ -66,14 +82,15 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
     },
   },
   verification: {
-    google: "your-google-verification-code",
+    google: 'your-google-verification-code',
   },
+  category: 'technology',
 };
 
 export default function RootLayout({
@@ -90,7 +107,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#FF4D6D" />
-        
+
         {/* Preload critical fonts */}
         <link
           rel="preload"
@@ -106,19 +123,51 @@ export default function RootLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        
+
         {/* Preload hero image */}
         <link rel="preload" as="image" href="/images/avatar.jpg" />
+        
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: 'Jason Tieu',
+              url: 'https://jason-tieu.dev',
+              image: 'https://jason-tieu.dev/images/avatar.jpg',
+              jobTitle: 'Full-Stack & AI Engineer',
+              description: 'Brisbane-based full-stack & AI engineer building production-ready web apps and applied computer vision.',
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'Brisbane',
+                addressCountry: 'AU',
+              },
+              sameAs: [
+                'https://github.com/jason-tieu',
+                'https://linkedin.com/in/jason-tieu',
+              ],
+              knowsAbout: [
+                'Next.js',
+                'Node.js',
+                'AWS',
+                'Docker',
+                'PostgreSQL',
+                'MongoDB',
+                'PyTorch',
+                'Computer Vision',
+                'Embedded Systems',
+                'Cloud Architecture',
+              ],
+            }),
+          }}
+        />
       </head>
       <body
         className={`${inter.variable} ${geistMono.variable} bg-surface text-neutral-200 antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <Shell>{children}</Shell>
         </ThemeProvider>
         <SpeedInsightsClient />

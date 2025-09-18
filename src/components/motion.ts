@@ -1,4 +1,4 @@
-import { Variants } from "framer-motion";
+import { Variants } from 'framer-motion';
 
 // Page transition variants
 export const pageVariants: Variants = {
@@ -11,7 +11,7 @@ export const pageVariants: Variants = {
     y: 0,
     transition: {
       duration: 0.4,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
   exit: {
@@ -19,7 +19,7 @@ export const pageVariants: Variants = {
     y: -10,
     transition: {
       duration: 0.3,
-      ease: "easeIn",
+      ease: 'easeIn',
     },
   },
 };
@@ -46,7 +46,7 @@ export const itemVariants: Variants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
 };
@@ -58,7 +58,7 @@ export const cardHoverVariants: Variants = {
     scale: 1.01,
     transition: {
       duration: 0.2,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
 };
@@ -91,7 +91,7 @@ export const fadeInVariants: Variants = {
     opacity: 1,
     transition: {
       duration: 0.6,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
 };
@@ -107,7 +107,7 @@ export const slideUpVariants: Variants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
 };
@@ -118,7 +118,7 @@ export const scaleVariants: Variants = {
     scale: 1.05,
     transition: {
       duration: 0.2,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
   tap: {

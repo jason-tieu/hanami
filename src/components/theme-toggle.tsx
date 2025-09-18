@@ -1,15 +1,10 @@
-"use client";
+'use client';
 
-import { Moon, Sun, Monitor } from "lucide-react";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-import UIButton from "@/components/UIButton";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Moon, Sun, Monitor } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
+import UIButton from '@/components/UIButton';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -29,22 +24,22 @@ export function ThemeToggle() {
   }
 
   const cycleTheme = () => {
-    if (theme === "light") {
-      setTheme("dark");
-    } else if (theme === "dark") {
-      setTheme("system");
+    if (theme === 'light') {
+      setTheme('dark');
+    } else if (theme === 'dark') {
+      setTheme('system');
     } else {
-      setTheme("light");
+      setTheme('light');
     }
   };
 
   const getIcon = () => {
     switch (theme) {
-      case "light":
+      case 'light':
         return <Sun className="h-4 w-4" />;
-      case "dark":
+      case 'dark':
         return <Moon className="h-4 w-4" />;
-      case "system":
+      case 'system':
         return <Monitor className="h-4 w-4" />;
       default:
         return <Sun className="h-4 w-4" />;
@@ -53,14 +48,14 @@ export function ThemeToggle() {
 
   const getLabel = () => {
     switch (theme) {
-      case "light":
-        return "Switch to dark mode";
-      case "dark":
-        return "Switch to system theme";
-      case "system":
-        return "Switch to light mode";
+      case 'light':
+        return 'Switch to dark mode';
+      case 'dark':
+        return 'Switch to system theme';
+      case 'system':
+        return 'Switch to light mode';
       default:
-        return "Toggle theme";
+        return 'Toggle theme';
     }
   };
 

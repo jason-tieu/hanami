@@ -1,32 +1,32 @@
-import Link from "next/link";
-import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
-import { motion } from "framer-motion";
-import UIButton from "@/components/UIButton";
+import Link from 'next/link';
+import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
+import UIButton from '@/components/UIButton';
 // import { Container } from "@/components/section";
 
 const socialLinks = [
   {
-    name: "GitHub",
-    href: "https://github.com/jasontieu",
+    name: 'GitHub',
+    href: 'https://github.com/jasontieu',
     icon: Github,
   },
   {
-    name: "LinkedIn",
-    href: "https://linkedin.com/in/jasontieu",
+    name: 'LinkedIn',
+    href: 'https://linkedin.com/in/jasontieu',
     icon: Linkedin,
   },
   {
-    name: "Email",
-    href: "mailto:jason@example.com",
+    name: 'Email',
+    href: 'mailto:jason@example.com',
     icon: Mail,
   },
 ];
 
 const footerLinks = [
-  { name: "Projects", href: "/projects" },
-  { name: "Experience", href: "/experience" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
+  { name: 'Projects', href: '/projects' },
+  { name: 'Experience', href: '/experience' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
 ];
 
 export function Footer() {
@@ -42,9 +42,7 @@ export function Footer() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-lg font-semibold text-gradient">
-                Jason Tieu
-              </h3>
+              <h3 className="text-lg font-semibold text-gradient">Jason Tieu</h3>
               <p className="text-sm text-muted-foreground max-w-xs">
                 Full-Stack Development • Cloud & DevOps • AI/ML
               </p>
@@ -61,7 +59,7 @@ export function Footer() {
             >
               <h4 className="text-sm font-semibold">Navigation</h4>
               <ul className="space-y-2">
-                {footerLinks.map((link) => (
+                {footerLinks.map(link => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
@@ -85,15 +83,10 @@ export function Footer() {
             >
               <h4 className="text-sm font-semibold">Connect</h4>
               <div className="flex space-x-2">
-                {socialLinks.map((social) => {
+                {socialLinks.map(social => {
                   const Icon = social.icon;
                   return (
-                    <UIButton
-                      key={social.name}
-                      variant="ghost"
-                      asChild
-                      className="h-9 w-9 p-0"
-                    >
+                    <UIButton key={social.name} variant="ghost" asChild className="h-9 w-9 p-0">
                       <Link
                         href={social.href}
                         target="_blank"
@@ -123,7 +116,7 @@ export function Footer() {
               © {new Date().getFullYear()} Jason Tieu. All rights reserved.
             </p>
             <p className="text-xs text-muted-foreground">
-              Built with{" "}
+              Built with{' '}
               <Link
                 href="https://nextjs.org"
                 target="_blank"
@@ -133,7 +126,7 @@ export function Footer() {
                 Next.js
                 <ExternalLink className="h-3 w-3" />
               </Link>
-              ,{" "}
+              ,{' '}
               <Link
                 href="https://tailwindcss.com"
                 target="_blank"
@@ -143,7 +136,7 @@ export function Footer() {
                 Tailwind CSS
                 <ExternalLink className="h-3 w-3" />
               </Link>
-              , and{" "}
+              , and{' '}
               <Link
                 href="https://www.framer.com/motion/"
                 target="_blank"

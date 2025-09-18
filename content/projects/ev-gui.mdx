@@ -1,14 +1,14 @@
 ---
-title: "Embedded GUI for Electric Vehicle"
-date: "2023-11-20"
-excerpt: "Real-time embedded system with touchscreen interface for electric vehicle dashboard control."
-tech: ["FreeRTOS", "C", "Touchscreen", "CAN Bus", "STM32", "LVGL"]
+title: 'Embedded GUI for Electric Vehicle'
+date: '2023-11-20'
+excerpt: 'Real-time embedded system with touchscreen interface for electric vehicle dashboard control.'
+tech: ['FreeRTOS', 'C', 'Touchscreen', 'CAN Bus', 'STM32', 'LVGL']
 links:
-  github: "https://github.com/jasontieu/ev-gui"
-  demo: "https://ev-gui-demo.vercel.app"
-coverImage: "/images/ev-gui.jpg"
+  github: 'https://github.com/jasontieu/ev-gui'
+  demo: 'https://ev-gui-demo.vercel.app'
+coverImage: '/images/ev-gui.jpg'
 featured: true
-category: "Embedded"
+category: 'Embedded'
 ---
 
 # Embedded GUI for Electric Vehicle
@@ -22,18 +22,21 @@ This project involved developing a complete dashboard control system for electri
 ## Key Features
 
 ### Real-time Dashboard
+
 - Battery status and charging information
 - Speed, range, and efficiency metrics
 - Navigation and GPS integration
 - Climate control interface
 
 ### Touchscreen Interface
+
 - 7-inch capacitive touchscreen display
 - Intuitive user interface with LVGL graphics library
 - Multi-page navigation system
 - Customizable dashboard layouts
 
 ### CAN Bus Integration
+
 - Real-time vehicle data acquisition
 - Bidirectional communication with vehicle systems
 - Error detection and reporting
@@ -42,6 +45,7 @@ This project involved developing a complete dashboard control system for electri
 ## Technical Implementation
 
 ### Hardware Platform
+
 - **Microcontroller**: STM32F429ZIT6 (ARM Cortex-M4)
 - **Display**: 7-inch 800x480 capacitive touchscreen
 - **Memory**: 2MB Flash, 256KB RAM
@@ -85,16 +89,19 @@ Built using LVGL (Light and Versatile Graphics Library) for optimal performance 
 ## Performance Optimizations
 
 ### Memory Management
+
 - Dynamic memory allocation with custom allocator
 - Efficient graphics buffer management
 - Memory pool for frequent allocations
 
 ### Real-time Constraints
+
 - Task scheduling optimized for 60 FPS display updates
 - CAN message processing within 10ms
 - Touch response time <50ms
 
 ### Power Efficiency
+
 - Dynamic clock scaling based on system load
 - Sleep modes for idle periods
 - Optimized display refresh rates
@@ -102,16 +109,19 @@ Built using LVGL (Light and Versatile Graphics Library) for optimal performance 
 ## Integration Challenges
 
 ### CAN Bus Communication
+
 - Implemented custom protocol for vehicle data
 - Error handling and recovery mechanisms
 - Data validation and integrity checks
 
 ### Touchscreen Calibration
+
 - Custom calibration algorithm for capacitive touch
 - Multi-point calibration for accuracy
 - Gesture recognition for improved usability
 
 ### Real-time Performance
+
 - Optimized FreeRTOS task scheduling
 - Interrupt-driven data acquisition
 - Efficient memory management
@@ -119,6 +129,7 @@ Built using LVGL (Light and Versatile Graphics Library) for optimal performance 
 ## Results and Impact
 
 ### Performance Metrics
+
 - **Display Refresh Rate**: 60 FPS
 - **Touch Response Time**: <50ms
 - **CAN Message Processing**: <10ms
@@ -126,6 +137,7 @@ Built using LVGL (Light and Versatile Graphics Library) for optimal performance 
 - **CPU Usage**: 70% average load
 
 ### User Experience
+
 - Intuitive interface design
 - Smooth animations and transitions
 - Reliable touch input recognition

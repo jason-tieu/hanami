@@ -1,6 +1,6 @@
-"use client";
-import React from "react";
-import clsx from "clsx";
+'use client';
+import React from 'react';
+import clsx from 'clsx';
 
 type Props = React.PropsWithChildren<{
   className?: string;
@@ -12,10 +12,10 @@ export default function SectionWrapper({ className, id, children }: Props) {
     <section
       id={id}
       className={clsx(
-        "relative w-full bg-surface",
+        'relative w-full bg-surface',
         // typical section spacing:
-        "py-16 md:py-24",
-        className
+        'py-16 md:py-24',
+        className,
       )}
     >
       {children}

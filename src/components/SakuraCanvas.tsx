@@ -1,27 +1,36 @@
-"use client";
-import React, { useEffect, useRef, useMemo } from "react";
+'use client';
+import React, { useEffect, useRef, useMemo } from 'react';
 
 type Props = {
   enabled?: boolean;
-  density?: number;      // 0..1 multiplier
-  maxPetals?: number;    // cap
-  hue?: number;          // base color hue (default 345 ~ sakura pink)
-  opacity?: number;      // global alpha for blend
+  density?: number; // 0..1 multiplier
+  maxPetals?: number; // cap
+  hue?: number; // base color hue (default 345 ~ sakura pink)
+  opacity?: number; // global alpha for blend
   zIndex?: number;
 };
 
 interface Petal {
-  x: number; y: number; z: number;
-  vx: number; vy: number;
-  rot: number; vr: number;
-  size: number; wobble: number;
-  hue: number; sat: number; light: number; alpha: number;
+  x: number;
+  y: number;
+  z: number;
+  vx: number;
+  vy: number;
+  rot: number;
+  vr: number;
+  size: number;
+  wobble: number;
+  hue: number;
+  sat: number;
+  light: number;
+  alpha: number;
   reset(initial?: boolean): void;
   step(dt: number, mouse: { x: number; y: number; vx: number; vy: number; ts: number }): void;
   draw(): void;
 }
 
-const isMobile = () => typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
+const isMobile = () =>
+  typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
 
 export default function SakuraCanvas({
   enabled = true,
@@ -38,16 +47,21 @@ export default function SakuraCanvas({
   const visRef = useRef({ hidden: false });
 
   const reduceMotion = useMemo(
-    () => (typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false),
-    []
+    () =>
+      typeof window !== 'undefined'
+        ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        : false,
+    [],
   );
 
   useEffect(() => {
     const c = canvasRef.current;
     if (!c || !enabled) return;
 
-    const ctx = c.getContext("2d", { alpha: true })!;
-    let width = 0, height = 0, dpr = 1;
+    const ctx = c.getContext('2d', { alpha: true })!;
+    let width = 0,
+      height = 0,
+      dpr = 1;
 
     const W = () => {
       dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -60,11 +74,19 @@ export default function SakuraCanvas({
 
     // Particle / Petal
     class Petal {
-      x: number = 0; y: number = 0; z: number = 0; // z for parallax 0..1
-      vx: number = 0; vy: number = 0;
-      rot: number = 0; vr: number = 0;
-      size: number = 0; wobble: number = 0;
-      hue: number = 0; sat: number = 0; light: number = 0; alpha: number = 0;
+      x: number = 0;
+      y: number = 0;
+      z: number = 0; // z for parallax 0..1
+      vx: number = 0;
+      vy: number = 0;
+      rot: number = 0;
+      vr: number = 0;
+      size: number = 0;
+      wobble: number = 0;
+      hue: number = 0;
+      sat: number = 0;
+      light: number = 0;
+      alpha: number = 0;
       shape: number = 0; // 0-4 for different petal shapes
       skew: number = 0; // organic asymmetry
       notch: number = 0; // notch depth for notch variant
@@ -77,7 +99,7 @@ export default function SakuraCanvas({
         this.x = Math.random() * width;
         this.y = initial ? Math.random() * height : -this.size;
         this.vx = (Math.random() - 0.5) * 0.3; // reduced initial horizontal velocity
-        this.vy = 0.1 + 0.3 * (1 - this.z);   // reduced initial fall speed, let gravity take over
+        this.vy = 0.1 + 0.3 * (1 - this.z); // reduced initial fall speed, let gravity take over
         this.rot = Math.random() * Math.PI * 2;
         this.vr = (Math.random() - 0.5) * 0.02;
         this.wobble = Math.random() * Math.PI * 2;
@@ -122,13 +144,13 @@ export default function SakuraCanvas({
         ctx.translate(this.x, this.y);
         ctx.rotate(this.rot);
         ctx.globalAlpha = this.alpha * opacity;
-        
+
         // White to pink gradient based on z-depth
         const gradientIntensity = this.z; // 0 = far (white), 1 = close (pink)
         const gradientHue = hue;
         const gradientSat = 80 + gradientIntensity * 15;
         const gradientLight = 95 - gradientIntensity * 35; // 95% (white) to 60% (pink)
-        
+
         ctx.fillStyle = `hsl(${gradientHue} ${gradientSat}% ${gradientLight}%)`;
         ctx.shadowColor = `hsla(${gradientHue} ${gradientSat}% ${Math.max(60, gradientLight - 10)}% / 0.8)`;
         ctx.shadowBlur = 12 * (1 - this.z);
@@ -137,13 +159,13 @@ export default function SakuraCanvas({
         const h = this.size * (0.65 + (1 - this.z) * 0.12);
         const skew = this.skew;
         const notch = this.notch;
-        
+
         // Dimensions for petal shapes
         const hw = w * 0.5; // half width
         const hh = h * 0.5; // half height
 
         ctx.beginPath();
-        
+
         // 6 distinct petal variants using switch statement
         switch (this.shape) {
           case 0: // teardrop
@@ -188,24 +210,22 @@ export default function SakuraCanvas({
             ctx.ellipse(0, 0, hw, hh, 0, 0, Math.PI * 2);
             break;
         }
-        
+
         ctx.closePath();
         ctx.fill();
-        
+
         // Subtle inner highlight stroke
         ctx.globalAlpha = this.alpha * opacity * 0.35;
         ctx.strokeStyle = `hsl(${gradientHue} ${gradientSat}% ${Math.min(95, gradientLight + 15)}%)`;
         ctx.lineWidth = 0.5;
         ctx.stroke();
-        
+
         ctx.restore();
       }
     }
 
     const targetPetals =
-      typeof maxPetals === "number"
-        ? maxPetals
-        : (isMobile() ? 50 : 120) * density;
+      typeof maxPetals === 'number' ? maxPetals : (isMobile() ? 50 : 120) * density;
 
     const ensurePetals = (n: number) => {
       const arr = petalsRef.current;
@@ -217,7 +237,8 @@ export default function SakuraCanvas({
     const onMove = (e: MouseEvent) => {
       const now = performance.now();
       const dt = Math.max(16, now - mouseRef.current.ts);
-      const nx = e.clientX, ny = e.clientY;
+      const nx = e.clientX,
+        ny = e.clientY;
       const dx = nx - mouseRef.current.x;
       const dy = ny - mouseRef.current.y;
       mouseRef.current.vx = dx / dt; // px per ms
@@ -257,22 +278,22 @@ export default function SakuraCanvas({
     // init
     const resizeObs = new ResizeObserver(W);
     resizeObs.observe(c);
-    
+
     // Initial setup with a small delay to ensure container is ready
     setTimeout(() => {
       W();
       ensurePetals(Math.floor(targetPetals));
     }, 100);
 
-    window.addEventListener("mousemove", onMove, { passive: true });
-    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener('mousemove', onMove, { passive: true });
+    document.addEventListener('visibilitychange', onVisibility);
 
     rafRef.current = requestAnimationFrame(loop);
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      window.removeEventListener("mousemove", onMove);
-      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener('mousemove', onMove);
+      document.removeEventListener('visibilitychange', onVisibility);
       resizeObs.disconnect();
       petalsRef.current = [];
       ctx.clearRect(0, 0, width, height);
@@ -284,18 +305,18 @@ export default function SakuraCanvas({
     <div
       aria-hidden
       style={{
-        position: "absolute",
+        position: 'absolute',
         inset: 0,
         zIndex,
-        pointerEvents: "none",
+        pointerEvents: 'none',
       }}
     >
       <canvas
         ref={canvasRef}
         style={{
-          width: "100%",
-          height: "100%",
-          display: "block",
+          width: '100%',
+          height: '100%',
+          display: 'block',
           opacity,
         }}
       />

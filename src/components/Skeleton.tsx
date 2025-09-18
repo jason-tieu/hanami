@@ -1,20 +1,16 @@
-import React from "react";
+import React from 'react';
 
 interface SkeletonProps {
   className?: string;
   children?: React.ReactNode;
 }
 
-export function Skeleton({ className = "", children }: SkeletonProps) {
-  return (
-    <div className={`animate-pulse bg-muted/20 rounded ${className}`}>
-      {children}
-    </div>
-  );
+export function Skeleton({ className = '', children }: SkeletonProps) {
+  return <div className={`animate-pulse bg-muted/20 rounded ${className}`}>{children}</div>;
 }
 
 // Avatar skeleton
-export function AvatarSkeleton({ className = "" }: { className?: string }) {
+export function AvatarSkeleton({ className = '' }: { className?: string }) {
   return (
     <Skeleton className={`w-full h-96 lg:h-[500px] rounded-2xl ${className}`}>
       <div className="w-full h-full bg-gradient-to-br from-muted/10 to-muted/5 rounded-2xl flex items-center justify-center">
@@ -25,31 +21,26 @@ export function AvatarSkeleton({ className = "" }: { className?: string }) {
 }
 
 // Text skeleton
-export function TextSkeleton({ 
-  lines = 1, 
-  className = "",
-  width = "w-full"
-}: { 
-  lines?: number; 
+export function TextSkeleton({
+  lines = 1,
+  className = '',
+  width = 'w-full',
+}: {
+  lines?: number;
   className?: string;
   width?: string;
 }) {
   return (
     <div className={`space-y-2 ${className}`}>
       {Array.from({ length: lines }).map((_, i) => (
-        <Skeleton
-          key={i}
-          className={`h-4 ${width} ${
-            i === lines - 1 ? "w-3/4" : "w-full"
-          }`}
-        />
+        <Skeleton key={i} className={`h-4 ${width} ${i === lines - 1 ? 'w-3/4' : 'w-full'}`} />
       ))}
     </div>
   );
 }
 
 // Card skeleton
-export function CardSkeleton({ className = "" }: { className?: string }) {
+export function CardSkeleton({ className = '' }: { className?: string }) {
   return (
     <div className={`bg-card/5 border border-border/10 rounded-2xl p-6 ${className}`}>
       <Skeleton className="h-32 w-full rounded-xl mb-4" />
@@ -65,19 +56,17 @@ export function CardSkeleton({ className = "" }: { className?: string }) {
 }
 
 // Button skeleton
-export function ButtonSkeleton({ className = "" }: { className?: string }) {
-  return (
-    <Skeleton className={`h-12 w-32 rounded-xl ${className}`} />
-  );
+export function ButtonSkeleton({ className = '' }: { className?: string }) {
+  return <Skeleton className={`h-12 w-32 rounded-xl ${className}`} />;
 }
 
 // Grid skeleton
-export function GridSkeleton({ 
-  items = 4, 
-  className = "",
-  itemClassName = ""
-}: { 
-  items?: number; 
+export function GridSkeleton({
+  items = 4,
+  className = '',
+  itemClassName = '',
+}: {
+  items?: number;
   className?: string;
   itemClassName?: string;
 }) {

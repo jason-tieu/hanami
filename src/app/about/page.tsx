@@ -1,61 +1,61 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, ExternalLink } from "lucide-react";
-import SectionWrapper from "@/components/SectionWrapper";
-import UIButton from "@/components/UIButton";
-import AccentButton from "@/components/AccentButton";
-import { TechPill } from "@/components/tech-pill";
-import { projects } from "@/components/projects.data";
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Mail, Github, Linkedin, ExternalLink } from 'lucide-react';
+import SectionWrapper from '@/components/SectionWrapper';
+import UIButton from '@/components/UIButton';
+import AccentButton from '@/components/AccentButton';
+import { TechPill } from '@/components/tech-pill';
+import { projects } from '@/components/projects.data';
 
 export default function AboutPage() {
   // Get featured projects for highlights
   const featuredProjects = projects.filter(p => p.featured).slice(0, 3);
-  
+
   const heroVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        type: "spring" as const, 
-        stiffness: 100, 
+      transition: {
+        type: 'spring' as const,
+        stiffness: 100,
         damping: 20,
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { type: "spring" as const, stiffness: 100, damping: 20 }
-    }
+      transition: { type: 'spring' as const, stiffness: 100, damping: 20 },
+    },
   };
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { type: "spring" as const, stiffness: 100, damping: 20 }
+      transition: { type: 'spring' as const, stiffness: 100, damping: 20 },
     },
     hover: {
       y: -4,
       scale: 1.02,
-      transition: { type: "spring" as const, stiffness: 300, damping: 20 }
-    }
+      transition: { type: 'spring' as const, stiffness: 300, damping: 20 },
+    },
   };
 
   const pillVariants = {
     hover: {
       scale: 1.03,
-      boxShadow: "0 4px 12px rgba(255, 75, 138, 0.3)",
-      transition: { type: "spring" as const, stiffness: 400, damping: 20 }
-    }
+      boxShadow: '0 4px 12px rgba(255, 75, 138, 0.3)',
+      transition: { type: 'spring' as const, stiffness: 400, damping: 20 },
+    },
   };
 
   return (
@@ -71,18 +71,18 @@ export default function AboutPage() {
           >
             <motion.div className="space-y-4" variants={itemVariants}>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
-                Hey, I&apos;m{" "}
+                Hey, I&apos;m{' '}
                 <span className="bg-gradient-to-r from-white to-brand bg-clip-text text-transparent">
                   Jason
-                </span>
-                {" "}— Full-Stack & AI Engineer
+                </span>{' '}
+                — Full-Stack & AI Engineer
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
                 I build production-ready web apps and applied AI systems. Brisbane, Australia.
               </p>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center"
               variants={itemVariants}
             >
@@ -108,7 +108,7 @@ export default function AboutPage() {
         <div className="relative z-10 mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-16">
             {/* LEFT COLUMN */}
-            <motion.div 
+            <motion.div
               className="space-y-12"
               variants={heroVariants}
               initial="hidden"
@@ -118,11 +118,12 @@ export default function AboutPage() {
               <motion.div variants={itemVariants}>
                 <h2 className="text-2xl font-semibold text-white mb-4">Short Bio</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  I&apos;m a final-year Computer & Software Systems Engineering student at QUT (GPA 6.0/7.0) 
-                  focused on full-stack development, cloud deployment, and applied computer vision. I ship 
-                  end-to-end systems - frontend UX, backend APIs, databases, and AWS infra - and I care about 
-                  reliability, speed, and clean architecture. Recently, I&apos;ve been delivering an AI-based 
-                  flood detection pipeline (PyTorch + GIS) and a video-processing platform on AWS ECS.
+                  I&apos;m a final-year Computer & Software Systems Engineering student at QUT (GPA
+                  6.0/7.0) focused on full-stack development, cloud deployment, and applied computer
+                  vision. I ship end-to-end systems - frontend UX, backend APIs, databases, and AWS
+                  infra - and I care about reliability, speed, and clean architecture. Recently,
+                  I&apos;ve been delivering an AI-based flood detection pipeline (PyTorch + GIS) and
+                  a video-processing platform on AWS ECS.
                 </p>
               </motion.div>
 
@@ -132,23 +133,38 @@ export default function AboutPage() {
                 <ul className="space-y-3 text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <span className="text-brand mt-1">•</span>
-                    <span><strong>Full-Stack:</strong> Next.js, React, Node.js/Express, REST APIs, Auth, forms, dashboards</span>
+                    <span>
+                      <strong>Full-Stack:</strong> Next.js, React, Node.js/Express, REST APIs, Auth,
+                      forms, dashboards
+                    </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-brand mt-1">•</span>
-                    <span><strong>Backend/Data:</strong> PostgreSQL, MongoDB, schema design, caching (Redis), job queues</span>
+                    <span>
+                      <strong>Backend/Data:</strong> PostgreSQL, MongoDB, schema design, caching
+                      (Redis), job queues
+                    </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-brand mt-1">•</span>
-                    <span><strong>Cloud/DevOps:</strong> AWS ECS/Lambda/S3, Docker, Nginx, CI/CD, observability</span>
+                    <span>
+                      <strong>Cloud/DevOps:</strong> AWS ECS/Lambda/S3, Docker, Nginx, CI/CD,
+                      observability
+                    </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-brand mt-1">•</span>
-                    <span><strong>AI/ML:</strong> PyTorch, DeepLabv3+, SRGAN, OpenCV, dataset curation & evaluation</span>
+                    <span>
+                      <strong>AI/ML:</strong> PyTorch, DeepLabv3+, SRGAN, OpenCV, dataset curation &
+                      evaluation
+                    </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-brand mt-1">•</span>
-                    <span><strong>Ways of Working:</strong> Agile sprints, PR reviews, tickets, testing, docs, demos</span>
+                    <span>
+                      <strong>Ways of Working:</strong> Agile sprints, PR reviews, tickets, testing,
+                      docs, demos
+                    </span>
                   </li>
                 </ul>
               </motion.div>
@@ -159,26 +175,38 @@ export default function AboutPage() {
                 <ul className="space-y-3 text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <span className="text-brand mt-1">•</span>
-                    <span><strong>Agile:</strong> Plan → build → test → ship. Short sprints, visible progress, demo early.</span>
+                    <span>
+                      <strong>Agile:</strong> Plan → build → test → ship. Short sprints, visible
+                      progress, demo early.
+                    </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-brand mt-1">•</span>
-                    <span><strong>Quality:</strong> Type-safe APIs, lint/format, unit tests where it counts, meaningful logs.</span>
+                    <span>
+                      <strong>Quality:</strong> Type-safe APIs, lint/format, unit tests where it
+                      counts, meaningful logs.
+                    </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-brand mt-1">•</span>
-                    <span><strong>Performance:</strong> Measure first; cache, paginate, stream; keep p95 honest.</span>
+                    <span>
+                      <strong>Performance:</strong> Measure first; cache, paginate, stream; keep p95
+                      honest.
+                    </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-brand mt-1">•</span>
-                    <span><strong>Collab:</strong> Clear tickets, design notes, PRs with context, no surprises.</span>
+                    <span>
+                      <strong>Collab:</strong> Clear tickets, design notes, PRs with context, no
+                      surprises.
+                    </span>
                   </li>
                 </ul>
               </motion.div>
             </motion.div>
 
             {/* RIGHT COLUMN */}
-            <motion.div 
+            <motion.div
               className="space-y-12"
               variants={heroVariants}
               initial="hidden"
@@ -191,12 +219,8 @@ export default function AboutPage() {
                   <div>
                     <h3 className="text-sm font-medium text-muted-foreground mb-2">Frontend</h3>
                     <div className="flex flex-wrap gap-2">
-                      {["Next.js", "React", "Tailwind", "Framer Motion"].map((skill) => (
-                        <motion.div
-                          key={skill}
-                          variants={pillVariants}
-                          whileHover="hover"
-                        >
+                      {['Next.js', 'React', 'Tailwind', 'Framer Motion'].map(skill => (
+                        <motion.div key={skill} variants={pillVariants} whileHover="hover">
                           <TechPill variant="secondary">{skill}</TechPill>
                         </motion.div>
                       ))}
@@ -205,12 +229,8 @@ export default function AboutPage() {
                   <div>
                     <h3 className="text-sm font-medium text-muted-foreground mb-2">Backend</h3>
                     <div className="flex flex-wrap gap-2">
-                      {["Node.js", "Express", "Flask", "FastAPI", "Socket.IO"].map((skill) => (
-                        <motion.div
-                          key={skill}
-                          variants={pillVariants}
-                          whileHover="hover"
-                        >
+                      {['Node.js', 'Express', 'Flask', 'FastAPI', 'Socket.IO'].map(skill => (
+                        <motion.div key={skill} variants={pillVariants} whileHover="hover">
                           <TechPill variant="secondary">{skill}</TechPill>
                         </motion.div>
                       ))}
@@ -219,26 +239,20 @@ export default function AboutPage() {
                   <div>
                     <h3 className="text-sm font-medium text-muted-foreground mb-2">Databases</h3>
                     <div className="flex flex-wrap gap-2">
-                      {["PostgreSQL", "MongoDB", "Prisma/Knex", "Redis (ElastiCache)"].map((skill) => (
-                        <motion.div
-                          key={skill}
-                          variants={pillVariants}
-                          whileHover="hover"
-                        >
-                          <TechPill variant="secondary">{skill}</TechPill>
-                        </motion.div>
-                      ))}
+                      {['PostgreSQL', 'MongoDB', 'Prisma/Knex', 'Redis (ElastiCache)'].map(
+                        skill => (
+                          <motion.div key={skill} variants={pillVariants} whileHover="hover">
+                            <TechPill variant="secondary">{skill}</TechPill>
+                          </motion.div>
+                        ),
+                      )}
                     </div>
                   </div>
                   <div>
                     <h3 className="text-sm font-medium text-muted-foreground mb-2">Cloud</h3>
                     <div className="flex flex-wrap gap-2">
-                      {["AWS (ECS, Lambda, S3)", "Docker", "Nginx", "CI/CD"].map((skill) => (
-                        <motion.div
-                          key={skill}
-                          variants={pillVariants}
-                          whileHover="hover"
-                        >
+                      {['AWS (ECS, Lambda, S3)', 'Docker', 'Nginx', 'CI/CD'].map(skill => (
+                        <motion.div key={skill} variants={pillVariants} whileHover="hover">
                           <TechPill variant="secondary">{skill}</TechPill>
                         </motion.div>
                       ))}
@@ -247,26 +261,20 @@ export default function AboutPage() {
                   <div>
                     <h3 className="text-sm font-medium text-muted-foreground mb-2">AI/ML</h3>
                     <div className="flex flex-wrap gap-2">
-                      {["PyTorch", "segmentation", "super-resolution", "evaluation/metrics"].map((skill) => (
-                        <motion.div
-                          key={skill}
-                          variants={pillVariants}
-                          whileHover="hover"
-                        >
-                          <TechPill variant="secondary">{skill}</TechPill>
-                        </motion.div>
-                      ))}
+                      {['PyTorch', 'segmentation', 'super-resolution', 'evaluation/metrics'].map(
+                        skill => (
+                          <motion.div key={skill} variants={pillVariants} whileHover="hover">
+                            <TechPill variant="secondary">{skill}</TechPill>
+                          </motion.div>
+                        ),
+                      )}
                     </div>
                   </div>
                   <div>
                     <h3 className="text-sm font-medium text-muted-foreground mb-2">Languages</h3>
                     <div className="flex flex-wrap gap-2">
-                      {["JavaScript/TypeScript", "Python", "Java", "C", "C#"].map((skill) => (
-                        <motion.div
-                          key={skill}
-                          variants={pillVariants}
-                          whileHover="hover"
-                        >
+                      {['JavaScript/TypeScript', 'Python', 'Java', 'C', 'C#'].map(skill => (
+                        <motion.div key={skill} variants={pillVariants} whileHover="hover">
                           <TechPill variant="secondary">{skill}</TechPill>
                         </motion.div>
                       ))}
@@ -279,7 +287,8 @@ export default function AboutPage() {
               <motion.div variants={itemVariants}>
                 <h2 className="text-2xl font-semibold text-white mb-4">Recognition</h2>
                 <p className="text-muted-foreground">
-                  QUT GPA 6.0/7.0 • ADF Future Innovators Award • QUT Summit Attendee (Selected Program)
+                  QUT GPA 6.0/7.0 • ADF Future Innovators Award • QUT Summit Attendee (Selected
+                  Program)
                 </p>
               </motion.div>
 
@@ -287,7 +296,8 @@ export default function AboutPage() {
               <motion.div variants={itemVariants}>
                 <h2 className="text-2xl font-semibold text-white mb-4">Tools I reach for</h2>
                 <p className="text-muted-foreground">
-                  VS Code, Cursor, GitHub, Postman/Hoppscotch, Docker, Fly.io/Render (prototyping), Figma.
+                  VS Code, Cursor, GitHub, Postman/Hoppscotch, Docker, Fly.io/Render (prototyping),
+                  Figma.
                 </p>
               </motion.div>
 
@@ -295,14 +305,14 @@ export default function AboutPage() {
               <motion.div variants={itemVariants}>
                 <h2 className="text-2xl font-semibold text-white mb-4">Contact</h2>
                 <div className="space-y-3">
-                  <a 
+                  <a
                     href="mailto:jason.tieu04@gmail.com"
                     className="flex items-center gap-3 text-muted-foreground hover:text-brand transition-colors group"
                   >
                     <Mail className="h-4 w-4 group-hover:text-brand" />
                     <span>jason.tieu04@gmail.com</span>
                   </a>
-                  <a 
+                  <a
                     href="https://github.com/jason-tieu"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -311,7 +321,7 @@ export default function AboutPage() {
                     <Github className="h-4 w-4 group-hover:text-brand" />
                     <span>github.com/jason-tieu</span>
                   </a>
-                  <a 
+                  <a
                     href="https://linkedin.com/in/jason-tieu-engineer"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -330,7 +340,7 @@ export default function AboutPage() {
       {/* HIGHLIGHTS SECTION */}
       <SectionWrapper>
         <div className="relative z-10 mx-auto max-w-7xl px-6">
-          <motion.div 
+          <motion.div
             className="text-center mb-12"
             variants={itemVariants}
             initial="hidden"
@@ -338,12 +348,13 @@ export default function AboutPage() {
           >
             <h2 className="text-3xl font-bold text-white mb-4">Project Highlights</h2>
             <p className="text-muted-foreground max-w-3xl mx-auto">
-              Three featured projects showcasing my work in AI/ML, cloud architecture, and full-stack development.
+              Three featured projects showcasing my work in AI/ML, cloud architecture, and
+              full-stack development.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featuredProjects.map((project) => (
+            {featuredProjects.map(project => (
               <motion.div
                 key={project.id}
                 variants={cardVariants}
@@ -351,7 +362,7 @@ export default function AboutPage() {
                 animate="visible"
                 whileHover="hover"
               >
-                <Link 
+                <Link
                   href={`/projects#${project.id}`}
                   className="block group"
                   aria-label={`View ${project.title} project`}
@@ -382,14 +393,15 @@ export default function AboutPage() {
       {/* FUN SECTION */}
       <SectionWrapper>
         <div className="relative z-10 mx-auto max-w-4xl px-6">
-          <motion.div 
+          <motion.div
             className="text-center"
             variants={itemVariants}
             initial="hidden"
             animate="visible"
           >
             <p className="text-sm text-muted-foreground/60 italic">
-              Coffee, motorsport analytics, clean terminals, tiny UI polish that makes apps feel fast.
+              Coffee, motorsport analytics, clean terminals, tiny UI polish that makes apps feel
+              fast.
             </p>
           </motion.div>
         </div>
