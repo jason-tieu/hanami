@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://jason-tieu.dev'),
   title: {
-    default: 'Jason Tieu — Full-Stack & AI Engineer (Next.js, Node, AWS)',
+    default: 'Jason Tieu | Portfolio',
     template: '%s | Jason Tieu — Full-Stack & AI Engineer',
   },
   description:
