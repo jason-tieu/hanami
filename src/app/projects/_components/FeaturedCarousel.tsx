@@ -40,7 +40,6 @@ export function FeaturedCarousel({ items }: { items: Project[] }) {
                   alt={current.title}
                   fill
                   className="object-cover"
-                  priority
                 />
               )}
             </motion.div>

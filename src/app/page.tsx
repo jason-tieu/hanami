@@ -80,13 +80,14 @@ export default function Home() {
             <div className="relative">
               <div className="relative w-full h-96 lg:h-[500px] rounded-2xl overflow-hidden bg-gradient-to-br from-brand/20 to-accent-brand/20 border-4 border-brand">
                 <Image
-                  src="/images/avatar.jpg"
+                  src="/images/avatar.webp"
                   alt="Jason Tieu"
-                  width={400}
-                  height={400}
-                  className="object-cover rounded-2xl border-2 border-pink-500 w-full h-full"
+                  fill
+                  className="object-cover"
                   priority
+                  fetchPriority="high"
                   quality={90}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
               {/* Top-left partial rounded corner */}

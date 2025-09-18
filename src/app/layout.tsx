@@ -125,7 +125,7 @@ export default function RootLayout({
         />
 
         {/* Preload hero image */}
-        <link rel="preload" as="image" href="/images/avatar.jpg" />
+        <link rel="preload" as="image" href="/images/avatar.webp" />
         
         {/* JSON-LD Structured Data */}
         <script
