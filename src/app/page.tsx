@@ -3,41 +3,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Github, Download, ArrowRight } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { TechPill } from "@/components/tech-pill";
 import SectionWrapper from "@/components/SectionWrapper";
 import UIButton from "@/components/UIButton";
 import AccentButton from "@/components/AccentButton";
 import SakuraCanvas from "@/components/SakuraCanvas";
 import { skills } from "@/components/skills";
 import SkillCard from "@/components/SkillCard";
-
-
-const featuredProjects = [
-  {
-    title: "AI-Based Flood Detection System",
-    description: "DeepLabv3+ model for real-time flood detection using satellite imagery and GIS integration.",
-    tech: ["PyTorch", "OpenCV", "GIS", "Python"],
-    image: "/images/flood-detection.svg",
-    link: "/projects/ai-flood-detection",
-  },
-  {
-    title: "Embedded GUI for Electric Vehicle",
-    description: "Touchscreen interface for EV dashboard using TM4C1294XL microcontroller and FreeRTOS.",
-    tech: ["FreeRTOS", "C", "Touchscreen", "CAN Bus"],
-    image: "/images/ev-gui.svg",
-    link: "/projects/ev-gui",
-  },
-  {
-    title: "Cloud Video Processing Service",
-    description: "Scalable microservices architecture for real-time video processing with Redis caching.",
-    tech: ["Docker", "Redis", "Node.js", "AWS ECS"],
-    image: "/images/video-processing.svg",
-    link: "/projects/cloud-video",
-  },
-];
+import FeaturedCarousel from "@/components/FeaturedCarousel";
+import { projects } from "@/components/projects.data";
 
 export default function Home() {
+  const featuredProjects = projects.filter(p => p.featured).slice(0, 3);
+
   return (
     <main className="relative">
       {/* HERO */}
@@ -138,43 +115,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featuredProjects.map((project) => (
-                <Card key={project.title} className="h-full overflow-hidden group hover:shadow-md transition-all duration-300">
-                  <div className="relative aspect-video overflow-hidden">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </div>
-                  <CardHeader>
-                    <CardTitle className="group-hover:text-brand transition-colors">
-                      {project.title}
-                    </CardTitle>
-                    <CardDescription>
-                      {project.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tech.map((tech) => (
-                        <TechPill key={tech} variant="secondary">
-                          {tech}
-                        </TechPill>
-                      ))}
-                    </div>
-                    <AccentButton asChild variant="secondary" className="w-full">
-                      <Link href={project.link} className="flex items-center gap-2">
-                        View Project
-                        <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    </AccentButton>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            <FeaturedCarousel projects={featuredProjects} />
 
             <div className="text-center">
               <UIButton asChild variant="primary" className="text-lg px-8 py-6">

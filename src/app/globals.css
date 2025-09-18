@@ -399,3 +399,24 @@ html, body {
 @keyframes skill-ripple {
   to { transform: scale(1); opacity: 0; }
 }
+
+/* Ripple for project cards */
+.project-ripple-host {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+.project-ripple {
+  position: absolute;
+  border-radius: 9999px;
+  transform: scale(0);
+  opacity: 0.35;
+  background: radial-gradient(circle, rgba(255,75,138,0.45) 0%, rgba(255,75,138,0.1) 60%, rgba(255,75,138,0) 70%);
+  animation: project-ripple 600ms ease-out forwards;
+  pointer-events: none;
+}
+@keyframes project-ripple {
+  to { transform: scale(1); opacity: 0; }
+}
