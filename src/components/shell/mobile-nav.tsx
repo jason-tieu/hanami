@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 // import { motion, AnimatePresence } from "framer-motion";
-import { Menu, Home, FolderOpen, Briefcase, User, Mail, Github, Linkedin } from 'lucide-react';
+import { Menu, Home, FolderOpen, Briefcase, User, Mail, Github, Linkedin, Download } from 'lucide-react';
 import UIButton from '@/components/UIButton';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
@@ -18,7 +18,7 @@ const navigation = [
 const socialLinks = [
   { name: 'GitHub', href: 'https://github.com/jason-tieu', icon: Github },
   { name: 'LinkedIn', href: 'https://www.linkedin.com/in/jason-tieu-engineer/', icon: Linkedin },
-  { name: 'Email', href: 'mailto:jason@example.com', icon: Mail },
+  { name: 'Email', href: 'mailto:jason.tieu04@gmail.com', icon: Mail },
 ];
 
 const normalize = (p: string) => (p.endsWith('/') && p !== '/' ? p.slice(0, -1) : p);
@@ -38,8 +38,8 @@ export function MobileNav() {
     <div className="lg:hidden">
       {/* Top Bar */}
       <div className="flex items-center justify-between h-16 px-4 bg-neutral-900/95 backdrop-blur-xl border-b border-neutral-700/50 shadow-lg">
-        <Link href="/" className="text-2xl font-bold text-white">
-          Jason Tieu | Portfolio
+        <Link href="/" className="text-xl font-bold text-white">
+          Jason Tieu
         </Link>
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
@@ -80,7 +80,7 @@ export function MobileNav() {
                       className={`group flex items-center px-4 py-4 rounded-xl text-base font-medium transition-all duration-200 ${
                         isActive
                           ? 'bg-gradient-to-r from-brand/20 to-brand/10 text-white border border-brand/30 shadow-lg shadow-brand/20'
-                          : 'text-neutral-300 hover:text-white hover:bg-neutral-800/60'
+                          : 'text-neutral-300 hover:text-white hover:bg-neutral-800/60 hover:border-neutral-700/50'
                       }`}
                     >
                       <item.icon
@@ -94,8 +94,21 @@ export function MobileNav() {
                 })}
               </nav>
 
+              {/* Resume Download */}
+              <div className="px-6 py-4 border-t border-neutral-700/50">
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-brand/20 to-brand/10 text-white rounded-xl border border-brand/30 hover:from-brand/30 hover:to-brand/20 transition-all duration-200 hover:scale-105"
+                >
+                  <Download className="h-5 w-5 mr-2" />
+                  <span className="font-semibold">Download Resume</span>
+                </a>
+              </div>
+
               {/* Social Links */}
-              <div className="px-6 py-6 border-t border-neutral-700/50">
+              <div className="px-6 py-4 border-t border-neutral-700/50">
                 <div className="flex space-x-3">
                   {socialLinks.map(item => (
                     <a
