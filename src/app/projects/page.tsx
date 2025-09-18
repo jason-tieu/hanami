@@ -51,6 +51,7 @@ export default function ProjectsPage() {
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Remove all dependencies to prevent infinite loop
 
   return (

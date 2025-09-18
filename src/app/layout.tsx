@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Shell } from "@/components/shell/shell";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import SpeedInsightsClient from "@/components/SpeedInsightsClient";
 import "./globals.css";
 
 const inter = Inter({
@@ -90,6 +90,25 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#FF4D6D" />
+        
+        {/* Preload critical fonts */}
+        <link
+          rel="preload"
+          href="/_next/static/media/inter.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/_next/static/media/geist-mono.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        
+        {/* Preload hero image */}
+        <link rel="preload" as="image" href="/images/avatar.jpg" />
       </head>
       <body
         className={`${inter.variable} ${geistMono.variable} bg-surface text-neutral-200 antialiased`}
@@ -102,7 +121,7 @@ export default function RootLayout({
         >
           <Shell>{children}</Shell>
         </ThemeProvider>
-        <SpeedInsights />
+        <SpeedInsightsClient />
       </body>
     </html>
   );

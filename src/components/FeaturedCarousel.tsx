@@ -84,7 +84,7 @@ export default function FeaturedCarousel({ projects, className = "" }: FeaturedC
             </div>
 
             {/* Content Section */}
-            <div className="p-6 md:p-8 space-y-4">
+            <div className="pl-6 pr-16 pt-6 pb-6 md:pl-8 md:pr-20 md:pt-8 md:pb-8 space-y-4">
               {/* Categories */}
               <div className="flex flex-wrap gap-2">
                 {currentProject.categories.map((category) => (
@@ -181,7 +181,7 @@ export default function FeaturedCarousel({ projects, className = "" }: FeaturedC
             </button>
             <button
               onClick={goToNext}
-              className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white transition-colors"
+              className="absolute right-6 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white transition-colors"
               aria-label="Next project"
             >
               <ChevronRight className="h-5 w-5" />

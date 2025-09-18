@@ -76,8 +76,8 @@ export default function SakuraCanvas({
         this.size = 12 + Math.random() * 18 * (0.6 + 0.4 * (1 - this.z));
         this.x = Math.random() * width;
         this.y = initial ? Math.random() * height : -this.size;
-        this.vx = (Math.random() - 0.5) * 0.4; // increased base breeze for more spread
-        this.vy = 0.2 + 0.6 * (1 - this.z);   // fall speed
+        this.vx = (Math.random() - 0.5) * 0.3; // reduced initial horizontal velocity
+        this.vy = 0.1 + 0.3 * (1 - this.z);   // reduced initial fall speed, let gravity take over
         this.rot = Math.random() * Math.PI * 2;
         this.vr = (Math.random() - 0.5) * 0.02;
         this.wobble = Math.random() * Math.PI * 2;
@@ -90,15 +90,18 @@ export default function SakuraCanvas({
         this.notch = 0.15 + Math.random() * 0.13; // notch depth variation
       }
       step(dt: number, mouse: typeof mouseRef.current) {
-        // Cursor influence (scaled by parallax) - increased for more spread
-        const influence = 0.18 * (1 - this.z); // increased from 0.12, closer petals react more
-        this.vx += mouse.vx * influence;
-        this.vy += mouse.vy * influence * 0.5;
+        // Always apply gravity - constant downward force
+        this.vy += 0.003 * dt; // Gravity pulling petals down
 
-        // Gentle sideways breeze + wobble - increased for more spread
+        // Reduced cursor influence - just helps glide, doesn't override gravity
+        const influence = 0.08 * (1 - this.z); // reduced from 0.18
+        this.vx += mouse.vx * influence * 0.3; // reduced influence
+        this.vy += mouse.vy * influence * 0.1; // much reduced vertical influence
+
+        // Gentle sideways breeze + wobble - helps with natural movement
         this.wobble += 0.04 + (1 - this.z) * 0.02;
-        const wobbleX = Math.cos(this.wobble) * 0.25; // increased from 0.15
-        const wobbleY = Math.sin(this.wobble) * 0.08; // increased from 0.05
+        const wobbleX = Math.cos(this.wobble) * 0.15; // reduced from 0.25
+        const wobbleY = Math.sin(this.wobble) * 0.03; // reduced from 0.08
 
         this.x += (this.vx + wobbleX) * dt;
         this.y += (this.vy + wobbleY) * dt;
@@ -109,9 +112,10 @@ export default function SakuraCanvas({
         if (this.x < -this.size) this.x = width + this.size;
         if (this.x > width + this.size) this.x = -this.size;
 
-        // Damp velocities for stability
+        // Damp horizontal velocities, but maintain gravity
         this.vx *= 0.98;
-        this.vy = Math.min(this.vy * 0.995 + 0.002, 2.2);
+        // Don't damp vertical velocity as much to maintain gravity effect
+        this.vy = Math.min(this.vy * 0.998, 3.0); // allow faster falling
       }
       draw() {
         ctx.save();

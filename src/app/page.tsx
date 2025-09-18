@@ -6,14 +6,24 @@ import { Github, Download, ArrowRight } from "lucide-react";
 import SectionWrapper from "@/components/SectionWrapper";
 import UIButton from "@/components/UIButton";
 import AccentButton from "@/components/AccentButton";
-import SakuraCanvas from "@/components/SakuraCanvas";
-import { skills } from "@/components/skills";
-import SkillCard from "@/components/SkillCard";
-import FeaturedCarousel from "@/components/FeaturedCarousel";
-import { projects } from "@/components/projects.data";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import { GridSkeleton, CardSkeleton } from "@/components/Skeleton";
+
+const SakuraCanvas = dynamic(() => import("@/components/SakuraCanvas"), {
+  ssr: false,
+  loading: () => null,
+});
+
+const LazySkillsSection = dynamic(() => import("@/components/SkillsSection"), {
+  loading: () => <div className="h-96 bg-muted/5 rounded-2xl animate-pulse" />,
+});
+
+const LazyFeaturedProjects = dynamic(() => import("@/components/FeaturedProjects"), {
+  loading: () => <div className="h-64 bg-muted/5 rounded-2xl animate-pulse" />,
+});
 
 export default function Home() {
-  const featuredProjects = projects.filter(p => p.featured).slice(0, 3);
 
   return (
     <main className="relative">
@@ -75,6 +85,8 @@ export default function Home() {
                 fill
                 className="object-cover"
                 priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={90}
               />
             </div>
             {/* Top-left partial rounded corner */}
@@ -97,11 +109,9 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {skills.map((skill) => (
-                <SkillCard key={skill.id} skill={skill} />
-              ))}
-            </div>
+            <Suspense fallback={<GridSkeleton items={4} />}>
+              <LazySkillsSection />
+            </Suspense>
           </div>
         </div>
       </SectionWrapper>
@@ -117,7 +127,9 @@ export default function Home() {
               </p>
             </div>
 
-            <FeaturedCarousel projects={featuredProjects} />
+            <Suspense fallback={<CardSkeleton className="h-64" />}>
+              <LazyFeaturedProjects />
+            </Suspense>
 
             <div className="text-center">
               <UIButton asChild variant="primary" className="text-lg px-8 py-6">

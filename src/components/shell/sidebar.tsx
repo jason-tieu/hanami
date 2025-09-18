@@ -76,7 +76,7 @@ export function Sidebar() {
   return (
     <div className="hidden lg:flex lg:w-96 lg:flex-col lg:fixed lg:inset-y-0 z-20">
       {/* NOTE: removed transform-gpu to avoid transform-based layout offsets */}
-      <div className="flex flex-col h-screen bg-background/80 backdrop-blur-md border-r border-border">
+      <div className="flex flex-col h-screen bg-background/15 backdrop-blur-sm border-r border-border/20 shadow-[4px_0_12px_rgba(255,75,138,0.2)]">
         <div className="flex flex-col h-full pt-5 pb-4">
           {/* Brand */}
           <div className="flex items-center px-4">

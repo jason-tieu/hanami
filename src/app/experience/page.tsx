@@ -263,7 +263,7 @@ export default function ExperiencePage() {
             <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-brand via-brand/50 to-transparent hidden md:block" />
             
             <div className="space-y-12">
-              {filteredTimeline.map((item, index) => (
+              {filteredTimeline.map((item) => (
                 <motion.div
                   key={item.id}
                   variants={itemVariants}
