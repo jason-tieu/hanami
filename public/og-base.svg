@@ -1,0 +1,75 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Grid pattern -->
+    <pattern id="grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    </pattern>
+    
+    <!-- Accent gradient -->
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="20%" stop-color="rgba(255,126,185,0.45)"/>
+      <stop offset="80%" stop-color="rgba(255,126,185,0.45)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    
+    <!-- Card highlight -->
+    <linearGradient id="cardHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.08)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0b0b0c"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Accent lines -->
+  <rect x="0" y="70" width="1200" height="2" fill="url(#accentGradient)" rx="1"/>
+  
+  
+  <!-- Background cards -->
+  <g opacity="0.6">
+    <!-- Left cluster -->
+    <rect x="80" y="150" width="120" height="80" fill="#1a1b1e" rx="12"/>
+    <rect x="220" y="180" width="100" height="60" fill="#15161a" rx="10"/>
+    <rect x="100" y="250" width="140" height="70" fill="#1a1b1e" rx="12"/>
+    
+    <!-- Right cluster -->
+    <rect x="900" y="120" width="100" height="70" fill="#15161a" rx="10"/>
+    <rect x="1020" y="150" width="80" height="60" fill="#1a1b1e" rx="8"/>
+    <rect x="950" y="240" width="120" height="80" fill="#15161a" rx="12"/>
+  </g>
+  
+  <!-- Sakura petals -->
+  <g opacity="0.08">
+    <circle cx="300" cy="100" r="3" fill="#ff7eb9"/>
+    <circle cx="500" cy="80" r="2" fill="#ff7eb9"/>
+    <circle cx="800" cy="120" r="2.5" fill="#ff7eb9"/>
+    <circle cx="1000" cy="90" r="2" fill="#ff7eb9"/>
+    <circle cx="200" cy="200" r="1.5" fill="#ff7eb9"/>
+    <circle cx="600" cy="180" r="2" fill="#ff7eb9"/>
+    <circle cx="400" cy="300" r="2.5" fill="#ff7eb9"/>
+    <circle cx="700" cy="280" r="1.5" fill="#ff7eb9"/>
+    <circle cx="900" cy="350" r="2" fill="#ff7eb9"/>
+    <circle cx="150" cy="400" r="1.5" fill="#ff7eb9"/>
+  </g>
+  
+  <!-- Brand section (top-left) -->
+  <text x="80" y="120" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" fill="#fff">
+    Jason Tieu | Portfolio
+  </text>
+  <rect x="80" y="140" width="200" height="24" fill="#ff7eb9" rx="12"/>
+  <text x="90" y="155" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="500" fill="#0b0b0c">
+    Full-Stack &amp; Cloud &amp; AI/ML
+  </text>
+  <text x="80" y="340" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" fill="rgba(255,255,255,0.72)">
+    Building production-ready web applications
+  </text>
+  
+  
+  
+  <!-- Accessibility -->
+  <title>Jason Tieu - Full-Stack &amp; AI Engineer Portfolio</title>
+  <desc>Portfolio website for Jason Tieu, a Brisbane-based full-stack and AI engineer specializing in Next.js, Node.js, AWS, and applied computer vision.</desc>
+</svg>
