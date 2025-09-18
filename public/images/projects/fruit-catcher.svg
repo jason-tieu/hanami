@@ -1,9 +1,0 @@
-<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="400" height="300" fill="#1A1A1A"/>
-<rect x="50" y="50" width="300" height="200" fill="#2C2C2C" rx="8"/>
-<text x="200" y="130" fill="#FF4B8A" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold">Fruit Catcher Game</text>
-<text x="200" y="155" fill="#FFFFFF" text-anchor="middle" font-family="Arial" font-size="14">Real-time Embedded Game</text>
-<circle cx="150" cy="200" r="15" fill="#FFD700"/>
-<circle cx="200" cy="200" r="15" fill="#FF6B6B"/>
-<circle cx="250" cy="200" r="15" fill="#4ECDC4"/>
-</svg>

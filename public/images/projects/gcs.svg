@@ -1,9 +1,0 @@
-<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="400" height="300" fill="#1A1A1A"/>
-<rect x="50" y="50" width="300" height="200" fill="#2C2C2C" rx="8"/>
-<text x="200" y="130" fill="#FF4B8A" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold">UAVPayloadTAQ</text>
-<text x="200" y="155" fill="#FFFFFF" text-anchor="middle" font-family="Arial" font-size="14">Ground Control Station</text>
-<rect x="80" y="180" width="60" height="40" fill="#FF4B8A" rx="4"/>
-<rect x="160" y="180" width="60" height="40" fill="#6C63FF" rx="4"/>
-<rect x="240" y="180" width="60" height="40" fill="#00D4AA" rx="4"/>
-</svg>

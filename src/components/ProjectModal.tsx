@@ -117,6 +117,21 @@ export default function ProjectModal({ open, onClose, project }: Props) {
                 <p className="text-neutral-300 leading-relaxed">{project.description}</p>
               </div>
 
+              {/* Key Achievements */}
+              {project.bullets && project.bullets.length > 0 && (
+                <div className="space-y-3">
+                  <h3 className="text-lg font-semibold text-white">Key Achievements</h3>
+                  <ul className="space-y-2">
+                    {project.bullets.map((bullet, index) => (
+                      <li key={index} className="flex items-start gap-3 text-neutral-300">
+                        <span className="text-pink-400 mt-1.5 text-sm">•</span>
+                        <span className="leading-relaxed">{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               {/* Tech Stack */}
               <div className="space-y-3">
                 <h3 className="text-lg font-semibold text-white">Tech Stack</h3>

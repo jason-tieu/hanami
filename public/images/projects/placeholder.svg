@@ -1,0 +1,55 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a0a0a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff4b8a;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#ff6b9d;stop-opacity:0.4" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bgGradient)"/>
+  
+  <!-- Subtle grid pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#333333" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  
+  <!-- Skeleton loading elements -->
+  <rect x="200" y="150" width="80" height="60" rx="8" fill="#333333" opacity="0.6"/>
+  <rect x="300" y="150" width="60" height="60" rx="8" fill="#333333" opacity="0.6"/>
+  <rect x="380" y="150" width="100" height="60" rx="8" fill="#333333" opacity="0.6"/>
+  
+  <rect x="200" y="230" width="120" height="60" rx="8" fill="#333333" opacity="0.6"/>
+  <rect x="340" y="230" width="80" height="60" rx="8" fill="#333333" opacity="0.6"/>
+  <rect x="440" y="230" width="60" height="60" rx="8" fill="#333333" opacity="0.6"/>
+  
+  <!-- Right side skeleton elements -->
+  <rect x="700" y="180" width="100" height="40" rx="4" fill="#333333" opacity="0.6"/>
+  <rect x="820" y="180" width="80" height="40" rx="4" fill="#333333" opacity="0.6"/>
+  <rect x="700" y="240" width="120" height="40" rx="4" fill="#333333" opacity="0.6"/>
+  <rect x="840" y="240" width="60" height="40" rx="4" fill="#333333" opacity="0.6"/>
+  <rect x="700" y="300" width="90" height="40" rx="4" fill="#333333" opacity="0.6"/>
+  <rect x="810" y="300" width="110" height="40" rx="4" fill="#333333" opacity="0.6"/>
+  
+  <!-- Bottom skeleton elements -->
+  <rect x="250" y="420" width="180" height="60" rx="8" fill="#333333" opacity="0.6"/>
+  <rect x="450" y="420" width="200" height="60" rx="8" fill="#333333" opacity="0.6"/>
+  <rect x="670" y="420" width="150" height="60" rx="8" fill="#333333" opacity="0.6"/>
+  
+  <!-- Subtle accent lines with pink highlights -->
+  <line x1="100" y1="100" x2="1100" y2="100" stroke="#ff4b8a" stroke-width="1" opacity="0.3"/>
+  <line x1="100" y1="575" x2="1100" y2="575" stroke="#ff4b8a" stroke-width="1" opacity="0.3"/>
+  
+  <!-- Loading animation bars -->
+  <rect x="400" y="350" width="200" height="8" rx="4" fill="#333333" opacity="0.6"/>
+  <rect x="400" y="370" width="150" height="8" rx="4" fill="#ff4b8a" opacity="0.4"/>
+  <rect x="400" y="390" width="180" height="8" rx="4" fill="#333333" opacity="0.6"/>
+</svg>
