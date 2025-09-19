@@ -37,31 +37,31 @@ export function MobileNav() {
   return (
     <div className="lg:hidden">
       {/* Top Bar */}
-      <div className="flex items-center justify-between h-16 px-4 bg-neutral-900/95 backdrop-blur-xl border-b border-neutral-700/50 shadow-lg">
-        <Link href="/" className="text-xl font-bold text-white">
+      <div className="flex items-center justify-between h-16 px-4 bg-background/95 backdrop-blur-xl border-b border-border shadow-lg dark:bg-neutral-900/95 dark:border-neutral-700/50">
+        <Link href="/" className="text-xl font-bold text-foreground">
           Jason Tieu
         </Link>
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <UIButton variant="ghost" className="lg:hidden">
-              <Menu className="h-5 w-5 text-neutral-300" />
+              <Menu className="h-5 w-5 text-muted-foreground" />
               <span className="sr-only">Open menu</span>
             </UIButton>
           </SheetTrigger>
           <SheetContent
             side="right"
-            className="w-80 bg-neutral-900/95 backdrop-blur-xl border-l border-neutral-700/50 p-0"
+            className="w-80 bg-background/95 backdrop-blur-xl border-l border-border p-0 dark:bg-neutral-900/95 dark:border-neutral-700/50"
           >
             <div className="flex flex-col h-full">
               {/* Header */}
-              <div className="px-6 py-6 border-b border-neutral-700/50">
+              <div className="px-6 py-6 border-b border-border dark:border-neutral-700/50">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-brand rounded-xl flex items-center justify-center">
                     <span className="text-brand-foreground font-bold text-sm">JT</span>
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-white">Jason Tieu</h2>
-                    <p className="text-sm text-neutral-400">
+                    <h2 className="text-xl font-bold text-foreground">Jason Tieu</h2>
+                    <p className="text-sm text-muted-foreground">
                       Full-Stack Development • Cloud & DevOps • AI/ML
                     </p>
                   </div>
@@ -79,13 +79,13 @@ export function MobileNav() {
                       onClick={() => setOpen(false)}
                       className={`group flex items-center px-4 py-4 rounded-xl text-base font-medium transition-all duration-200 ${
                         isActive
-                          ? 'bg-gradient-to-r from-brand/20 to-brand/10 text-white border border-brand/30 shadow-lg shadow-brand/20'
-                          : 'text-neutral-300 hover:text-white hover:bg-neutral-800/60 hover:border-neutral-700/50'
+                          ? 'bg-gradient-to-r from-brand/20 to-brand/10 text-foreground border border-brand/30 shadow-lg shadow-brand/20'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-brand/10 hover:border-brand/20 dark:text-neutral-300 dark:hover:text-white dark:hover:bg-neutral-800/60 dark:hover:border-neutral-700/50'
                       }`}
                     >
                       <item.icon
                         className={`mr-3 h-6 w-6 flex-shrink-0 transition-colors ${
-                          isActive ? 'text-brand' : 'text-neutral-400 group-hover:text-brand'
+                          isActive ? 'text-brand' : 'text-muted-foreground group-hover:text-brand dark:text-neutral-400'
                         }`}
                       />
                       <span className="font-semibold">{item.name}</span>
@@ -95,12 +95,12 @@ export function MobileNav() {
               </nav>
 
               {/* Resume Download */}
-              <div className="px-6 py-4 border-t border-neutral-700/50">
+              <div className="px-6 py-4 border-t border-border dark:border-neutral-700/50">
                 <a
                   href="/resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-brand/20 to-brand/10 text-white rounded-xl border border-brand/30 hover:from-brand/30 hover:to-brand/20 transition-all duration-200 hover:scale-105"
+                  className="flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-brand/20 to-brand/10 text-foreground rounded-xl border border-brand/30 hover:from-brand/30 hover:to-brand/20 transition-all duration-200 hover:scale-105"
                 >
                   <Download className="h-5 w-5 mr-2" />
                   <span className="font-semibold">Download Resume</span>
@@ -108,7 +108,7 @@ export function MobileNav() {
               </div>
 
               {/* Social Links */}
-              <div className="px-6 py-4 border-t border-neutral-700/50">
+              <div className="px-6 py-4 border-t border-border dark:border-neutral-700/50">
                 <div className="flex space-x-3">
                   {socialLinks.map(item => (
                     <a
@@ -116,7 +116,7 @@ export function MobileNav() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center h-10 w-10 rounded-lg bg-white/5 text-neutral-400 hover:text-brand hover:bg-brand/10 transition-all duration-200 hover:scale-105"
+                      className="flex items-center justify-center h-10 w-10 rounded-lg bg-muted text-muted-foreground hover:text-brand hover:bg-accent transition-all duration-200 hover:scale-105 dark:bg-white/5 dark:text-neutral-400 dark:hover:bg-brand/10"
                     >
                       <item.icon className="h-5 w-5" />
                       <span className="sr-only">{item.name}</span>

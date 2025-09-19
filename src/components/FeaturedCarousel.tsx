@@ -53,7 +53,7 @@ export default function FeaturedCarousel({ projects, className = '' }: FeaturedC
   return (
     <div className={`relative ${className}`}>
       {/* Main Carousel */}
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur h-96 md:h-[28rem]">
+      <div className="relative overflow-hidden rounded-2xl border border-border bg-card/50 backdrop-blur h-96 md:h-[28rem] dark:border-white/10 dark:bg-white/5">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentProject.id}
@@ -76,7 +76,7 @@ export default function FeaturedCarousel({ projects, className = '' }: FeaturedC
 
               {/* Featured Badge */}
               <div className="absolute top-4 left-4">
-                <TechPill variant="brand" className="text-sm text-white">
+                <TechPill variant="brand" className="text-sm text-brand-foreground">
                   Featured Project
                 </TechPill>
               </div>
@@ -89,7 +89,7 @@ export default function FeaturedCarousel({ projects, className = '' }: FeaturedC
                 {currentProject.categories.map(category => (
                   <span
                     key={category}
-                    className="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/20 text-white/80"
+                    className="text-xs px-2 py-1 rounded-full bg-muted border border-border text-muted-foreground dark:bg-white/10 dark:border-white/20 dark:text-white/80"
                   >
                     {category}
                   </span>
@@ -98,18 +98,18 @@ export default function FeaturedCarousel({ projects, className = '' }: FeaturedC
 
               {/* Title and Tagline */}
               <div className="space-y-2">
-                <h3 className="text-2xl md:text-3xl font-bold text-white">
+                <h3 className="text-2xl md:text-3xl font-bold text-foreground">
                   {currentProject.title}
                 </h3>
-                <p className="text-white/70 text-sm md:text-base">{currentProject.tagline}</p>
+                <p className="text-muted-foreground text-sm md:text-base">{currentProject.tagline}</p>
               </div>
 
               {/* Description */}
-              <p className="text-white/60 text-sm leading-relaxed">{currentProject.description}</p>
+              <p className="text-muted-foreground text-sm leading-relaxed">{currentProject.description}</p>
 
               {/* Tech Stack */}
               <div className="space-y-2">
-                <h4 className="text-sm font-semibold text-white/80">Tech Stack</h4>
+                <h4 className="text-sm font-semibold text-muted-foreground">Tech Stack</h4>
                 <div className="flex flex-wrap gap-1.5">
                   {currentProject.tech.slice(0, 6).map(tech => (
                     <TechPill key={tech} variant="secondary" className="text-xs">
@@ -131,7 +131,7 @@ export default function FeaturedCarousel({ projects, className = '' }: FeaturedC
                     href={currentProject.links.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-white/5 text-white hover:border-pink-400/30 hover:text-pink-300 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl border border-border bg-card/50 text-foreground hover:border-brand/30 hover:text-brand transition-colors dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-pink-400/30 dark:hover:text-pink-300"
                   >
                     <ExternalLink className="h-4 w-4" />
                     Live Demo
@@ -142,7 +142,7 @@ export default function FeaturedCarousel({ projects, className = '' }: FeaturedC
                     href={currentProject.links.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-white/5 text-white hover:border-pink-400/30 hover:text-pink-300 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl border border-border bg-card/50 text-foreground hover:border-brand/30 hover:text-brand transition-colors dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-pink-400/30 dark:hover:text-pink-300"
                   >
                     <Github className="h-4 w-4" />
                     View Code
@@ -153,7 +153,7 @@ export default function FeaturedCarousel({ projects, className = '' }: FeaturedC
                     href={currentProject.links.docs}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-white/5 text-white hover:border-pink-400/30 hover:text-pink-300 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl border border-border bg-card/50 text-foreground hover:border-brand/30 hover:text-brand transition-colors dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-pink-400/30 dark:hover:text-pink-300"
                   >
                     <FileText className="h-4 w-4" />
                     Docs
@@ -193,7 +193,7 @@ export default function FeaturedCarousel({ projects, className = '' }: FeaturedC
               key={index}
               onClick={() => goToSlide(index)}
               className={`h-2 rounded-full transition-all ${
-                index === currentIndex ? 'w-8 bg-brand' : 'w-2 bg-white/30 hover:bg-white/60'
+                index === currentIndex ? 'w-8 bg-brand' : 'w-2 bg-muted hover:bg-accent dark:bg-white/30 dark:hover:bg-white/60'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

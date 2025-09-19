@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
     unoptimized: true,
     formats: ['image/avif', 'image/webp'],
     dangerouslyAllowSVG: false,
+    qualities: [25, 50, 75, 90, 100],
   },
   // Configure MDX
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],

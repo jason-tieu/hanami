@@ -28,9 +28,9 @@ export default function AccentButton({
     primary:
       'bg-gradient-to-r from-brand to-brand/80 text-white hover:from-brand/90 hover:to-brand/70 shadow-lg shadow-brand/25 hover:shadow-xl hover:shadow-brand/40 border border-brand/20',
     secondary:
-      'bg-gradient-to-r from-neutral-800 to-neutral-700 text-white hover:from-brand/80 hover:to-brand/60 hover:text-white shadow-lg shadow-black/25 hover:shadow-xl hover:shadow-brand/40 border border-neutral-600 hover:border-brand/40',
+      'bg-gradient-to-r from-secondary to-secondary/90 text-secondary-foreground hover:from-brand/80 hover:to-brand/60 hover:text-white shadow-lg shadow-secondary/25 hover:shadow-xl hover:shadow-brand/40 border border-black hover:border-transparent dark:from-neutral-800 dark:to-neutral-700 dark:text-white dark:hover:from-brand/80 dark:hover:to-brand/60 dark:shadow-black/25 dark:border-neutral-600/120 dark:hover:border-transparent',
     ghost:
-      'bg-transparent text-neutral-200 hover:bg-brand/20 hover:text-brand border border-neutral-700 hover:border-brand/40 shadow-sm hover:shadow-md hover:shadow-brand/20',
+      'bg-transparent text-muted-foreground hover:bg-accent hover:text-accent-foreground border border-border hover:border-brand/40 shadow-sm hover:shadow-md hover:shadow-brand/20 dark:text-neutral-200 dark:hover:bg-brand/20 dark:hover:text-brand dark:border-neutral-700',
   } as const;
 
   // Shared ripple creator

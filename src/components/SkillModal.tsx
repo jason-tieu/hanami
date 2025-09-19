@@ -48,12 +48,12 @@ export default function SkillModal({ open, onClose, title, subtitle, icon, bulle
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15, ease: 'easeOut' }}
         >
-          <div className="absolute inset-0 bg-black/70" onClick={onClose} />
+          <div className="absolute inset-0 bg-black/70 dark:bg-black/70" onClick={onClose} />
           <motion.div
             role="dialog"
             aria-modal="true"
             aria-label={`${title} details`}
-            className="relative z-10 w-full max-w-lg rounded-2xl bg-[#0B0B0D] border border-white/10 shadow-2xl p-6"
+            className="relative z-10 w-full max-w-lg rounded-2xl bg-card border border-border shadow-2xl p-6 dark:bg-[#0B0B0D] dark:border-white/10"
             initial={{ y: 16, scale: 0.98, opacity: 0 }}
             animate={{ y: 0, scale: 1, opacity: 1 }}
             exit={{ y: 16, scale: 0.98, opacity: 0 }}
@@ -68,7 +68,7 @@ export default function SkillModal({ open, onClose, title, subtitle, icon, bulle
               ref={closeRef}
               aria-label="Close"
               onClick={onClose}
-              className="absolute right-3 top-3 rounded-lg p-2 text-neutral-400 hover:text-white hover:bg-white/10"
+              className="absolute right-3 top-3 rounded-lg p-2 text-muted-foreground hover:text-foreground hover:bg-muted dark:text-neutral-400 dark:hover:text-white dark:hover:bg-white/10"
             >
               <X className="h-4 w-4" />
             </button>
@@ -79,11 +79,11 @@ export default function SkillModal({ open, onClose, title, subtitle, icon, bulle
               </div>
               <div>
                 <h3 className="text-lg font-semibold">{title}</h3>
-                <p className="text-xs text-neutral-400">{subtitle}</p>
+                <p className="text-xs text-muted-foreground">{subtitle}</p>
               </div>
             </div>
 
-            <ul className="space-y-2 text-sm text-neutral-200">
+            <ul className="space-y-2 text-sm text-foreground">
               {bullets.map((b, i) => (
                 <li key={i}>• {b}</li>
               ))}

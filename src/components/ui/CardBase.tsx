@@ -24,15 +24,16 @@ export default function CardBase({ className, as = 'div', children, onClick, hre
         onClick={onClick}
         className={clsx(
           'group relative overflow-hidden rounded-2xl border p-4',
-          'border-white/10 bg-white/5 backdrop-blur',
+          'border-border bg-card/50 backdrop-blur',
           'shadow-sm hover:shadow-md transition-all',
           'focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40',
-          'hover:border-pink-500/30',
+          'hover:border-brand/30',
+          'dark:border-white/10 dark:bg-white/5 dark:hover:border-pink-500/30',
           className,
         )}
       >
         {/* subtle inner ring */}
-        <span className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/5" />
+        <span className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-border/50 dark:ring-white/5" />
         {/* hover sheen */}
         <span className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <span className="absolute -inset-x-8 -top-24 h-48 rotate-6 bg-gradient-to-b from-pink-400/10 to-transparent blur-2xl" />

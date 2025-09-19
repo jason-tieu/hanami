@@ -208,7 +208,7 @@ export default function ExperiencePage() {
         <div className="relative z-10 mx-auto max-w-6xl px-6">
           <div className="text-center space-y-8">
             <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl font-bold">My Experience</h1>
+              <h1 className="text-4xl sm:text-5xl font-bold text-foreground">My Experience</h1>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
                 A journey through my professional experience, academic achievements, and continuous
                 learning in full-stack development, AI/ML, and cloud engineering.
@@ -238,7 +238,7 @@ export default function ExperiencePage() {
                 className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
                   activeFilter === filter
                     ? 'bg-brand text-white shadow-lg shadow-brand/25'
-                    : 'bg-white/5 text-muted-foreground hover:bg-white/10 hover:text-white border border-white/10'
+                    : 'bg-card/50 text-muted-foreground hover:bg-card hover:text-foreground border border-border dark:bg-white/5 dark:hover:bg-white/10 dark:hover:text-white dark:border-white/10'
                 }`}
               >
                 {filter}
@@ -268,12 +268,12 @@ export default function ExperiencePage() {
 
                   {/* Content Card */}
                   <div className="ml-0 md:ml-16">
-                    <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 hover:border-brand/30">
+                    <div className="bg-card/50 border border-border rounded-2xl p-6 hover:bg-card transition-all duration-300 hover:border-brand/30 dark:bg-white/5 dark:border-white/10 dark:hover:bg-white/10">
                       <div className="space-y-4">
                         {/* Header */}
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                           <div>
-                            <h3 className="text-xl font-bold text-white">{item.title}</h3>
+                            <h3 className="text-xl font-bold text-foreground">{item.title}</h3>
                             <p className="text-muted-foreground">{item.subtitle}</p>
                           </div>
                           <span className="text-sm text-brand font-medium bg-brand/10 px-3 py-1 rounded-full">
@@ -321,7 +321,7 @@ export default function ExperiencePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h2 className="text-3xl font-bold text-center mb-12">Academic Projects</h2>
+              <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Academic Projects</h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {academicProjects.map((project, index) => (
@@ -333,11 +333,11 @@ export default function ExperiencePage() {
                   >
                     <Link
                       href={`/projects#${project.projectId}`}
-                      className="block bg-white/5 border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-all duration-300 hover:border-brand/30 hover:scale-105 group"
+                      className="block bg-card/50 border border-border rounded-xl p-4 hover:bg-card transition-all duration-300 hover:border-brand/30 hover:scale-105 group dark:bg-white/5 dark:border-white/10 dark:hover:bg-white/10"
                       aria-label={`View ${project.title} project details`}
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <h3 className="font-semibold text-white group-hover:text-brand transition-colors">
+                        <h3 className="font-semibold text-foreground group-hover:text-brand transition-colors">
                           {project.title}
                         </h3>
                         <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-brand transition-colors" />
@@ -366,13 +366,13 @@ export default function ExperiencePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
           >
-            <h2 className="text-2xl font-bold">Connect With Me</h2>
+            <h2 className="text-2xl font-bold text-foreground">Connect With Me</h2>
             <div className="flex flex-wrap justify-center gap-4">
               <a
                 href="https://github.com/jason-tieu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 hover:border-brand/30 transition-all duration-200"
+                className="flex items-center gap-2 px-6 py-3 bg-card/50 border border-border rounded-xl text-foreground hover:bg-card hover:border-brand/30 transition-all duration-200 dark:bg-white/5 dark:border-white/10 dark:text-white dark:hover:bg-white/10"
               >
                 <span>GitHub</span>
                 <ExternalLink className="h-4 w-4" />
@@ -381,14 +381,14 @@ export default function ExperiencePage() {
                 href="https://linkedin.com/in/jason-tieu-engineer"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 hover:border-brand/30 transition-all duration-200"
+                className="flex items-center gap-2 px-6 py-3 bg-card/50 border border-border rounded-xl text-foreground hover:bg-card hover:border-brand/30 transition-all duration-200 dark:bg-white/5 dark:border-white/10 dark:text-white dark:hover:bg-white/10"
               >
                 <span>LinkedIn</span>
                 <ExternalLink className="h-4 w-4" />
               </a>
               <a
                 href="mailto:jason.tieu04@gmail.com"
-                className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-white hover:bg-white/10 hover:border-brand/30 transition-all duration-200"
+                className="flex items-center gap-2 px-6 py-3 bg-card/50 border border-border rounded-xl text-foreground hover:bg-card hover:border-brand/30 transition-all duration-200 dark:bg-white/5 dark:border-white/10 dark:text-white dark:hover:bg-white/10"
               >
                 <span>Email</span>
                 <ExternalLink className="h-4 w-4" />

@@ -33,9 +33,9 @@ const Home = memo(function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div className="space-y-4">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
                   Hi, I&apos;m{' '}
-                  <span className="bg-gradient-to-r from-white to-brand bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-foreground to-brand bg-clip-text text-transparent">
                     Jason Tieu
                   </span>
                 </h1>
@@ -91,9 +91,9 @@ const Home = memo(function Home() {
                 />
               </div>
               {/* Top-left partial rounded corner */}
-              <div className="absolute -top-3 -left-3 w-4 h-4 bg-white rounded-tl-lg" />
+              <div className="absolute -top-3 -left-3 w-4 h-4 bg-background rounded-tl-lg" />
               {/* Bottom-right partial rounded corner */}
-              <div className="absolute -bottom-3 -right-3 w-4 h-4 bg-white rounded-br-lg" />
+              <div className="absolute -bottom-3 -right-3 w-4 h-4 bg-background rounded-br-lg" />
             </div>
           </div>
         </div>
@@ -104,7 +104,7 @@ const Home = memo(function Home() {
         <div className="relative z-10 mx-auto max-w-6xl px-6">
           <div className="text-center space-y-12">
             <div className="space-y-4">
-              <h2 className="text-3xl sm:text-4xl font-bold">Technical Skills</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground">Technical Skills</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Expertise across embedded systems, AI/ML, cloud architecture, and software
                 engineering
@@ -123,7 +123,7 @@ const Home = memo(function Home() {
         <div className="relative z-10 mx-auto max-w-6xl px-6">
           <div className="space-y-12">
             <div className="text-center space-y-4">
-              <h2 className="text-3xl sm:text-4xl font-bold">Featured Projects</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground">Featured Projects</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Highlighting some of my most impactful work in embedded systems and AI/ML
               </p>
@@ -150,7 +150,7 @@ const Home = memo(function Home() {
         <div className="relative z-10 mx-auto max-w-6xl px-6">
           <div className="text-center space-y-8">
             <div className="space-y-4">
-              <h2 className="text-3xl sm:text-4xl font-bold">Let&apos;s Work Together</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground">Let&apos;s Work Together</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 I&apos;m always interested in new opportunities and exciting projects. Let&apos;s
                 discuss how we can collaborate!

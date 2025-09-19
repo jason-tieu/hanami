@@ -76,7 +76,7 @@ export function Sidebar() {
   return (
     <div className="hidden lg:flex lg:w-96 lg:flex-col lg:fixed lg:inset-y-0 z-20">
       {/* NOTE: removed transform-gpu to avoid transform-based layout offsets */}
-      <div className="flex flex-col h-screen bg-background/15 backdrop-blur-sm border-r border-border/20 shadow-[4px_0_12px_rgba(255,75,138,0.2)]">
+      <div className="flex flex-col h-screen bg-sidebar/80 backdrop-blur-sm border-r border-sidebar-border shadow-[4px_0_12px_rgba(255,75,138,0.2)] dark:shadow-[4px_0_12px_rgba(255,75,138,0.2)]">
         <div className="flex flex-col h-full pt-5 pb-4">
           {/* Brand */}
           <div className="flex items-center px-4">
@@ -117,13 +117,13 @@ export function Sidebar() {
                     ref={el => {
                       itemRefs.current[item.href] = el;
                     }}
-                    className="group flex items-center px-2 py-3 text-base font-medium rounded-md relative transition-colors hover:bg-brand/10"
+                    className="group flex items-center px-2 py-3 text-base font-medium rounded-md relative transition-all duration-200 ease-out hover:bg-brand/10 dark:hover:bg-brand/10 hover:scale-[1.02] active:scale-[0.98]"
                   >
                     <item.icon
-                      className={`mr-3 h-6 w-6 flex-shrink-0 transition-colors ${isActive ? 'text-brand' : 'text-muted-foreground group-hover:text-brand'}`}
+                      className={`mr-3 h-6 w-6 flex-shrink-0 transition-colors ${isActive ? 'text-brand' : 'text-sidebar-foreground group-hover:text-brand'}`}
                     />
                     <span
-                      className={`transition-colors font-semibold ${isActive ? 'text-brand' : 'text-muted-foreground group-hover:text-brand'}`}
+                      className={`transition-colors font-semibold ${isActive ? 'text-brand' : 'text-sidebar-foreground group-hover:text-brand'}`}
                     >
                       {item.name}
                     </span>
@@ -142,7 +142,7 @@ export function Sidebar() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center h-10 w-10 rounded-lg bg-white/5 text-muted-foreground hover:text-brand hover:bg-brand/10 transition-all duration-200 hover:scale-105"
+                  className="flex items-center justify-center h-10 w-10 rounded-lg bg-sidebar-accent text-sidebar-foreground hover:text-brand hover:bg-sidebar-primary transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] dark:bg-white/5 dark:text-muted-foreground dark:hover:bg-brand/10"
                 >
                   <item.icon className="h-5 w-5" />
                   <span className="sr-only">{item.name}</span>

@@ -183,7 +183,7 @@
 
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-white to-brand bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-foreground to-brand bg-clip-text text-transparent;
   }
 
   .animate-fade-in {

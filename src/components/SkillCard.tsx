@@ -1,18 +1,24 @@
 'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTheme } from 'next-themes';
 import SkillModal from '@/components/SkillModal';
 import type { Skill } from '@/components/skills';
 
 const ACCENT = 'rgb(255, 75, 138)';
-const BASE = 'rgb(229, 231, 235)'; // ~text-neutral-200
+const BASE_LIGHT = 'rgb(0, 0, 0)'; // Black for light mode
+const BASE_DARK = 'rgb(255, 255, 255)'; // White for dark mode
 
 export default function SkillCard({ skill }: { skill: Skill }) {
+  const { theme } = useTheme();
   const [open, setOpen] = React.useState(false);
   const [hovered, setHovered] = React.useState(false);
   const [hoverEnabled, setHoverEnabled] = React.useState(true);
   const buttonRef = React.useRef<HTMLButtonElement>(null);
   const Icon = skill.icon;
+  
+  // Get the appropriate base color based on theme
+  const baseColor = theme === 'dark' ? BASE_DARK : BASE_LIGHT;
 
   // Hotspot writer
   const setHoverVars = (el: HTMLElement, x: number, y: number, show = true) => {
@@ -103,7 +109,7 @@ export default function SkillCard({ skill }: { skill: Skill }) {
         whileHover={hoverEnabled ? { y: -4, scale: 1.015 } : {}}
         whileTap={{ scale: 0.985 }}
         transition={{ type: 'spring', stiffness: 300, damping: 22, mass: 0.7 }}
-        className="skill-card group relative w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-6 text-left outline-none focus-visible:ring-2 focus-visible:ring-accent-pink"
+        className="skill-card group relative w-full rounded-2xl border border-border bg-card/50 px-5 py-6 text-left outline-none focus-visible:ring-2 focus-visible:ring-accent-pink dark:border-white/10 dark:bg-white/5"
       >
         {/* ripple overlay */}
         <span className="skill-ripple-host" />
@@ -111,7 +117,7 @@ export default function SkillCard({ skill }: { skill: Skill }) {
         {/* Icon */}
         <motion.div
           className="flex items-center justify-center mb-3"
-          animate={{ color: hovered && hoverEnabled ? ACCENT : BASE }}
+          animate={{ color: hovered && hoverEnabled ? ACCENT : baseColor }}
           transition={{ duration: 0.18, ease: 'easeOut' }}
         >
           <div className="h-10 w-10 rounded-2xl bg-accent-pink/15 flex items-center justify-center">
@@ -123,7 +129,7 @@ export default function SkillCard({ skill }: { skill: Skill }) {
         <div className="text-center">
           <motion.p
             className="font-semibold"
-            animate={{ color: hovered && hoverEnabled ? ACCENT : BASE }}
+            animate={{ color: hovered && hoverEnabled ? ACCENT : baseColor }}
             transition={{ duration: 0.18, ease: 'easeOut' }}
           >
             {skill.title}
@@ -131,8 +137,8 @@ export default function SkillCard({ skill }: { skill: Skill }) {
           <motion.p
             className="text-xs"
             animate={{
-              color: hovered && hoverEnabled ? 'rgba(255, 75, 138, 0.9)' : 'rgb(156, 163, 175)',
-            }} // ~text-neutral-400
+              color: hovered && hoverEnabled ? 'rgba(255, 75, 138, 0.9)' : theme === 'dark' ? 'rgb(156, 163, 175)' : 'rgb(107, 114, 128)',
+            }} // ~text-neutral-400 for dark, ~text-gray-500 for light
             transition={{ duration: 0.18, ease: 'easeOut' }}
           >
             {skill.subtitle}

@@ -69,8 +69,8 @@ export default function ProjectsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
-          <h1 className="text-4xl sm:text-5xl font-bold text-white">My Projects</h1>
-          <p className="text-xl text-white/70 max-w-3xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl font-bold text-foreground">My Projects</h1>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             A collection of my work in embedded systems, AI/ML, cloud architecture, and software
             engineering. Each project represents a unique challenge and learning opportunity.
           </p>
@@ -114,7 +114,7 @@ export default function ProjectsPage() {
           {filteredProjects.length > 0 ? (
             <>
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-white">
+                <h2 className="text-2xl font-bold text-foreground">
                   All Projects ({filteredProjects.length})
                 </h2>
               </div>
@@ -141,14 +141,14 @@ export default function ProjectsPage() {
           ) : (
             <div className="text-center py-16">
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-white/80">No projects found</h3>
-                <p className="text-white/60">
+                <h3 className="text-xl font-semibold text-muted-foreground">No projects found</h3>
+                <p className="text-muted-foreground">
                   No projects match your current filters. Try adjusting your search or category
                   selection.
                 </p>
                 <button
                   onClick={clearFilters}
-                  className="px-6 py-2 rounded-xl border border-white/10 bg-white/5 text-white hover:border-pink-400/30 hover:text-pink-300 transition-colors"
+                  className="px-6 py-2 rounded-xl border border-border bg-card/50 text-foreground hover:border-brand/30 hover:text-brand transition-colors dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-pink-400/30 dark:hover:text-pink-300"
                 >
                   Clear Filters
                 </button>

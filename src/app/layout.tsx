@@ -4,6 +4,7 @@ import { ThemeProvider } from 'next-themes';
 import { Analytics } from '@vercel/analytics/react';
 import { Shell } from '@/components/shell/shell';
 import SpeedInsightsClient from '@/components/SpeedInsightsClient';
+import { ThemeToggle } from '@/components/theme-toggle';
 import './globals.css';
 
 const inter = Inter({
@@ -102,7 +103,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" />
         <meta name="theme-color" content="#FF4D6D" />
 
         {/* Preconnect to Google Fonts for faster loading */}
@@ -150,10 +150,14 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${geistMono.variable} bg-surface text-neutral-200 antialiased`}
+        className={`${inter.variable} ${geistMono.variable} bg-background text-foreground antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <Shell>{children}</Shell>
+          {/* Floating Theme Toggle */}
+          <div className="fixed bottom-6 right-6 z-50">
+            <ThemeToggle />
+          </div>
         </ThemeProvider>
         <SpeedInsightsClient />
         <Analytics />

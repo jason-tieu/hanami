@@ -70,9 +70,9 @@ export default function AboutPage() {
             animate="visible"
           >
             <motion.div className="space-y-4" variants={itemVariants}>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
                 Hey, I&apos;m{' '}
-                <span className="bg-gradient-to-r from-white to-brand bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-foreground to-brand bg-clip-text text-transparent">
                   Jason
                 </span>{' '}
                 — Full-Stack & AI Engineer
@@ -116,7 +116,7 @@ export default function AboutPage() {
             >
               {/* Short Bio */}
               <motion.div variants={itemVariants}>
-                <h2 className="text-2xl font-semibold text-white mb-4">Short Bio</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">Short Bio</h2>
                 <p className="text-muted-foreground leading-relaxed">
                   I&apos;m a final-year Computer & Software Systems Engineering student at QUT (GPA
                   6.0/7.0) focused on full-stack development, cloud deployment, and applied computer
@@ -129,7 +129,7 @@ export default function AboutPage() {
 
               {/* What I Do */}
               <motion.div variants={itemVariants}>
-                <h2 className="text-2xl font-semibold text-white mb-4">What I Do</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">What I Do</h2>
                 <ul className="space-y-3 text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <span className="text-brand mt-1">•</span>
@@ -171,7 +171,7 @@ export default function AboutPage() {
 
               {/* How I Work */}
               <motion.div variants={itemVariants}>
-                <h2 className="text-2xl font-semibold text-white mb-4">How I Work</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">How I Work</h2>
                 <ul className="space-y-3 text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <span className="text-brand mt-1">•</span>
@@ -214,7 +214,7 @@ export default function AboutPage() {
             >
               {/* Core Skills */}
               <motion.div variants={itemVariants}>
-                <h2 className="text-2xl font-semibold text-white mb-4">Core Skills</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">Core Skills</h2>
                 <div className="space-y-4">
                   <div>
                     <h3 className="text-sm font-medium text-muted-foreground mb-2">Frontend</h3>
@@ -285,7 +285,7 @@ export default function AboutPage() {
 
               {/* Recognition */}
               <motion.div variants={itemVariants}>
-                <h2 className="text-2xl font-semibold text-white mb-4">Recognition</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">Recognition</h2>
                 <p className="text-muted-foreground">
                   QUT GPA 6.0/7.0 • ADF Future Innovators Award • QUT Summit Attendee (Selected
                   Program)
@@ -294,7 +294,7 @@ export default function AboutPage() {
 
               {/* Tools */}
               <motion.div variants={itemVariants}>
-                <h2 className="text-2xl font-semibold text-white mb-4">Tools I reach for</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">Tools I reach for</h2>
                 <p className="text-muted-foreground">
                   VS Code, Cursor, GitHub, Postman/Hoppscotch, Docker, Fly.io/Render (prototyping),
                   Figma.
@@ -303,7 +303,7 @@ export default function AboutPage() {
 
               {/* Contact */}
               <motion.div variants={itemVariants}>
-                <h2 className="text-2xl font-semibold text-white mb-4">Contact</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">Contact</h2>
                 <div className="space-y-3">
                   <a
                     href="mailto:jason.tieu04@gmail.com"
@@ -346,7 +346,7 @@ export default function AboutPage() {
             initial="hidden"
             animate="visible"
           >
-            <h2 className="text-3xl font-bold text-white mb-4">Project Highlights</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">Project Highlights</h2>
             <p className="text-muted-foreground max-w-3xl mx-auto">
               Three featured projects showcasing my work in AI/ML, cloud architecture, and
               full-stack development.
@@ -367,7 +367,7 @@ export default function AboutPage() {
                   className="block group"
                   aria-label={`View ${project.title} project`}
                 >
-                  <div className="relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 p-6 h-full transition-all duration-300 group-hover:border-brand/30 group-hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-brand focus-visible:outline-none">
+                  <div className="relative overflow-hidden rounded-2xl bg-card/50 border border-border p-6 h-full transition-all duration-300 group-hover:border-brand/30 group-hover:bg-card focus-visible:ring-2 focus-visible:ring-brand focus-visible:outline-none dark:bg-white/5 dark:border-white/10 dark:group-hover:bg-white/10">
                     <div className="space-y-4">
                       <div className="flex items-center gap-2">
                         <TechPill variant="brand" className="text-xs">
@@ -375,7 +375,7 @@ export default function AboutPage() {
                         </TechPill>
                         <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-brand transition-colors" />
                       </div>
-                      <h3 className="text-lg font-semibold text-white group-hover:text-brand transition-colors">
+                      <h3 className="text-lg font-semibold text-foreground group-hover:text-brand transition-colors">
                         {project.title}
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">

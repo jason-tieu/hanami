@@ -110,27 +110,27 @@ export default function ProjectFilters({
     <div className="space-y-6">
       {/* Search Bar */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <input
           type="text"
           placeholder="Search projects..."
           value={filters.search}
           onChange={e => updateFilters({ search: e.target.value })}
-          className="w-full pl-10 pr-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-pink-500/30 focus:border-pink-500/30 transition-colors"
+          className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-card/50 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand/30 transition-colors dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder-neutral-400 dark:focus:ring-pink-500/30 dark:focus:border-pink-500/30"
         />
         {filters.search && (
           <button
             onClick={() => updateFilters({ search: '' })}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-white/10 transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-muted transition-colors dark:hover:bg-white/10"
           >
-            <X className="h-4 w-4 text-neutral-400" />
+            <X className="h-4 w-4 text-muted-foreground" />
           </button>
         )}
       </div>
 
       {/* Category Tabs */}
       <div className="space-y-3">
-        <h3 className="text-sm font-semibold text-white/80">Categories</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">Categories</h3>
         <div className="flex flex-wrap gap-2">
           {categories.map(category => (
             <button
@@ -138,8 +138,8 @@ export default function ProjectFilters({
               onClick={() => updateFilters({ category: category as (typeof CATEGORIES)[number] })}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
                 filters.category === category
-                  ? 'bg-pink-400/20 border border-pink-400/30 text-white'
-                  : 'bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20'
+                  ? 'bg-brand/20 border border-brand/30 text-foreground'
+                  : 'bg-card/50 border border-border text-muted-foreground hover:text-foreground hover:border-accent dark:bg-white/5 dark:border-white/10 dark:text-white/70 dark:hover:text-white dark:hover:border-white/20'
               }`}
             >
               {category}
@@ -151,11 +151,11 @@ export default function ProjectFilters({
       {/* Tech Stack Filter */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-white/80">Tech Stack</h3>
+          <h3 className="text-sm font-semibold text-muted-foreground">Tech Stack</h3>
           {allTech.length > 12 && (
             <button
               onClick={() => setShowAllTech(!showAllTech)}
-              className="text-xs text-pink-400 hover:text-pink-300 transition-colors"
+              className="text-xs text-brand hover:text-brand/80 transition-colors"
             >
               {showAllTech ? 'Show Less' : `Show All (${allTech.length})`}
             </button>
@@ -170,8 +170,8 @@ export default function ProjectFilters({
                 onClick={() => toggleTech(tech)}
                 className={`transition-colors ${
                   isSelected
-                    ? 'bg-pink-400/20 border border-pink-400/30 text-white'
-                    : 'bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/20'
+                    ? 'bg-brand/20 border border-brand/30 text-foreground'
+                    : 'bg-card/50 border border-border text-muted-foreground hover:text-foreground hover:border-accent dark:bg-white/5 dark:border-white/10 dark:text-white/70 dark:hover:text-white dark:hover:border-white/20'
                 }`}
               >
                 <TechPill variant="secondary" className="text-xs">
@@ -185,10 +185,10 @@ export default function ProjectFilters({
 
       {/* Active Filters & Clear */}
       {hasActiveFilters && (
-        <div className="flex items-center justify-between pt-4 border-t border-white/10">
+        <div className="flex items-center justify-between pt-4 border-t border-border dark:border-white/10">
           <div className="flex flex-wrap gap-2">
             {filters.category !== 'All' && (
-              <span className="px-3 py-1 rounded-full bg-pink-400/20 border border-pink-400/30 text-white text-xs">
+              <span className="px-3 py-1 rounded-full bg-brand/20 border border-brand/30 text-foreground text-xs">
                 {filters.category}
               </span>
             )}
@@ -201,14 +201,14 @@ export default function ProjectFilters({
               </span>
             ))}
             {filters.search && (
-              <span className="px-3 py-1 rounded-full bg-pink-400/20 border border-pink-400/30 text-white text-xs">
+              <span className="px-3 py-1 rounded-full bg-brand/20 border border-brand/30 text-foreground text-xs">
                 &ldquo;{filters.search}&rdquo;
               </span>
             )}
           </div>
           <button
             onClick={clearFilters}
-            className="text-xs text-neutral-400 hover:text-white transition-colors flex items-center gap-1"
+            className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1 dark:text-neutral-400 dark:hover:text-white"
           >
             <X className="h-3 w-3" />
             Clear All

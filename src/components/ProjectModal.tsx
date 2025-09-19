@@ -47,12 +47,12 @@ export default function ProjectModal({ open, onClose, project }: Props) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15, ease: 'easeOut' }}
         >
-          <div className="absolute inset-0 bg-black/70" onClick={onClose} />
+          <div className="absolute inset-0 bg-black/70 dark:bg-black/70" onClick={onClose} />
           <motion.div
             role="dialog"
             aria-modal="true"
             aria-label={`${project.title} details`}
-            className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl bg-[#0B0B0D] border border-white/10 shadow-2xl"
+            className="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl bg-card border border-border shadow-2xl dark:bg-[#0B0B0D] dark:border-white/10"
             initial={{ y: 16, scale: 0.98, opacity: 0 }}
             animate={{ y: 0, scale: 1, opacity: 1 }}
             exit={{ y: 16, scale: 0.98, opacity: 0 }}
@@ -67,7 +67,7 @@ export default function ProjectModal({ open, onClose, project }: Props) {
               ref={closeRef}
               aria-label="Close"
               onClick={onClose}
-              className="absolute right-4 top-4 z-10 rounded-lg p-2 text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+              className="absolute right-4 top-4 z-10 rounded-lg p-2 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors dark:text-neutral-400 dark:hover:text-white dark:hover:bg-white/10"
             >
               <X className="h-5 w-5" />
             </button>
