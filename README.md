@@ -1,17 +1,21 @@
-# Jason Tieu - Portfolio Website
+# Hanami - University Tracker
 
-A modern, professional portfolio website built with Next.js, TypeScript, Tailwind CSS, and Framer Motion. Showcasing expertise in embedded systems, AI/ML, and software engineering.
+A comprehensive university tracker built with Next.js, TypeScript, Tailwind CSS, and Framer Motion. Manage your academic journey with course tracking, assignment management, and study planning.
 
 ## 🚀 Features
 
+- **Dashboard**: Overview of assignments, exams, and academic progress
+- **Course Management**: Track enrolled courses and academic information
+- **Assignment Tracking**: Manage assignments with due dates and status
+- **Exam Scheduler**: View exam timetables and locations
+- **Grade Tracking**: Monitor academic performance and GPA
+- **Study Planner**: Plan study sessions and track learning progress
+- **Calendar Integration**: Sync with external calendar systems
+- **Notifications**: Stay updated with important academic alerts
+- **Resource Management**: Organize course materials and links
 - **Modern Design**: Clean, minimal design with dark mode support
 - **Responsive**: Fully responsive across all devices
 - **Performance**: Optimized for speed with static export
-- **Accessibility**: WCAG AA+ compliant with proper semantic HTML
-- **SEO Optimized**: Meta tags, sitemap, and structured data
-- **Content Management**: MDX-based content system for easy editing
-- **Animations**: Smooth animations with Framer Motion
-- **Security**: Security headers and CSP configuration
 
 ## 🛠️ Tech Stack
 
@@ -28,8 +32,8 @@ A modern, professional portfolio website built with Next.js, TypeScript, Tailwin
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/jasontieu/portfolio.git
-   cd portfolio
+   git clone https://github.com/username/hanami.git
+   cd hanami
    ```
 
 2. **Install dependencies**
@@ -82,63 +86,22 @@ npm run build
 2. Connect your repository to Vercel
 3. Deploy automatically
 
-## 📝 Adding Content
+## 📝 Usage
 
-### Adding a New Project
+### Getting Started
 
-1. **Create a new MDX file** in `content/projects/`
+1. **Add Your Courses**: Navigate to the Courses page and add your enrolled courses
+2. **Create Assignments**: Add assignments with due dates and track their progress
+3. **Schedule Exams**: Input exam dates, times, and locations
+4. **Track Grades**: Monitor your academic performance and GPA
+5. **Plan Study Sessions**: Use the study planner to organize your learning
+6. **Sync Calendar**: Connect with external calendar systems for seamless integration
 
-   ```bash
-   touch content/projects/my-new-project.mdx
-   ```
+### Data Management
 
-2. **Add frontmatter** to the file:
-
-   ```mdx
-   ---
-   title: 'My New Project'
-   date: '2024-01-15'
-   excerpt: 'Brief description of the project'
-   tech: ['React', 'TypeScript', 'Node.js']
-   links:
-     github: 'https://github.com/username/repo'
-     demo: 'https://demo-url.com'
-   coverImage: '/images/project-image.svg'
-   featured: true
-   category: 'Web Development'
-   ---
-
-   # My New Project
-
-   Your project content here...
-   ```
-
-3. **Add a cover image** to `public/images/`
-
-### Adding a Blog Post
-
-1. **Create a new MDX file** in `content/posts/`
-
-   ```bash
-   touch content/posts/my-blog-post.mdx
-   ```
-
-2. **Add frontmatter**:
-
-   ```mdx
-   ---
-   title: 'My Blog Post'
-   date: '2024-01-15'
-   excerpt: 'Brief description of the post'
-   tags: ['AI', 'Machine Learning', 'Technology']
-   coverImage: '/images/blog-image.svg'
-   featured: false
-   ---
-
-   # My Blog Post
-
-   Your blog content here...
-   ```
+- **Export Data**: Download your data as JSON from Settings
+- **Import Data**: Import data from other university tracking systems
+- **Backup**: Regular backups ensure your data is safe
 
 ## 🎨 Customization
 
@@ -227,31 +190,31 @@ To add Google Analytics, uncomment the configuration in `src/app/layout.tsx` and
 ## 📁 Project Structure
 
 ```
-portfolio/
+hanami/
 ├── src/
 │   ├── app/
-│   │   ├── (routes)/
-│   │   │   ├── about/
-│   │   │   ├── contact/
-│   │   │   ├── experience/
-│   │   │   ├── projects/
-│   │   │   └── layout.tsx
+│   │   ├── courses/
+│   │   ├── assignments/
+│   │   ├── exams/
+│   │   ├── grades/
+│   │   ├── timetable/
+│   │   ├── calendar/
+│   │   ├── planner/
+│   │   ├── resources/
+│   │   ├── integrations/
+│   │   ├── notifications/
+│   │   ├── settings/
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   └── page.tsx
 │   ├── components/
 │   │   ├── ui/
-│   │   ├── header.tsx
-│   │   ├── footer.tsx
-│   │   ├── project-card.tsx
+│   │   ├── shell/
 │   │   └── ...
 │   └── lib/
-│       ├── mdx.ts
-│       ├── projects.ts
+│       ├── types.ts
+│       ├── mock.ts
 │       └── utils.ts
-├── content/
-│   ├── projects/
-│   └── posts/
 ├── public/
 │   └── images/
 ├── next.config.ts
@@ -296,12 +259,6 @@ Security features include:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📞 Contact
-
-- **Email**: jason.tieu04@gmail.com
-- **GitHub**: [@jasontieu](https://github.com/jasontieu)
-- **LinkedIn**: [Jason Tieu](https://linkedin.com/in/jasontieu)
-
 ## 🙏 Acknowledgments
 
 - [Next.js](https://nextjs.org/) - React framework
@@ -312,4 +269,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Built with ❤️ by Jason Tieu
+Built with ❤️ for students everywhere

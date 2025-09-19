@@ -3,20 +3,35 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, MotionConfig } from 'framer-motion';
-import { Home, FolderOpen, Briefcase, User, Mail, Github, Linkedin } from 'lucide-react';
+import { 
+  LayoutDashboard, 
+  BookOpen, 
+  ClipboardList, 
+  Calendar, 
+  Clock, 
+  TrendingUp, 
+  Megaphone, 
+  CalendarDays, 
+  BookMarked, 
+  Link as LinkIcon, 
+  Bell, 
+  Settings 
+} from 'lucide-react';
 
 const navigation = [
-  { name: 'Home', href: '/', icon: Home },
-  { name: 'Projects', href: '/projects', icon: FolderOpen },
-  { name: 'Experience', href: '/experience', icon: Briefcase },
-  { name: 'About', href: '/about', icon: User },
-  { name: 'Contact', href: '/contact', icon: Mail },
-];
-
-const socialLinks = [
-  { name: 'GitHub', href: 'https://github.com/jason-tieu', icon: Github },
-  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/jason-tieu-engineer/', icon: Linkedin },
-  { name: 'Email', href: 'mailto:jason.tieu04@gmail.com', icon: Mail },
+  { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+  { name: 'Courses', href: '/courses', icon: BookOpen },
+  { name: 'Assignments', href: '/assignments', icon: ClipboardList },
+  { name: 'Exams', href: '/exams', icon: Calendar },
+  { name: 'Timetable', href: '/timetable', icon: Clock },
+  { name: 'Grades & Progress', href: '/grades', icon: TrendingUp },
+  { name: 'Announcements', href: '/announcements', icon: Megaphone },
+  { name: 'Calendar', href: '/calendar', icon: CalendarDays },
+  { name: 'Study Planner', href: '/planner', icon: BookMarked },
+  { name: 'Resources', href: '/resources', icon: LinkIcon },
+  { name: 'Integrations', href: '/integrations', icon: LinkIcon },
+  { name: 'Notifications', href: '/notifications', icon: Bell },
+  { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
 const normalize = (p: string) => (p.endsWith('/') && p !== '/' ? p.slice(0, -1) : p);
@@ -82,12 +97,12 @@ export function Sidebar() {
           <div className="flex items-center px-4">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-brand rounded-lg flex items-center justify-center">
-                <span className="text-brand-foreground font-bold text-sm">JT</span>
+                <span className="text-brand-foreground font-bold text-sm">🌸</span>
               </div>
               <div>
-                <h1 className="text-xl font-bold">Jason Tieu</h1>
+                <h1 className="text-xl font-bold">Hanami</h1>
                 <p className="text-sm text-muted-foreground">
-                  Full-Stack Development • Cloud & DevOps • AI/ML
+                  University Tracker • Academic Planner
                 </p>
               </div>
             </div>
@@ -133,21 +148,20 @@ export function Sidebar() {
             </MotionConfig>
           </nav>
 
-          {/* Social */}
+          {/* Quick Stats */}
           <div className="flex-shrink-0 px-2 py-4">
-            <div className="flex space-x-2">
-              {socialLinks.map(item => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center h-10 w-10 rounded-lg bg-sidebar-accent text-sidebar-foreground hover:text-brand hover:bg-sidebar-primary transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] dark:bg-white/5 dark:text-muted-foreground dark:hover:bg-brand/10"
-                >
-                  <item.icon className="h-5 w-5" />
-                  <span className="sr-only">{item.name}</span>
-                </a>
-              ))}
+            <div className="bg-sidebar-accent/50 rounded-lg p-3 space-y-2">
+              <div className="text-xs text-muted-foreground">Quick Stats</div>
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                <div>
+                  <div className="font-semibold text-brand">3</div>
+                  <div className="text-xs text-muted-foreground">Due Soon</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-brand">1</div>
+                  <div className="text-xs text-muted-foreground">Exams</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

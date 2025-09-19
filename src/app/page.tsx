@@ -1,183 +1,185 @@
 'use client';
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { Github, Download, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { Calendar, Clock, TrendingUp, BookOpen, AlertCircle } from 'lucide-react';
+import { mockDashboardStats, mockUpcomingItems } from '@/lib/mock';
 import SectionWrapper from '@/components/SectionWrapper';
 import UIButton from '@/components/UIButton';
-import AccentButton from '@/components/AccentButton';
-import dynamic from 'next/dynamic';
-import { Suspense, memo } from 'react';
-import { GridSkeleton, CardSkeleton } from '@/components/Skeleton';
 
-const SakuraCanvas = dynamic(() => import('@/components/SakuraCanvas'), {
-  ssr: false,
-  loading: () => null,
-});
+export default function Dashboard() {
+  const [stats] = useState(mockDashboardStats);
+  const [upcomingItems] = useState(mockUpcomingItems);
 
-const LazySkillsSection = dynamic(() => import('@/components/SkillsSection'), {
-  loading: () => <div className="h-96 bg-muted/5 rounded-2xl animate-pulse" />,
-});
+  const formatDate = (date: Date) => {
+    return new Intl.DateTimeFormat('en-AU', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    }).format(date);
+  };
 
-const LazyFeaturedProjects = dynamic(() => import('@/components/FeaturedProjects'), {
-  loading: () => <div className="h-64 bg-muted/5 rounded-2xl animate-pulse" />,
-});
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'high': return 'text-red-500';
+      case 'medium': return 'text-yellow-500';
+      case 'low': return 'text-green-500';
+      default: return 'text-muted-foreground';
+    }
+  };
 
-const Home = memo(function Home() {
   return (
     <main className="relative">
-      {/* HERO */}
       <SectionWrapper className="overflow-hidden">
-        <SakuraCanvas enabled density={0.85} hue={345} opacity={0.18} />
         <div className="relative z-20 mx-auto max-w-6xl px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
-                  Hi, I&apos;m{' '}
-                  <span className="bg-gradient-to-r from-foreground to-brand bg-clip-text text-transparent">
-                    Jason Tieu
-                  </span>
-                </h1>
-                <p className="text-xl text-muted-foreground leading-relaxed">
-                  Full-Stack Development • Cloud & DevOps • AI/ML
-                </p>
-                <p className="text-lg text-muted-foreground">
-                  I specialize in building full-stack applications, deploying scalable cloud
-                  systems, and delivering applied AI/ML solutions. Passionate about clean
-                  architecture, real-time performance, and creating software that solves real
-                  problems.
-                </p>
-              </div>
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
+              Welcome back! 👋
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Here&apos;s what&apos;s happening with your academic journey today.
+            </p>
+          </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <UIButton asChild variant="primary" className="text-lg px-8 py-6">
-                  <Link href="/projects" className="flex items-center gap-2">
-                    View Projects
-                    <ArrowRight className="h-5 w-5" />
-                  </Link>
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">Upcoming Assignments</p>
+                  <p className="text-2xl font-bold text-foreground">{stats.upcomingAssignments}</p>
+                </div>
+                <BookOpen className="h-8 w-8 text-brand" />
+              </div>
+            </div>
+
+            <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">Overdue</p>
+                  <p className="text-2xl font-bold text-foreground">{stats.overdueAssignments}</p>
+                </div>
+                <AlertCircle className="h-8 w-8 text-red-500" />
+              </div>
+            </div>
+
+            <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">Upcoming Exams</p>
+                  <p className="text-2xl font-bold text-foreground">{stats.upcomingExams}</p>
+                </div>
+                <Calendar className="h-8 w-8 text-brand" />
+              </div>
+            </div>
+
+            <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">Current GPA</p>
+                  <p className="text-2xl font-bold text-foreground">{stats.currentGPA?.toFixed(1) || 'N/A'}</p>
+                </div>
+                <TrendingUp className="h-8 w-8 text-green-500" />
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Upcoming Items */}
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-foreground">Due Soon</h2>
+                <UIButton variant="secondary" className="text-sm px-3 py-1">
+                  View All
                 </UIButton>
-                <AccentButton asChild variant="secondary" className="text-lg px-8 py-6">
-                  <Link href="https://github.com/jason-tieu" className="flex items-center gap-2">
-                    <Github className="h-5 w-5" />
-                    GitHub
-                  </Link>
-                </AccentButton>
               </div>
+              
+              <div className="space-y-3">
+                {upcomingItems.map((item) => (
+                  <div key={item.id} className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-4 hover:bg-card/70 transition-colors">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className={`text-xs font-medium ${getPriorityColor(item.priority)}`}>
+                            {item.priority.toUpperCase()}
+                          </span>
+                          <span className="text-xs text-muted-foreground">{item.courseCode}</span>
+                        </div>
+                        <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
+                        <p className="text-sm text-muted-foreground">
+                          {formatDate(item.dueAt)} • {item.type}
+                        </p>
+                      </div>
+                      <div className="ml-4">
+                        {item.type === 'assignment' ? (
+                          <BookOpen className="h-5 w-5 text-muted-foreground" />
+                        ) : (
+                          <Calendar className="h-5 w-5 text-muted-foreground" />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-              <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                <UIButton asChild variant="secondary" className="text-sm px-3 py-1">
-                  <Link href="/resume.pdf" className="flex items-center gap-2">
-                    <Download className="h-4 w-4" />
-                    Download Resume
-                  </Link>
+            {/* Today's Schedule */}
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-foreground">Today&apos;s Schedule</h2>
+                <UIButton variant="secondary" className="text-sm px-3 py-1">
+                  View Calendar
                 </UIButton>
-                <span>•</span>
-                <span>Available for opportunities</span>
+              </div>
+              
+              <div className="space-y-3">
+                <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-brand rounded-full"></div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-foreground">COMP3506 Lecture</h3>
+                      <p className="text-sm text-muted-foreground">10:00 AM - 11:00 AM</p>
+                    </div>
+                    <Clock className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                </div>
+                
+                <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-foreground">Study Group - Algorithms</h3>
+                      <p className="text-sm text-muted-foreground">6:00 PM - 8:00 PM</p>
+                    </div>
+                    <Clock className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                </div>
               </div>
             </div>
-
-            <div className="relative">
-              <div className="relative w-full h-96 lg:h-[500px] rounded-2xl overflow-hidden bg-gradient-to-br from-brand/20 to-accent-brand/20 border-4 border-brand">
-                <Image
-                  src="/images/avatar.webp"
-                  alt="Jason Tieu"
-                  fill
-                  className="object-cover"
-                  priority
-                  fetchPriority="high"
-                  quality={90}
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
-              {/* Top-left partial rounded corner */}
-              <div className="absolute -top-3 -left-3 w-4 h-4 bg-background rounded-tl-lg" />
-              {/* Bottom-right partial rounded corner */}
-              <div className="absolute -bottom-3 -right-3 w-4 h-4 bg-background rounded-br-lg" />
-            </div>
           </div>
-        </div>
-      </SectionWrapper>
 
-      {/* TECHNICAL SKILLS */}
-      <SectionWrapper id="skills">
-        <div className="relative z-10 mx-auto max-w-6xl px-6">
-          <div className="text-center space-y-12">
-            <div className="space-y-4">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground">Technical Skills</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Expertise across embedded systems, AI/ML, cloud architecture, and software
-                engineering
-              </p>
-            </div>
-
-            <Suspense fallback={<GridSkeleton items={4} />}>
-              <LazySkillsSection />
-            </Suspense>
-          </div>
-        </div>
-      </SectionWrapper>
-
-      {/* Featured Projects Section */}
-      <SectionWrapper>
-        <div className="relative z-10 mx-auto max-w-6xl px-6">
-          <div className="space-y-12">
-            <div className="text-center space-y-4">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground">Featured Projects</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Highlighting some of my most impactful work in embedded systems and AI/ML
-              </p>
-            </div>
-
-            <Suspense fallback={<CardSkeleton className="h-64" />}>
-              <LazyFeaturedProjects />
-            </Suspense>
-
-            <div className="text-center">
-              <UIButton asChild variant="primary" className="text-lg px-8 py-6">
-                <Link href="/projects" className="flex items-center gap-2">
-                  View All Projects
-                  <ArrowRight className="h-5 w-5" />
-                </Link>
+          {/* Quick Actions */}
+          <div className="mt-8">
+            <h2 className="text-2xl font-bold text-foreground mb-6">Quick Actions</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <UIButton variant="primary" className="h-16 flex items-center justify-center gap-2">
+                <BookOpen className="h-5 w-5" />
+                Add Assignment
               </UIButton>
-            </div>
-          </div>
-        </div>
-      </SectionWrapper>
-
-      {/* CTA Section */}
-      <SectionWrapper>
-        <div className="relative z-10 mx-auto max-w-6xl px-6">
-          <div className="text-center space-y-8">
-            <div className="space-y-4">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-                Let&apos;s Work Together
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                I&apos;m always interested in new opportunities and exciting projects. Let&apos;s
-                discuss how we can collaborate!
-              </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <UIButton asChild variant="primary" className="text-lg px-8 py-6">
-                <Link href="/contact" className="flex items-center gap-2">
-                  Get In Touch
-                  <ArrowRight className="h-5 w-5" />
-                </Link>
+              <UIButton variant="secondary" className="h-16 flex items-center justify-center gap-2">
+                <Calendar className="h-5 w-5" />
+                Schedule Study Session
               </UIButton>
-              <AccentButton asChild variant="secondary" className="text-lg px-8 py-6">
-                <Link href="/experience" className="flex items-center gap-2">
-                  View Experience
-                  <ArrowRight className="h-5 w-5" />
-                </Link>
-              </AccentButton>
+              <UIButton variant="secondary" className="h-16 flex items-center justify-center gap-2">
+                <TrendingUp className="h-5 w-5" />
+                View Grades
+              </UIButton>
             </div>
           </div>
         </div>
       </SectionWrapper>
     </main>
   );
-});
-
-export default Home;
+}
