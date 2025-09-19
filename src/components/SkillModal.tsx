@@ -53,7 +53,7 @@ export default function SkillModal({ open, onClose, title, subtitle, icon, bulle
             role="dialog"
             aria-modal="true"
             aria-label={`${title} details`}
-            className="relative z-10 w-full max-w-lg rounded-2xl bg-card border border-border shadow-2xl p-6 dark:bg-[#0B0B0D] dark:border-white/10"
+            className="relative z-10 w-full max-w-lg rounded-2xl bg-card border border-border/80 shadow-2xl p-6 dark:bg-[#0B0B0D] dark:border-white/20"
             initial={{ y: 16, scale: 0.98, opacity: 0 }}
             animate={{ y: 0, scale: 1, opacity: 1 }}
             exit={{ y: 16, scale: 0.98, opacity: 0 }}
@@ -93,7 +93,7 @@ export default function SkillModal({ open, onClose, title, subtitle, icon, bulle
               {tags.map(t => (
                 <span
                   key={t}
-                  className="text-xs px-2 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300"
+                  className="text-xs px-2 py-1 rounded-full bg-slate-100 border border-slate-300 text-slate-700 dark:bg-white/10 dark:border-white/20 dark:text-slate-300"
                 >
                   {t}
                 </span>

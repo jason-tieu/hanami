@@ -109,7 +109,7 @@ export default function SkillCard({ skill }: { skill: Skill }) {
         whileHover={hoverEnabled ? { y: -4, scale: 1.015 } : {}}
         whileTap={{ scale: 0.985 }}
         transition={{ type: 'spring', stiffness: 300, damping: 22, mass: 0.7 }}
-        className="skill-card group relative w-full rounded-2xl border border-border bg-card/50 px-5 py-6 text-left outline-none focus-visible:ring-2 focus-visible:ring-accent-pink dark:border-white/10 dark:bg-white/5"
+        className="skill-card group relative w-full rounded-2xl border border-border/80 bg-card/50 px-5 py-6 text-left outline-none focus-visible:ring-2 focus-visible:ring-accent-pink dark:border-white/20 dark:bg-white/5"
       >
         {/* ripple overlay */}
         <span className="skill-ripple-host" />
@@ -137,8 +137,8 @@ export default function SkillCard({ skill }: { skill: Skill }) {
           <motion.p
             className="text-xs"
             animate={{
-              color: hovered && hoverEnabled ? 'rgba(255, 75, 138, 0.9)' : theme === 'dark' ? 'rgb(156, 163, 175)' : 'rgb(107, 114, 128)',
-            }} // ~text-neutral-400 for dark, ~text-gray-500 for light
+              color: hovered && hoverEnabled ? 'rgba(255, 75, 138, 0.9)' : theme === 'dark' ? 'rgb(203, 213, 225)' : 'rgb(71, 85, 105)',
+            }} // ~text-slate-300 for dark, ~text-slate-600 for light (higher contrast)
             transition={{ duration: 0.18, ease: 'easeOut' }}
           >
             {skill.subtitle}

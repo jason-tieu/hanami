@@ -34,10 +34,13 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <UIButton variant="ghost" className="h-14 w-14 p-0 border border-border/120 dark:border-white/40">
+      <button
+        type="button"
+        className="h-14 w-14 p-0 border border-border/120 dark:border-white/40 bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-2xl cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] backdrop-blur-sm min-h-[44px] relative inline-flex items-center justify-center dark:bg-white/5 dark:text-neutral-200 dark:hover:bg-white/10 dark:border-white/10 dark:hover:border-white/20"
+      >
         <div className="h-6 w-6" />
         <span className="sr-only">Toggle theme</span>
-      </UIButton>
+      </button>
     );
   }
 
@@ -98,9 +101,9 @@ export function ThemeToggle() {
               mass: 1.2,
             }}
           >
-            <UIButton
-              variant="ghost"
-              className="h-14 w-14 p-0 border border-border/120 dark:border-white/40"
+            <button
+              type="button"
+              className="h-14 w-14 p-0 border border-border/120 dark:border-white/40 bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-2xl cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] backdrop-blur-sm min-h-[44px] relative inline-flex items-center justify-center dark:bg-white/5 dark:text-neutral-200 dark:hover:bg-white/10 dark:border-white/10 dark:hover:border-white/20"
               onClick={cycleTheme}
               aria-label={getLabel()}
             >
@@ -117,7 +120,7 @@ export function ThemeToggle() {
                 {getIcon()}
               </motion.div>
               <span className="sr-only">{getLabel()}</span>
-            </UIButton>
+            </button>
           </motion.div>
         </TooltipTrigger>
         <TooltipContent>

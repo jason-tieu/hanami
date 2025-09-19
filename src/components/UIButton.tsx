@@ -31,7 +31,7 @@ export default function UIButton({
     secondary:
       'bg-brand text-white hover:bg-secondary hover:text-black shadow-lg shadow-brand/25 hover:shadow-xl hover:shadow-secondary/40 dark:hover:bg-white dark:hover:text-black dark:hover:shadow-white/40 hover:scale-[1.02] border-0',
     ghost:
-      'bg-muted text-muted-foreground hover:bg-accent border-border hover:border-accent-pink/60 hover:border-accent-foreground shadow-sm hover:shadow-lg hover:shadow-accent-pink/25 dark:bg-white/5 dark:text-neutral-200 dark:hover:bg-white/10 dark:border-white/10 dark:hover:border-white/20 dark:hover:shadow-accent-pink/25 hover:scale-[1.02]',
+      'bg-muted text-muted-foreground hover:bg-accent border-border hover:border-accent-foreground shadow-sm hover:shadow-md dark:bg-white/5 dark:text-neutral-200 dark:hover:bg-white/10 dark:border-white/10 dark:hover:border-white/20 hover:scale-[1.02]',
   } as const;
 
   // Shared ripple
