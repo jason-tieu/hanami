@@ -35,35 +35,46 @@ export function ThemeToggle() {
   if (!mounted) {
     return (
       <UIButton variant="ghost" className="h-14 w-14 p-0 border border-border/120 dark:border-white/40">
-        <Sun className="h-6 w-6" />
+        <div className="h-6 w-6" />
         <span className="sr-only">Toggle theme</span>
       </UIButton>
     );
   }
 
   const cycleTheme = () => {
-    if (theme === 'system') {
-      setTheme('light');
-    } else if (theme === 'light') {
-      setTheme('dark');
-    } else {
-      setTheme('system');
-    }
+    // Add a brief fade effect during theme transition
+    const body = document.body;
+    body.style.transition = 'opacity 0.2s ease-in-out';
+    body.style.opacity = '0.7';
+    
+    setTimeout(() => {
+      if (theme === 'light') {
+        setTheme('dark');
+      } else {
+        setTheme('light');
+      }
+      
+      // Fade back in
+      setTimeout(() => {
+        body.style.opacity = '1';
+        setTimeout(() => {
+          body.style.transition = '';
+        }, 200);
+      }, 50);
+    }, 100);
   };
 
   const getIcon = () => {
     // Show current mode: Sun for light, Moon for dark
-    return theme === 'dark' ? <Moon className="h-6 w-6" /> : <Sun className="h-6 w-6" />;
+    // Default to Sun if theme is undefined or system
+    if (theme === 'dark') {
+      return <Moon className="h-6 w-6" />;
+    }
+    return <Sun className="h-6 w-6" />;
   };
 
   const getLabel = () => {
-    if (theme === 'dark') {
-      return 'Switch to system mode';
-    } else if (theme === 'light') {
-      return 'Switch to dark mode';
-    } else {
-      return 'Switch to light mode';
-    }
+    return theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
   };
 
   // Calculate bobbing animation based on scroll with inertia
