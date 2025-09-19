@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Experience — Full-Stack & AI Engineering Career',
   description:
-    'Explore Jason Tieu\'s professional experience in full-stack development, AI/ML engineering, embedded systems, and cloud architecture. Career highlights and technical expertise.',
+    "Explore Jason Tieu's professional experience in full-stack development, AI/ML engineering, embedded systems, and cloud architecture. Career highlights and technical expertise.",
   keywords: [
     'Jason Tieu experience',
     'full-stack developer experience',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Experience — Full-Stack & AI Engineering Career',
     description:
-      'Explore Jason Tieu\'s professional experience in full-stack development, AI/ML engineering, embedded systems, and cloud architecture. Career highlights and technical expertise.',
+      "Explore Jason Tieu's professional experience in full-stack development, AI/ML engineering, embedded systems, and cloud architecture. Career highlights and technical expertise.",
     url: '/experience',
     images: [
       {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   twitter: {
     title: 'Experience — Full-Stack & AI Engineering Career',
     description:
-      'Explore Jason Tieu\'s professional experience in full-stack development, AI/ML engineering, embedded systems, and cloud architecture. Career highlights and technical expertise.',
+      "Explore Jason Tieu's professional experience in full-stack development, AI/ML engineering, embedded systems, and cloud architecture. Career highlights and technical expertise.",
     images: ['/og.svg'],
   },
   alternates: {
@@ -41,10 +41,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ExperienceLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ExperienceLayout({ children }: { children: React.ReactNode }) {
   return children;
 }

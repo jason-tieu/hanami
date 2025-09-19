@@ -2,8 +2,17 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-// import { motion, AnimatePresence } from "framer-motion";
-import { Menu, Home, FolderOpen, Briefcase, User, Mail, Github, Linkedin, Download } from 'lucide-react';
+import {
+  Menu,
+  Home,
+  FolderOpen,
+  Briefcase,
+  User,
+  Mail,
+  Github,
+  Linkedin,
+  Download,
+} from 'lucide-react';
 import UIButton from '@/components/UIButton';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
@@ -85,7 +94,9 @@ export function MobileNav() {
                     >
                       <item.icon
                         className={`mr-3 h-6 w-6 flex-shrink-0 transition-colors ${
-                          isActive ? 'text-brand' : 'text-muted-foreground group-hover:text-brand dark:text-neutral-400'
+                          isActive
+                            ? 'text-brand'
+                            : 'text-muted-foreground group-hover:text-brand dark:text-neutral-400'
                         }`}
                       />
                       <span className="font-semibold">{item.name}</span>

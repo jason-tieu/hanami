@@ -4,7 +4,6 @@ import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import UIButton from '@/components/UIButton';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 export function ThemeToggle() {
@@ -21,8 +20,7 @@ export function ThemeToggle() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      const scrollSpeed = Math.abs(currentScrollY - lastScrollY.current);
-      
+
       setScrollY(currentScrollY);
       setScrollDirection(currentScrollY > lastScrollY.current ? 'down' : 'up');
       lastScrollY.current = currentScrollY;
@@ -49,14 +47,14 @@ export function ThemeToggle() {
     const body = document.body;
     body.style.transition = 'opacity 0.2s ease-in-out';
     body.style.opacity = '0.7';
-    
+
     setTimeout(() => {
       if (theme === 'light') {
         setTheme('dark');
       } else {
         setTheme('light');
       }
-      
+
       // Fade back in
       setTimeout(() => {
         body.style.opacity = '1';
@@ -95,7 +93,7 @@ export function ThemeToggle() {
               y: bobOffset,
             }}
             transition={{
-              type: "spring",
+              type: 'spring',
               stiffness: 200,
               damping: 15,
               mass: 1.2,
@@ -109,11 +107,12 @@ export function ThemeToggle() {
             >
               <motion.div
                 animate={{
-                  rotate: scrollDirection === 'down' ? rotationIntensity * 8 : -rotationIntensity * 6,
+                  rotate:
+                    scrollDirection === 'down' ? rotationIntensity * 8 : -rotationIntensity * 6,
                 }}
                 transition={{
                   duration: 0.4,
-                  ease: "easeOut",
+                  ease: 'easeOut',
                 }}
                 className="relative z-10"
               >

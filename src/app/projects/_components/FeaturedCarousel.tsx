@@ -35,12 +35,7 @@ export function FeaturedCarousel({ items }: { items: Project[] }) {
               className="absolute inset-0"
             >
               {current?.image && (
-                <Image
-                  src={current.image}
-                  alt={current.title}
-                  fill
-                  className="object-cover"
-                />
+                <Image src={current.image} alt={current.title} fill className="object-cover" />
               )}
             </motion.div>
           </AnimatePresence>

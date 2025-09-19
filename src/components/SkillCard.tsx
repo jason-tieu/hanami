@@ -16,7 +16,7 @@ export default function SkillCard({ skill }: { skill: Skill }) {
   const [hoverEnabled, setHoverEnabled] = React.useState(true);
   const buttonRef = React.useRef<HTMLButtonElement>(null);
   const Icon = skill.icon;
-  
+
   // Get the appropriate base color based on theme
   const baseColor = theme === 'dark' ? BASE_DARK : BASE_LIGHT;
 
@@ -137,7 +137,12 @@ export default function SkillCard({ skill }: { skill: Skill }) {
           <motion.p
             className="text-xs"
             animate={{
-              color: hovered && hoverEnabled ? 'rgba(255, 75, 138, 0.9)' : theme === 'dark' ? 'rgb(203, 213, 225)' : 'rgb(71, 85, 105)',
+              color:
+                hovered && hoverEnabled
+                  ? 'rgba(255, 75, 138, 0.9)'
+                  : theme === 'dark'
+                    ? 'rgb(203, 213, 225)'
+                    : 'rgb(71, 85, 105)',
             }} // ~text-slate-300 for dark, ~text-slate-600 for light (higher contrast)
             transition={{ duration: 0.18, ease: 'easeOut' }}
           >

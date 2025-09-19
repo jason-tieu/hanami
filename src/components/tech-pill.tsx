@@ -13,7 +13,7 @@ const variantStyles = {
   outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
   brand: 'bg-brand text-brand-foreground hover:bg-brand/90',
   accent: 'bg-accent-brand text-accent-brand-foreground hover:bg-accent-brand/90',
-};
+} as const;
 
 export function TechPill({ children, variant = 'secondary', className }: TechPillProps) {
   return (

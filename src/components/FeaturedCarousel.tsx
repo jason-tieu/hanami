@@ -101,11 +101,15 @@ export default function FeaturedCarousel({ projects, className = '' }: FeaturedC
                 <h3 className="text-2xl md:text-3xl font-bold text-foreground">
                   {currentProject.title}
                 </h3>
-                <p className="text-muted-foreground text-sm md:text-base">{currentProject.tagline}</p>
+                <p className="text-muted-foreground text-sm md:text-base">
+                  {currentProject.tagline}
+                </p>
               </div>
 
               {/* Description */}
-              <p className="text-muted-foreground text-sm leading-relaxed">{currentProject.description}</p>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {currentProject.description}
+              </p>
 
               {/* Tech Stack */}
               <div className="space-y-2">
@@ -193,7 +197,9 @@ export default function FeaturedCarousel({ projects, className = '' }: FeaturedC
               key={index}
               onClick={() => goToSlide(index)}
               className={`h-2 rounded-full transition-all ${
-                index === currentIndex ? 'w-8 bg-brand' : 'w-2 bg-muted hover:bg-accent dark:bg-white/30 dark:hover:bg-white/60'
+                index === currentIndex
+                  ? 'w-8 bg-brand'
+                  : 'w-2 bg-muted hover:bg-accent dark:bg-white/30 dark:hover:bg-white/60'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

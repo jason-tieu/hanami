@@ -111,7 +111,7 @@ export default function RootLayout({
 
         {/* Preload hero image */}
         <link rel="preload" as="image" href="/images/avatar.webp" />
-        
+
         {/* JSON-LD Structured Data */}
         <script
           type="application/ld+json"
@@ -123,16 +123,14 @@ export default function RootLayout({
               url: 'https://jason-tieu.dev',
               image: 'https://jason-tieu.dev/images/avatar.jpg',
               jobTitle: 'Full-Stack & AI Engineer',
-              description: 'Brisbane-based full-stack & AI engineer building production-ready web apps and applied computer vision.',
+              description:
+                'Brisbane-based full-stack & AI engineer building production-ready web apps and applied computer vision.',
               address: {
                 '@type': 'PostalAddress',
                 addressLocality: 'Brisbane',
                 addressCountry: 'AU',
               },
-              sameAs: [
-                'https://github.com/jason-tieu',
-                'https://linkedin.com/in/jason-tieu',
-              ],
+              sameAs: ['https://github.com/jason-tieu', 'https://linkedin.com/in/jason-tieu'],
               knowsAbout: [
                 'Next.js',
                 'Node.js',
@@ -152,7 +150,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${geistMono.variable} bg-background text-foreground antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
           <Shell>{children}</Shell>
           {/* Floating Theme Toggle */}
           <div className="fixed bottom-6 right-6 z-50">

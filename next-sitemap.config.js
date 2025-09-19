@@ -17,7 +17,7 @@ module.exports = {
     // Custom transform for each URL
     const priority = path === '/' ? 1.0 : path.includes('/projects') ? 0.9 : 0.8;
     const changefreq = path === '/' ? 'weekly' : 'monthly';
-    
+
     return {
       loc: path,
       changefreq,

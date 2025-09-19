@@ -150,7 +150,9 @@ const Home = memo(function Home() {
         <div className="relative z-10 mx-auto max-w-6xl px-6">
           <div className="text-center space-y-8">
             <div className="space-y-4">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground">Let&apos;s Work Together</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+                Let&apos;s Work Together
+              </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 I&apos;m always interested in new opportunities and exciting projects. Let&apos;s
                 discuss how we can collaborate!
