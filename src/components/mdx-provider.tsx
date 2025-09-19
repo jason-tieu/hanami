@@ -44,7 +44,10 @@ const components = {
   ),
   ul: ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
     <ul
-      className={cn('space-y-2 mb-4 text-muted-foreground [&>li]:flex [&>li]:items-start [&>li]:gap-2 [&>li]:before:content-["•"] [&>li]:before:text-brand [&>li]:before:mt-1.5 [&>li]:before:text-sm', className)}
+      className={cn(
+        'space-y-2 mb-4 text-muted-foreground [&>li]:flex [&>li]:items-start [&>li]:gap-2 [&>li]:before:content-["•"] [&>li]:before:text-brand [&>li]:before:mt-1.5 [&>li]:before:text-sm',
+        className,
+      )}
       {...props}
     />
   ),
