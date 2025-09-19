@@ -3,12 +3,14 @@ import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ExternalLink, Github, FileText } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import { TechPill } from '@/components/tech-pill';
 import ProjectModal from '@/components/ProjectModal';
 import type { Project } from '@/components/projects.data';
 
 const ACCENT = 'rgb(255, 75, 138)';
-const BASE = 'rgb(0, 0, 0)'; // Default to black for light mode
+const BASE_LIGHT = 'rgb(0, 0, 0)'; // Black for light mode
+const BASE_DARK = 'rgb(255, 255, 255)'; // White for dark mode
 
 const ProjectCard = memo(function ProjectCard({
   project,
@@ -19,10 +21,13 @@ const ProjectCard = memo(function ProjectCard({
   autoOpen?: boolean;
   onAutoOpenComplete?: () => void;
 }) {
+  const { theme } = useTheme();
   const [open, setOpen] = React.useState(false);
   const [hovered, setHovered] = React.useState(false);
   const [hoverEnabled, setHoverEnabled] = React.useState(true);
   const buttonRef = React.useRef<HTMLButtonElement>(null);
+
+  const baseColor = theme === 'dark' ? BASE_DARK : BASE_LIGHT;
 
   // Hotspot writer
   const setHoverVars = (el: HTMLElement, x: number, y: number, show = true) => {
@@ -144,7 +149,7 @@ const ProjectCard = memo(function ProjectCard({
         {/* Featured Badge */}
         {project.featured && (
           <div className="absolute top-3 right-3">
-            <TechPill variant="brand" className="text-xs text-brand-foreground">
+            <TechPill variant="brand" className="text-xs text-white dark:text-white">
               Featured
             </TechPill>
           </div>
@@ -155,7 +160,7 @@ const ProjectCard = memo(function ProjectCard({
           <div>
             <motion.h3
               className="font-semibold text-lg"
-              animate={{ color: hovered && hoverEnabled ? ACCENT : BASE }}
+              animate={{ color: hovered && hoverEnabled ? ACCENT : baseColor }}
               transition={{ duration: 0.18, ease: 'easeOut' }}
             >
               {project.title}

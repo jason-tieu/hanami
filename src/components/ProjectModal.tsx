@@ -96,7 +96,7 @@ export default function ProjectModal({ open, onClose, project }: Props) {
             <div className="p-6 space-y-6">
               {/* Header */}
               <div className="space-y-3">
-                <div className="flex items-center gap-2 text-sm text-neutral-400">
+                <div className="flex items-center gap-2 text-sm text-neutral-300 dark:text-neutral-300 text-neutral-600">
                   <Calendar className="h-4 w-4" />
                   <span>{project.year}</span>
                   <span>•</span>
@@ -112,24 +112,24 @@ export default function ProjectModal({ open, onClose, project }: Props) {
                   </div>
                 </div>
 
-                <h2 className="text-2xl font-bold text-white">{project.title}</h2>
-                <p className="text-lg text-neutral-300">{project.tagline}</p>
+                <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">{project.title}</h2>
+                <p className="text-lg text-neutral-200 dark:text-neutral-200 text-neutral-700">{project.tagline}</p>
               </div>
 
               {/* Description */}
               <div className="space-y-3">
-                <h3 className="text-lg font-semibold text-white">About</h3>
-                <p className="text-neutral-300 leading-relaxed">{project.description}</p>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">About</h3>
+                <p className="text-neutral-200 dark:text-neutral-200 text-neutral-700 leading-relaxed">{project.description}</p>
               </div>
 
               {/* Key Achievements */}
               {project.bullets && project.bullets.length > 0 && (
                 <div className="space-y-3">
-                  <h3 className="text-lg font-semibold text-white">Key Achievements</h3>
+                  <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Key Achievements</h3>
                   <ul className="space-y-2">
                     {project.bullets.map((bullet, index) => (
-                      <li key={index} className="flex items-start gap-3 text-neutral-300">
-                        <span className="text-pink-400 mt-1.5 text-sm">•</span>
+                      <li key={index} className="flex items-start gap-3 text-neutral-200 dark:text-neutral-200 text-neutral-700">
+                        <span className="text-brand mt-1.5 text-sm">•</span>
                         <span className="leading-relaxed">{bullet}</span>
                       </li>
                     ))}
@@ -139,7 +139,7 @@ export default function ProjectModal({ open, onClose, project }: Props) {
 
               {/* Tech Stack */}
               <div className="space-y-3">
-                <h3 className="text-lg font-semibold text-white">Tech Stack</h3>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Tech Stack</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map(tech => (
                     <TechPill key={tech} variant="secondary">
@@ -152,7 +152,7 @@ export default function ProjectModal({ open, onClose, project }: Props) {
               {/* Links */}
               {Object.values(project.links).some(link => link && link !== '#TODO') && (
                 <div className="space-y-3">
-                  <h3 className="text-lg font-semibold text-white">Links</h3>
+                  <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Links</h3>
                   <div className="flex flex-wrap gap-3">
                     {project.links.github && project.links.github !== '#TODO' && (
                       <a

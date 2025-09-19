@@ -85,7 +85,10 @@ export default function SkillModal({ open, onClose, title, subtitle, icon, bulle
 
             <ul className="space-y-2 text-sm text-foreground">
               {bullets.map((b, i) => (
-                <li key={i}>• {b}</li>
+                <li key={i} className="flex items-start gap-2">
+                  <span className="text-brand mt-1.5 text-sm">•</span>
+                  <span>{b}</span>
+                </li>
               ))}
             </ul>
 
