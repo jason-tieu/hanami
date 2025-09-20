@@ -42,22 +42,43 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
     },
 
     async createCourse(courseData: Omit<Course, 'id'>): Promise<Course> {
+      console.log('🔄 SupabaseAdapter: createCourse called with:', courseData);
+      
       // Get current user for RLS
-      const { data: { user } } = await supabase.auth.getUser();
+      console.log('🔍 SupabaseAdapter: Getting current user...');
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      
+      if (userError) {
+        console.error('❌ SupabaseAdapter: Error getting user:', userError);
+        throw new Error('Failed to get user information.');
+      }
+      
       if (!user) {
+        console.log('❌ SupabaseAdapter: No user found');
         throw new Error('Please sign in to add courses.');
       }
 
+      console.log('✅ SupabaseAdapter: User found:', user.email, 'ID:', user.id);
+
+      const insertData = {
+        ...courseData,
+        owner_id: user.id,
+      };
+      
+      console.log('📝 SupabaseAdapter: Inserting course with data:', insertData);
+      
       const { data, error } = await supabase
         .from('courses')
-        .insert([{
-          ...courseData,
-          owner_id: user.id,
-        }])
+        .insert([insertData])
         .select()
         .single();
       
-      if (error) throw error;
+      if (error) {
+        console.error('❌ SupabaseAdapter: Database error:', error);
+        throw error;
+      }
+      
+      console.log('✅ SupabaseAdapter: Course created successfully:', data);
       return data;
     },
 

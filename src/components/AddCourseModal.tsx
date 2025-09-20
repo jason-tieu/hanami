@@ -86,11 +86,17 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log('🚀 AddCourseModal: handleSubmit called');
     e.preventDefault();
     
-    if (isSubmitting) return;
+    if (isSubmitting) {
+      console.log('❌ AddCourseModal: Already submitting, returning');
+      return;
+    }
     
+    console.log('✅ AddCourseModal: Validating form...');
     if (!validateForm()) {
+      console.log('❌ AddCourseModal: Form validation failed');
       addToast({
         type: 'error',
         title: 'Validation Error',
@@ -99,7 +105,9 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
       return;
     }
 
+    console.log('✅ AddCourseModal: Checking user authentication...');
     if (!user) {
+      console.log('❌ AddCourseModal: No user found');
       addToast({
         type: 'error',
         title: 'Authentication Required',
@@ -108,6 +116,7 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
       return;
     }
 
+    console.log('✅ AddCourseModal: User authenticated:', user.email);
     setIsSubmitting(true);
 
     try {
@@ -122,7 +131,12 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
         ...(formData.description.trim() && { description: formData.description.trim() }),
       };
 
+      console.log('📝 AddCourseModal: Course data prepared:', courseData);
+      console.log('🔄 AddCourseModal: Calling storage.createCourse...');
+      
       const newCourse = await storage.createCourse(courseData);
+      
+      console.log('✅ AddCourseModal: Course created successfully:', newCourse);
       
       addToast({
         type: 'success',
@@ -133,7 +147,7 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
       onCourseAdded(newCourse);
       handleClose();
     } catch (error) {
-      console.error('Failed to create course:', error);
+      console.error('❌ AddCourseModal: Failed to create course:', error);
       addToast({
         type: 'error',
         title: 'Failed to Create Course',
@@ -358,7 +372,10 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
             <UIButton
               variant="primary"
               className="flex-1"
-              onClick={handleSubmit}
+              onClick={(e) => {
+                console.log('🖱️ AddCourseModal: Button clicked');
+                handleSubmit(e);
+              }}
             >
               {isSubmitting ? (
                 <>

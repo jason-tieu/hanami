@@ -9,9 +9,9 @@ export function DebugAuth() {
 
   const testCourseCreation = async () => {
     try {
-      console.log('Testing course creation...');
-      console.log('Session:', session);
-      console.log('User:', user);
+      console.log('🧪 DebugAuth: Testing course creation...');
+      console.log('🧪 DebugAuth: Session:', session);
+      console.log('🧪 DebugAuth: User:', user);
       
       const testCourse = {
         code: 'DEBUG123',
@@ -19,10 +19,11 @@ export function DebugAuth() {
         term: 'Debug Term',
       };
       
+      console.log('🧪 DebugAuth: Calling storage.createCourse...');
       const result = await storage.createCourse(testCourse);
-      console.log('Course created successfully:', result);
+      console.log('✅ DebugAuth: Course created successfully:', result);
     } catch (error) {
-      console.error('Course creation failed:', error);
+      console.error('❌ DebugAuth: Course creation failed:', error);
     }
   };
 
