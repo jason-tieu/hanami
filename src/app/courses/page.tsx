@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { BookOpen, Plus, Search, Filter, RefreshCw } from 'lucide-react';
 import { useStorage } from '@/lib/storageContext';
+import { useSession } from '@/lib/supabase/SupabaseProvider';
 import { Course } from '@/lib/types';
 import { useToast } from '@/lib/toast';
 import SectionWrapper from '@/components/SectionWrapper';
@@ -13,18 +14,34 @@ import { DebugAuth } from '@/components/DebugAuth';
 export default function CoursesPage() {
   const storage = useStorage();
   const { addToast } = useToast();
+  const { session, user, isLoading } = useSession();
   const [courses, setCourses] = useState<Course[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Load courses from storage on mount
+  // Load courses when session becomes available
   useEffect(() => {
     const loadCourses = async () => {
       try {
         console.log('🔄 CoursesPage: Loading courses from storage...');
-        // Add a small delay to ensure user session is loaded
-        await new Promise(resolve => setTimeout(resolve, 100));
+        console.log('🔄 CoursesPage: Session loading:', isLoading);
+        console.log('🔄 CoursesPage: Session:', !!session);
+        console.log('🔄 CoursesPage: User:', !!user);
+        
+        // Wait for session to load
+        if (isLoading) {
+          console.log('⏳ CoursesPage: Waiting for session to load...');
+          return;
+        }
+        
+        if (!session) {
+          console.log('⚠️ CoursesPage: No session found, returning empty courses');
+          setCourses([]);
+          return;
+        }
+        
+        console.log('🔄 CoursesPage: Calling storage.listCourses()...');
         const storageCourses = await storage.listCourses();
         console.log('✅ CoursesPage: Loaded courses:', storageCourses);
         setCourses(storageCourses);
@@ -35,13 +52,15 @@ export default function CoursesPage() {
     };
 
     loadCourses();
-  }, [storage]);
+  }, [storage, session, isLoading]);
 
   // Update driver display on client side to avoid hydration mismatch
   useEffect(() => {
     const driverElement = document.getElementById('driver-display');
     if (driverElement) {
-      driverElement.textContent = process.env.STORAGE_DRIVER || 'mock';
+      const driver = process.env.NEXT_PUBLIC_STORAGE_DRIVER || 'mock';
+      driverElement.textContent = driver;
+      console.log('🔧 CoursesPage: Driver display updated to:', driver);
     }
   }, []);
 
@@ -88,24 +107,83 @@ export default function CoursesPage() {
     course.code.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Show loading state while session is loading
+  if (isLoading) {
+    return (
+      <main className="relative">
+        <SectionWrapper className="overflow-hidden">
+          <div className="relative z-20 mx-auto max-w-6xl px-6">
+            {/* Header Skeleton */}
+            <div className="mb-8">
+              <div className="h-12 bg-muted/50 rounded-lg animate-pulse mb-4"></div>
+              <div className="h-6 bg-muted/30 rounded-lg animate-pulse w-2/3"></div>
+              {process.env.NODE_ENV === 'development' && (
+                <div className="mt-2 text-sm text-muted-foreground">
+                  Driver: <span className="font-mono bg-muted px-2 py-1 rounded">Loading...</span>
+                </div>
+              )}
+            </div>
+
+            {/* Debug Auth Skeleton */}
+            <div className="p-4 border rounded-lg bg-muted/50 animate-pulse">
+              <div className="h-6 bg-muted/50 rounded w-1/3 mb-2"></div>
+              <div className="space-y-2">
+                <div className="h-4 bg-muted/30 rounded w-1/4"></div>
+                <div className="h-4 bg-muted/30 rounded w-1/3"></div>
+                <div className="h-4 bg-muted/30 rounded w-1/5"></div>
+              </div>
+            </div>
+
+            {/* Actions Skeleton */}
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+              <div className="flex-1 h-10 bg-muted/50 rounded-lg animate-pulse"></div>
+              <div className="h-10 bg-muted/50 rounded-lg animate-pulse w-20"></div>
+              <div className="h-10 bg-muted/50 rounded-lg animate-pulse w-20"></div>
+              <div className="h-10 bg-muted/50 rounded-lg animate-pulse w-24"></div>
+            </div>
+
+            {/* Courses Grid Skeleton */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6 animate-pulse">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="w-12 h-12 bg-muted/50 rounded-lg"></div>
+                    <div className="w-16 h-6 bg-muted/30 rounded"></div>
+                  </div>
+                  <div className="h-6 bg-muted/50 rounded w-1/2 mb-2"></div>
+                  <div className="h-5 bg-muted/30 rounded w-3/4 mb-3"></div>
+                  <div className="space-y-2">
+                    <div className="h-4 bg-muted/30 rounded w-full"></div>
+                    <div className="h-4 bg-muted/30 rounded w-2/3"></div>
+                    <div className="h-4 bg-muted/30 rounded w-1/2"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </SectionWrapper>
+      </main>
+    );
+  }
+
   return (
     <main className="relative">
       <SectionWrapper className="overflow-hidden">
         <div className="relative z-20 mx-auto max-w-6xl px-6">
-                  {/* Header */}
-                  <div className="mb-8">
-                    <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
-                      Courses
-                    </h1>
-                    <p className="text-lg text-muted-foreground">
-                      Manage your enrolled courses and track your academic progress.
-                    </p>
-                    {process.env.NODE_ENV === 'development' && (
-                      <div className="mt-2 text-sm text-muted-foreground">
-                        Driver: <span className="font-mono bg-muted px-2 py-1 rounded" id="driver-display">Loading...</span>
-                      </div>
-                    )}
-                  </div>
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
+              Courses
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Manage your enrolled courses and track your academic progress.
+            </p>
+            {process.env.NODE_ENV === 'development' && (
+              <div className="mt-2 text-sm text-muted-foreground">
+                Driver: <span className="font-mono bg-muted px-2 py-1 rounded" id="driver-display">Loading...</span>
+              </div>
+            )}
+          </div>
 
           {/* Debug Auth */}
           <DebugAuth />
@@ -126,12 +204,11 @@ export default function CoursesPage() {
               <Filter className="h-4 w-4" />
               Filter
             </UIButton>
-            <UIButton 
-              variant="secondary" 
-              className="flex items-center gap-2"
-              onClick={handleRefresh}
-              disabled={isRefreshing}
-            >
+                    <UIButton 
+                      variant="secondary" 
+                      className="flex items-center gap-2"
+                      onClick={handleRefresh}
+                    >
               <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
               {isRefreshing ? 'Refreshing...' : 'Refresh'}
             </UIButton>

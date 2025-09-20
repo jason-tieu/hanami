@@ -27,8 +27,8 @@ const eslintConfig = [
         },
       ],
       '@typescript-eslint/no-explicit-any': 'warn',
-      // General
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      // General - Disable console warnings for debugging
+      'no-console': 'off',
       'prefer-const': 'error',
       'no-var': 'error',
     },

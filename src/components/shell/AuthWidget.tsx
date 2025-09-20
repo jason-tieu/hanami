@@ -3,13 +3,15 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { User, LogOut, LogIn, ChevronDown } from 'lucide-react';
-import { useSupabase } from '@/lib/supabase/SupabaseProvider';
+import { useSupabase, useSession } from '@/lib/supabase/SupabaseProvider';
 import { useToast } from '@/lib/toast';
 import UIButton from '@/components/UIButton';
+import { AuthWidgetSkeleton } from './AuthWidgetSkeleton';
 
 export function AuthWidget() {
   const router = useRouter();
-  const { supabase, session, user } = useSupabase();
+  const { supabase } = useSupabase();
+  const { session, user, isLoading } = useSession();
   const { addToast } = useToast();
   const [isSigningOut, setIsSigningOut] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -51,6 +53,11 @@ export function AuthWidget() {
       setIsSigningOut(false);
     }
   };
+
+  // Show loading skeleton while session is loading
+  if (isLoading) {
+    return <AuthWidgetSkeleton />;
+  }
 
   // If not signed in, show sign in button
   if (!session || !user) {

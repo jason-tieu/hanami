@@ -20,8 +20,10 @@ export function StorageProvider({ children }: StorageProviderProps) {
   
   // Create the storage instance based on environment
   const storage = useMemo(() => {
-    const driver = process.env.STORAGE_DRIVER || 'mock';
+    // Use NEXT_PUBLIC_ prefix for client-side access
+    const driver = process.env.NEXT_PUBLIC_STORAGE_DRIVER || 'mock';
     console.log('🔧 StorageProvider: Creating storage with driver:', driver);
+    console.log('🔧 StorageProvider: NEXT_PUBLIC_STORAGE_DRIVER:', process.env.NEXT_PUBLIC_STORAGE_DRIVER);
     console.log('🔧 StorageProvider: Supabase client available:', !!supabase);
     
     if (driver === 'supabase') {

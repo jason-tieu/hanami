@@ -66,7 +66,7 @@ export function DebugAuth() {
       const result = await storage.createCourse(testCourse);
       console.log('✅ DebugAuth: Course created successfully via storage adapter:', result);
       console.log('✅ DebugAuth: Storage adapter course ID:', result.id);
-    } catch (error) {
+    } catch (error: any) {
       console.error('❌ DebugAuth: Course creation failed:', error);
       console.error('❌ DebugAuth: Error details:', {
         message: error.message,

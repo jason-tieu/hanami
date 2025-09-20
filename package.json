@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env STORAGE_DRIVER=supabase next dev --turbopack",
-    "build": "cross-env STORAGE_DRIVER=supabase next build --turbopack",
-    "start": "cross-env STORAGE_DRIVER=supabase next start",
+    "dev": "cross-env NEXT_PUBLIC_STORAGE_DRIVER=supabase next dev --turbopack",
+    "build": "cross-env NEXT_PUBLIC_STORAGE_DRIVER=supabase next build --turbopack",
+    "start": "cross-env NEXT_PUBLIC_STORAGE_DRIVER=supabase next start",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "format": "prettier --write .",
