@@ -2,17 +2,17 @@
 
 import { useState, useEffect } from 'react';
 import { BookOpen, Plus, Search, Filter } from 'lucide-react';
-import { mockCourses } from '@/lib/mock';
 import { useStorage } from '@/lib/storageContext';
 import { Course } from '@/lib/types';
 import SectionWrapper from '@/components/SectionWrapper';
 import UIButton from '@/components/UIButton';
+import { AddCourseModal } from '@/components/AddCourseModal';
 
 export default function CoursesPage() {
   const storage = useStorage();
   const [courses, setCourses] = useState<Course[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   // Load courses from storage on mount
   useEffect(() => {
@@ -22,33 +22,16 @@ export default function CoursesPage() {
         setCourses(storageCourses);
       } catch (error) {
         console.error('Failed to load courses:', error);
-        // Fallback to mock data
-        setCourses(mockCourses);
-      } finally {
-        setIsLoading(false);
+        setCourses([]);
       }
     };
 
     loadCourses();
   }, [storage]);
 
-  // Add course function
-  const handleAddCourse = async () => {
-    try {
-      const newCourse = await storage.createCourse({
-        code: 'NEW101',
-        title: 'New Course (Mock)',
-        term: 'Semester 1, 2024',
-        campus: 'St Lucia',
-        credits: 2,
-        instructor: 'Dr. Sample',
-        description: 'This is a sample course created via storage.',
-      });
-      
-      setCourses(prev => [...prev, newCourse]);
-    } catch (error) {
-      console.error('Failed to add course:', error);
-    }
+  // Handle course added from modal
+  const handleCourseAdded = (newCourse: Course) => {
+    setCourses(prev => [...prev, newCourse]);
   };
 
   const filteredCourses = courses.filter(course =>
@@ -89,10 +72,10 @@ export default function CoursesPage() {
             <UIButton 
               variant="primary" 
               className="flex items-center gap-2"
-              onClick={handleAddCourse}
+              onClick={() => setIsAddModalOpen(true)}
             >
               <Plus className="h-4 w-4" />
-              {isLoading ? 'Adding...' : 'Add Course (Mock)'}
+              Add Course
             </UIButton>
           </div>
 
@@ -104,9 +87,11 @@ export default function CoursesPage() {
                   <div className="w-12 h-12 bg-brand/20 rounded-lg flex items-center justify-center">
                     <BookOpen className="h-6 w-6 text-brand" />
                   </div>
-                  <span className="text-xs text-muted-foreground bg-muted/50 px-2 py-1 rounded">
-                    {course.credits} credits
-                  </span>
+                  {course.credits && (
+                    <span className="text-xs text-muted-foreground bg-muted/50 px-2 py-1 rounded">
+                      {course.credits} credits
+                    </span>
+                  )}
                 </div>
                 
                 <h3 className="text-lg font-semibold text-foreground mb-2">{course.code}</h3>
@@ -114,8 +99,12 @@ export default function CoursesPage() {
                 
                 <div className="space-y-2 text-sm text-muted-foreground">
                   <p><span className="font-medium">Term:</span> {course.term}</p>
-                  <p><span className="font-medium">Campus:</span> {course.campus}</p>
-                  <p><span className="font-medium">Instructor:</span> {course.instructor}</p>
+                  {course.campus && (
+                    <p><span className="font-medium">Campus:</span> {course.campus}</p>
+                  )}
+                  {course.instructor && (
+                    <p><span className="font-medium">Instructor:</span> {course.instructor}</p>
+                  )}
                 </div>
                 
                 {course.description && (
@@ -146,13 +135,20 @@ export default function CoursesPage() {
               <UIButton 
                 variant="primary" 
                 className="flex items-center gap-2"
-                onClick={handleAddCourse}
+                onClick={() => setIsAddModalOpen(true)}
               >
                 <Plus className="h-4 w-4" />
-                {isLoading ? 'Adding...' : 'Add Course (Mock)'}
+                Add Course
               </UIButton>
             </div>
           )}
+
+          {/* Add Course Modal */}
+          <AddCourseModal
+            open={isAddModalOpen}
+            onOpenChange={setIsAddModalOpen}
+            onCourseAdded={handleCourseAdded}
+          />
         </div>
       </SectionWrapper>
     </main>

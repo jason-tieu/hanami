@@ -6,6 +6,8 @@ import { Shell } from '@/components/shell/shell';
 import SpeedInsightsClient from '@/components/SpeedInsightsClient';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { StorageProvider } from '@/lib/storageContext';
+import { SupabaseProvider } from '@/lib/supabase/SupabaseProvider';
+import { ToastProvider } from '@/lib/toast';
 import './globals.css';
 
 const inter = Inter({
@@ -152,13 +154,17 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <StorageProvider>
-            <Shell>{children}</Shell>
-            {/* Floating Theme Toggle */}
-            <div className="fixed bottom-6 right-6 z-50">
-              <ThemeToggle />
-            </div>
-          </StorageProvider>
+          <SupabaseProvider>
+            <StorageProvider>
+              <ToastProvider>
+                <Shell>{children}</Shell>
+                {/* Floating Theme Toggle */}
+                <div className="fixed bottom-6 right-6 z-50">
+                  <ThemeToggle />
+                </div>
+              </ToastProvider>
+            </StorageProvider>
+          </SupabaseProvider>
         </ThemeProvider>
         <SpeedInsightsClient />
         <Analytics />

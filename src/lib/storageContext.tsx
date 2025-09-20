@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useMemo, ReactNode } from 'react';
 import { StoragePort } from './storage';
+import { createStorage } from './adapters';
 import { createMockStorage } from './adapters/mockStorage';
 import { mockCourses, mockAssignments, mockExams, mockEvents, mockGradeItems } from './mock';
 
@@ -14,8 +15,16 @@ interface StorageProviderProps {
 }
 
 export function StorageProvider({ children }: StorageProviderProps) {
-  // Create the mock storage instance with initial data
+  // Create the storage instance based on environment
   const storage = useMemo(() => {
+    const driver = process.env.NEXT_PUBLIC_STORAGE_DRIVER || 'mock';
+    
+    if (driver === 'supabase') {
+      // For Supabase, we don't pre-populate with mock data
+      return createStorage();
+    }
+    
+    // For mock storage, pre-populate with mock data
     return createMockStorage({
       courses: mockCourses,
       assignments: mockAssignments,
