@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Mail, Loader2, ArrowLeft } from 'lucide-react';
 import { useSupabase } from '@/lib/supabase/SupabaseProvider';
@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import UIButton from '@/components/UIButton';
 import Link from 'next/link';
 
-export default function SignInPage() {
+function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { supabase, session } = useSupabase();
@@ -181,10 +181,9 @@ export default function SignInPage() {
               </div>
 
               <UIButton
-                type="submit"
                 variant="primary"
                 className="w-full"
-                disabled={isLoading}
+                onClick={handleEmailSignIn}
               >
                 {isLoading ? (
                   <>
@@ -212,7 +211,6 @@ export default function SignInPage() {
             <UIButton
               variant="secondary"
               onClick={handleGoogleSignIn}
-              disabled={isLoading}
               className="w-full"
             >
               <svg className="h-4 w-4 mr-2" viewBox="0 0 24 24">
@@ -253,5 +251,24 @@ export default function SignInPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted/20 px-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <div className="mx-auto w-16 h-16 bg-muted/50 rounded-full flex items-center justify-center mb-4">
+              <Loader2 className="h-8 w-8 animate-spin text-brand" />
+            </div>
+            <CardTitle>Loading...</CardTitle>
+          </CardHeader>
+        </Card>
+      </div>
+    }>
+      <SignInForm />
+    </Suspense>
   );
 }
