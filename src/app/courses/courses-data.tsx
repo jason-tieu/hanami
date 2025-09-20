@@ -78,9 +78,11 @@ export function CoursesData() {
   }
 
   return (
-    <CoursesList 
-      courses={courses} 
-      onCourseAdded={handleCourseAdded}
-    />
+    <div className="animate-in fade-in duration-500">
+      <CoursesList 
+        courses={courses} 
+        onCourseAdded={handleCourseAdded}
+      />
+    </div>
   );
 }

@@ -23,7 +23,7 @@ export function CoursesList({ courses, onCourseAdded }: CoursesListProps) {
   if (courses.length === 0) {
     return (
       <>
-        <div className="text-center py-12">
+        <div className="text-center py-12 animate-in fade-in duration-500">
           <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-foreground mb-2">No courses found</h3>
           <p className="text-muted-foreground mb-6">
@@ -52,8 +52,15 @@ export function CoursesList({ courses, onCourseAdded }: CoursesListProps) {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {courses.map((course) => (
-          <div key={course.id} className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 hover:bg-card/70 transition-colors">
+        {courses.map((course, index) => (
+          <div 
+            key={course.id} 
+            className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 hover:bg-card/70 transition-all duration-300 animate-in fade-in slide-in-from-bottom-4"
+            style={{ 
+              animationDelay: `${index * 100}ms`,
+              animationFillMode: 'both'
+            }}
+          >
             <div className="flex items-start justify-between mb-4">
               <div className="w-12 h-12 bg-brand/20 rounded-lg flex items-center justify-center">
                 <BookOpen className="h-6 w-6 text-brand" />

@@ -10,7 +10,7 @@ export default function CoursesPage() {
       <SectionWrapper className="overflow-hidden">
         <div className="relative z-20 mx-auto max-w-6xl px-6">
           {/* Header */}
-          <div className="mb-8">
+          <div className="mb-8 animate-in fade-in slide-in-from-top-4 duration-700">
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
               Courses
             </h1>
@@ -25,10 +25,14 @@ export default function CoursesPage() {
           </div>
 
           {/* Debug Auth */}
-          <DebugAuth />
+          <div className="animate-in fade-in slide-in-from-left-4 duration-600 delay-200">
+            <DebugAuth />
+          </div>
 
           {/* Actions */}
-          <CoursesActions />
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-600 delay-300">
+            <CoursesActions />
+          </div>
 
           {/* Courses Data with Suspense - This will show loading.tsx while loading */}
           <Suspense fallback={
