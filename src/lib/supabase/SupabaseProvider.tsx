@@ -58,3 +58,17 @@ export function useSupabase() {
   
   return context;
 }
+
+export function useSession() {
+  const context = useContext(SupabaseContext);
+  
+  if (!context) {
+    throw new Error('useSession must be used within a SupabaseProvider');
+  }
+  
+  return {
+    session: context.session,
+    user: context.user,
+    isLoading: context.session === undefined,
+  };
+}
