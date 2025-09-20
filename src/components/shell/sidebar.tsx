@@ -17,6 +17,7 @@ import {
   Bell, 
   Settings 
 } from 'lucide-react';
+import { AuthWidget } from './AuthWidget';
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
@@ -164,6 +165,9 @@ export function Sidebar() {
               </div>
             </div>
           </div>
+
+          {/* Auth Widget */}
+          <AuthWidget />
         </div>
       </div>
     </div>

@@ -45,7 +45,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
       // Get current user for RLS
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        throw new Error('Authentication required to create courses');
+        throw new Error('Please sign in to add courses.');
       }
 
       const { data, error } = await supabase
@@ -126,9 +126,17 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
     },
 
     async createAssignment(assignmentData: Omit<Assignment, 'id'>): Promise<Assignment> {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('Please sign in to add assignments.');
+      }
+
       const { data, error } = await supabase
         .from('assignments')
-        .insert([assignmentData])
+        .insert([{
+          ...assignmentData,
+          owner_id: user.id,
+        }])
         .select()
         .single();
       
@@ -192,9 +200,17 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
     },
 
     async createExam(examData: Omit<Exam, 'id'>): Promise<Exam> {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('Please sign in to add exams.');
+      }
+
       const { data, error } = await supabase
         .from('exams')
-        .insert([examData])
+        .insert([{
+          ...examData,
+          owner_id: user.id,
+        }])
         .select()
         .single();
       
@@ -253,9 +269,17 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
     },
 
     async createEvent(eventData: Omit<Event, 'id'>): Promise<Event> {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('Please sign in to add events.');
+      }
+
       const { data, error } = await supabase
         .from('events')
-        .insert([eventData])
+        .insert([{
+          ...eventData,
+          owner_id: user.id,
+        }])
         .select()
         .single();
       
@@ -305,9 +329,17 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
     },
 
     async createGradeItem(gradeItemData: Omit<GradeItem, 'id'>): Promise<GradeItem> {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('Please sign in to add grade items.');
+      }
+
       const { data, error } = await supabase
         .from('grade_items')
-        .insert([gradeItemData])
+        .insert([{
+          ...gradeItemData,
+          owner_id: user.id,
+        }])
         .select()
         .single();
       
