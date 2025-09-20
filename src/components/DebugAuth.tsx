@@ -4,7 +4,7 @@ import { useSupabase } from '@/lib/supabase/SupabaseProvider';
 import { useStorage } from '@/lib/storageContext';
 
 export function DebugAuth() {
-  const { session, user } = useSupabase();
+  const { session, user, supabase } = useSupabase();
   const storage = useStorage();
 
   const testCourseCreation = async () => {
@@ -15,7 +15,6 @@ export function DebugAuth() {
       
       // Test direct Supabase call first
       console.log('🧪 DebugAuth: Testing direct Supabase call...');
-      const { supabase } = useSupabase();
       const { data: { user: directUser }, error: userError } = await supabase.auth.getUser();
       console.log('🧪 DebugAuth: Direct user check:', { user: directUser, error: userError });
       
