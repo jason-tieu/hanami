@@ -7,6 +7,7 @@ import { Course } from '@/lib/types';
 import SectionWrapper from '@/components/SectionWrapper';
 import UIButton from '@/components/UIButton';
 import { AddCourseModal } from '@/components/AddCourseModal';
+import { DebugAuth } from '@/components/DebugAuth';
 
 export default function CoursesPage() {
   const storage = useStorage();
@@ -52,6 +53,9 @@ export default function CoursesPage() {
               Manage your enrolled courses and track your academic progress.
             </p>
           </div>
+
+          {/* Debug Auth */}
+          <DebugAuth />
 
           {/* Actions */}
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
