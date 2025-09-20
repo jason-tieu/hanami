@@ -12,7 +12,8 @@
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
     "postbuild": "next-sitemap",
-    "export": "next build && next export",
+    "export": "cross-env NEXT_PUBLIC_STORAGE_DRIVER=mock next build && next export",
+    "export:static": "cross-env NEXT_PUBLIC_STORAGE_DRIVER=mock next build && next export",
     "convert-og": "node scripts/convert-og.js",
     "optimg": "node scripts/optimize-images.mjs",
     "pre-commit": "node scripts/pre-commit-check.mjs"

@@ -26,14 +26,14 @@ export function StorageProvider({ children }: StorageProviderProps) {
     console.log('🔧 StorageProvider: NEXT_PUBLIC_STORAGE_DRIVER:', process.env.NEXT_PUBLIC_STORAGE_DRIVER);
     console.log('🔧 StorageProvider: Supabase client available:', !!supabase);
     
-    if (driver === 'supabase') {
+    // Use Supabase if driver is 'supabase' and client is available
+    if (driver === 'supabase' && supabase) {
       console.log('✅ StorageProvider: Creating Supabase storage adapter');
-      // For Supabase, use the authenticated client from SupabaseProvider
       return createSupabaseStorage(supabase);
     }
     
+    // Default to mock storage (for static exports, mock driver, or no Supabase client)
     console.log('⚠️ StorageProvider: Creating mock storage adapter');
-    // For mock storage, pre-populate with mock data
     return createMockStorage({
       courses: mockCourses,
       assignments: mockAssignments,

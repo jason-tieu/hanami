@@ -9,6 +9,7 @@ interface SupabaseContextType {
   supabase: SupabaseClient;
   session: Session | null;
   user: User | null;
+  isLoading: boolean;
 }
 
 const SupabaseContext = createContext<SupabaseContextType | null>(null);
@@ -21,6 +22,7 @@ export function SupabaseProvider({ children }: SupabaseProviderProps) {
   const [supabase] = useState(() => createBrowserClient());
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Get initial session
@@ -28,6 +30,7 @@ export function SupabaseProvider({ children }: SupabaseProviderProps) {
       const { data: { session } } = await supabase.auth.getSession();
       setSession(session);
       setUser(session?.user ?? null);
+      setIsLoading(false); // Session check complete
     };
 
     getInitialSession();
@@ -37,6 +40,7 @@ export function SupabaseProvider({ children }: SupabaseProviderProps) {
       async (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
+        setIsLoading(false); // Auth state change complete
         
         // Sync user profile on sign in
         if (event === 'SIGNED_IN' && session?.user) {
@@ -49,7 +53,7 @@ export function SupabaseProvider({ children }: SupabaseProviderProps) {
   }, [supabase]);
 
   return (
-    <SupabaseContext.Provider value={{ supabase, session, user }}>
+    <SupabaseContext.Provider value={{ supabase, session, user, isLoading }}>
       {children}
     </SupabaseContext.Provider>
   );
@@ -75,6 +79,6 @@ export function useSession() {
   return {
     session: context.session,
     user: context.user,
-    isLoading: context.session === undefined,
+    isLoading: context.isLoading,
   };
 }

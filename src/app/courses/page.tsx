@@ -35,11 +35,7 @@ export default function CoursesPage() {
           return;
         }
         
-        if (!session) {
-          console.log('⚠️ CoursesPage: No session found, returning empty courses');
-          setCourses([]);
-          return;
-        }
+        // Note: For mock storage, we don't need a session
         
         console.log('🔄 CoursesPage: Calling storage.listCourses()...');
         const storageCourses = await storage.listCourses();
@@ -52,7 +48,7 @@ export default function CoursesPage() {
     };
 
     loadCourses();
-  }, [storage, session, isLoading]);
+  }, [storage, isLoading]); // Remove session dependency to avoid double loading
 
   // Update driver display on client side to avoid hydration mismatch
   useEffect(() => {
