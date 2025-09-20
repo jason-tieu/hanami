@@ -18,12 +18,34 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
   return {
     // Courses
     async listCourses(): Promise<Course[]> {
+      console.log('🔄 SupabaseAdapter: listCourses called');
+      
+      // Get current user for RLS
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      console.log('🔍 SupabaseAdapter: Current user for listCourses:', user?.email || 'No user');
+      
+      if (userError) {
+        console.error('❌ SupabaseAdapter: Error getting user for listCourses:', userError);
+        throw new Error(`Failed to get user information: ${userError.message}`);
+      }
+      
+      if (!user) {
+        console.log('⚠️ SupabaseAdapter: No user found for listCourses, returning empty array');
+        return [];
+      }
+      
+      console.log('✅ SupabaseAdapter: User authenticated, fetching courses...');
       const { data, error } = await supabase
         .from('courses')
         .select('*')
         .order('created_at', { ascending: true });
       
-      if (error) throw error;
+      if (error) {
+        console.error('❌ SupabaseAdapter: Error fetching courses:', error);
+        throw error;
+      }
+      
+      console.log('✅ SupabaseAdapter: Fetched courses from DB:', data?.length || 0, 'courses');
       return data || [];
     },
 

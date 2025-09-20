@@ -21,12 +21,16 @@ export function StorageProvider({ children }: StorageProviderProps) {
   // Create the storage instance based on environment
   const storage = useMemo(() => {
     const driver = process.env.STORAGE_DRIVER || 'mock';
+    console.log('🔧 StorageProvider: Creating storage with driver:', driver);
+    console.log('🔧 StorageProvider: Supabase client available:', !!supabase);
     
     if (driver === 'supabase') {
+      console.log('✅ StorageProvider: Creating Supabase storage adapter');
       // For Supabase, use the authenticated client from SupabaseProvider
       return createSupabaseStorage(supabase);
     }
     
+    console.log('⚠️ StorageProvider: Creating mock storage adapter');
     // For mock storage, pre-populate with mock data
     return createMockStorage({
       courses: mockCourses,

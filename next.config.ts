@@ -9,11 +9,11 @@ const withMDX = createMDX({
 });
 
 const nextConfig: NextConfig = {
-  // Enable static export
-  output: 'export',
+  // Remove static export to enable middleware and server-side features
+  // output: 'export', // Commented out to enable middleware
   trailingSlash: true,
   images: {
-    unoptimized: true,
+    // Remove unoptimized for better performance with server-side rendering
     formats: ['image/avif', 'image/webp'],
     dangerouslyAllowSVG: false,
     qualities: [25, 50, 75, 90, 100],
@@ -24,7 +24,6 @@ const nextConfig: NextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  // Note: Headers are configured in vercel.json for static export
 };
 
 export default withMDX(nextConfig);

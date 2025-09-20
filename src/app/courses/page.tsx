@@ -23,6 +23,8 @@ export default function CoursesPage() {
     const loadCourses = async () => {
       try {
         console.log('🔄 CoursesPage: Loading courses from storage...');
+        // Add a small delay to ensure user session is loaded
+        await new Promise(resolve => setTimeout(resolve, 100));
         const storageCourses = await storage.listCourses();
         console.log('✅ CoursesPage: Loaded courses:', storageCourses);
         setCourses(storageCourses);
@@ -34,6 +36,14 @@ export default function CoursesPage() {
 
     loadCourses();
   }, [storage]);
+
+  // Update driver display on client side to avoid hydration mismatch
+  useEffect(() => {
+    const driverElement = document.getElementById('driver-display');
+    if (driverElement) {
+      driverElement.textContent = process.env.STORAGE_DRIVER || 'mock';
+    }
+  }, []);
 
   // Handle course added from modal
   const handleCourseAdded = (newCourse: Course) => {
@@ -92,7 +102,7 @@ export default function CoursesPage() {
                     </p>
                     {process.env.NODE_ENV === 'development' && (
                       <div className="mt-2 text-sm text-muted-foreground">
-                        Driver: <span className="font-mono bg-muted px-2 py-1 rounded">{process.env.STORAGE_DRIVER || 'mock'}</span>
+                        Driver: <span className="font-mono bg-muted px-2 py-1 rounded" id="driver-display">Loading...</span>
                       </div>
                     )}
                   </div>
