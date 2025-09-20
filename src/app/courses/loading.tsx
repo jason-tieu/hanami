@@ -19,7 +19,7 @@ export default function CoursesLoading() {
           </div>
 
           {/* Debug Auth Skeleton */}
-          <div className="p-4 border rounded-lg bg-muted/50 mb-8">
+          <div className="p-4 border rounded-lg bg-muted/80 mb-8">
             <Skeleton className="h-6 w-32 mb-2" />
             <div className="space-y-2">
               <Skeleton className="h-4 w-24" />
@@ -46,7 +46,7 @@ export default function CoursesLoading() {
             {Array.from({ length: 6 }).map((_, i) => (
               <div 
                 key={i} 
-                className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 hover:bg-card/70 transition-colors"
+                className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 hover:bg-card/90 transition-colors"
                 style={{ animationDelay: `${i * 100}ms` }}
               >
                 <div className="flex items-start justify-between mb-4">

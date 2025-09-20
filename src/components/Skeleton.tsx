@@ -6,15 +6,15 @@ interface SkeletonProps {
 }
 
 export function Skeleton({ className = '', children }: SkeletonProps) {
-  return <div className={`animate-pulse bg-muted/20 rounded ${className}`}>{children}</div>;
+  return <div className={`animate-pulse bg-muted/60 rounded ${className}`}>{children}</div>;
 }
 
 // Avatar skeleton
 export function AvatarSkeleton({ className = '' }: { className?: string }) {
   return (
     <Skeleton className={`w-full h-96 lg:h-[500px] rounded-2xl ${className}`}>
-      <div className="w-full h-full bg-gradient-to-br from-muted/10 to-muted/5 rounded-2xl flex items-center justify-center">
-        <div className="w-24 h-24 bg-muted/30 rounded-full animate-pulse" />
+      <div className="w-full h-full bg-gradient-to-br from-muted/30 to-muted/20 rounded-2xl flex items-center justify-center">
+        <div className="w-24 h-24 bg-muted/70 rounded-full animate-pulse" />
       </div>
     </Skeleton>
   );
@@ -42,7 +42,7 @@ export function TextSkeleton({
 // Card skeleton
 export function CardSkeleton({ className = '' }: { className?: string }) {
   return (
-    <div className={`bg-card/5 border border-border/10 rounded-2xl p-6 ${className}`}>
+    <div className={`bg-card/80 border border-border rounded-2xl p-6 ${className}`}>
       <Skeleton className="h-32 w-full rounded-xl mb-4" />
       <TextSkeleton lines={2} className="mb-3" />
       <div className="flex gap-2 mb-3">
