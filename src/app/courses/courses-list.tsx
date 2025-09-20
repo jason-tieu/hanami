@@ -23,7 +23,7 @@ export function CoursesList({ courses, onCourseAdded }: CoursesListProps) {
   if (courses.length === 0) {
     return (
       <>
-        <div className="text-center py-12 animate-in fade-in duration-500">
+        <div className="text-center py-12">
           <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-foreground mb-2">No courses found</h3>
           <p className="text-muted-foreground mb-6">
