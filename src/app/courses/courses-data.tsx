@@ -53,12 +53,12 @@ export function CoursesData() {
   // Show skeleton while loading OR if we haven't initially loaded yet
   if (isLoadingCourses || !hasInitiallyLoaded) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in duration-300">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in duration-200">
         {Array.from({ length: 6 }).map((_, i) => (
           <div 
             key={i} 
-            className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 animate-pulse"
-            style={{ animationDelay: `${i * 100}ms` }}
+            className="bg-card/80 border border-border rounded-2xl p-6 animate-pulse"
+            style={{ animationDelay: `${i * 50}ms` }}
           >
             <div className="flex items-start justify-between mb-4">
               <div className="w-12 h-12 bg-muted/70 rounded-lg"></div>
@@ -78,7 +78,7 @@ export function CoursesData() {
   }
 
   return (
-    <div className="animate-in fade-in duration-500">
+    <div className="animate-in fade-in duration-300">
       <CoursesList 
         courses={courses} 
         onCourseAdded={handleCourseAdded}

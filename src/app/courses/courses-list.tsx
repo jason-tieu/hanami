@@ -55,9 +55,9 @@ export function CoursesList({ courses, onCourseAdded }: CoursesListProps) {
         {courses.map((course, index) => (
           <div 
             key={course.id} 
-            className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 hover:bg-card/70 transition-all duration-300 animate-in fade-in slide-in-from-bottom-4"
+            className="bg-card/50 border border-border rounded-2xl p-6 hover:bg-card/70 transition-colors duration-200 animate-in fade-in slide-in-from-bottom-2"
             style={{ 
-              animationDelay: `${index * 100}ms`,
+              animationDelay: `${index * 50}ms`,
               animationFillMode: 'both'
             }}
           >

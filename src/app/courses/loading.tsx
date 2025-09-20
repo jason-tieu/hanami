@@ -8,7 +8,7 @@ export default function CoursesLoading() {
       <SectionWrapper className="overflow-hidden">
         <div className="relative z-20 mx-auto max-w-6xl px-6">
           {/* Header Skeleton */}
-          <div className="mb-8 animate-in fade-in duration-300">
+          <div className="mb-8 animate-in fade-in duration-200">
             <Skeleton className="h-12 w-48 mb-4" />
             <Skeleton className="h-6 w-96" />
             {process.env.NODE_ENV === 'development' && (
@@ -19,7 +19,7 @@ export default function CoursesLoading() {
           </div>
 
           {/* Debug Auth Skeleton */}
-          <div className="p-4 border rounded-lg bg-muted/80 mb-8 animate-in fade-in duration-300 delay-100">
+          <div className="p-4 border rounded-lg bg-muted/80 mb-8 animate-in fade-in duration-200 delay-50">
             <Skeleton className="h-6 w-32 mb-2" />
             <div className="space-y-2">
               <Skeleton className="h-4 w-24" />
@@ -29,7 +29,7 @@ export default function CoursesLoading() {
           </div>
 
           {/* Actions Skeleton */}
-          <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-in fade-in duration-300 delay-200">
+          <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-in fade-in duration-200 delay-100">
             <div className="flex-1 relative">
               <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
                 <Search className="h-4 w-4 text-muted-foreground" />
@@ -42,12 +42,12 @@ export default function CoursesLoading() {
           </div>
 
           {/* Courses Grid Skeleton */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in duration-300">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in duration-200">
             {Array.from({ length: 6 }).map((_, i) => (
               <div 
                 key={i} 
-                className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 hover:bg-card/90 transition-colors animate-pulse"
-                style={{ animationDelay: `${i * 100}ms` }}
+                className="bg-card/80 border border-border rounded-2xl p-6 hover:bg-card/90 transition-colors animate-pulse"
+                style={{ animationDelay: `${i * 50}ms` }}
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-12 h-12 bg-brand/20 rounded-lg flex items-center justify-center">

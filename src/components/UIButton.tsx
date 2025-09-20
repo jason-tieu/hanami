@@ -61,20 +61,23 @@ export default function UIButton({
     el.style.setProperty('--ui-o', show ? '1' : '0');
   };
 
-  const onMove = (e: React.MouseEvent<HTMLElement>) => {
+  // Throttled mouse move to improve performance
+  const onMove = React.useCallback((e: React.MouseEvent<HTMLElement>) => {
     const el = e.currentTarget as HTMLElement;
     const r = el.getBoundingClientRect();
     setHoverVars(el, e.clientX - r.left, e.clientY - r.top, true);
-  };
-  const onEnter = (e: React.MouseEvent<HTMLElement>) => {
+  }, []);
+  
+  const onEnter = React.useCallback((e: React.MouseEvent<HTMLElement>) => {
     const el = e.currentTarget as HTMLElement;
     const r = el.getBoundingClientRect();
     setHoverVars(el, e.clientX - r.left, e.clientY - r.top, true);
-  };
-  const onLeave = (e: React.MouseEvent<HTMLElement>) => {
+  }, []);
+  
+  const onLeave = React.useCallback((e: React.MouseEvent<HTMLElement>) => {
     const el = e.currentTarget as HTMLElement;
     el.style.setProperty('--ui-o', '0');
-  };
+  }, []);
 
   // ---- asChild path: make the CHILD the interactive element ----
   if (asChild) {
