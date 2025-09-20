@@ -2,32 +2,31 @@
 
 import { useState } from 'react';
 import { BookOpen, Plus } from 'lucide-react';
-import { Course } from '@/lib/types';
+import { Unit } from '@/lib/types';
 import UIButton from '@/components/UIButton';
-import { AddCourseModal } from '@/components/AddCourseModal';
+import { AddUnitModal } from '@/components/AddUnitModal';
 
-interface CoursesListProps {
-  courses: Course[];
-  onCourseAdded: (course: Course) => void;
+interface UnitsListProps {
+  units: Unit[];
+  onUnitAdded: (unit: Unit) => void;
 }
 
-export function CoursesList({ courses, onCourseAdded }: CoursesListProps) {
+export function UnitsList({ units, onUnitAdded }: UnitsListProps) {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-  // Handle course added from modal
-  const handleCourseAdded = (newCourse: Course) => {
-    console.log('➕ CoursesList: Course added to UI:', newCourse);
-    onCourseAdded(newCourse);
+  // Handle unit added from modal
+  const handleUnitAdded = (newUnit: Unit) => {
+    onUnitAdded(newUnit);
   };
 
-  if (courses.length === 0) {
+  if (units.length === 0) {
     return (
       <>
         <div className="text-center py-12">
           <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-foreground mb-2">No courses found</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-2">No units found</h3>
           <p className="text-muted-foreground mb-6">
-            Get started by adding your first course.
+            Get started by adding your first unit.
           </p>
           <UIButton 
             variant="primary" 
@@ -35,15 +34,15 @@ export function CoursesList({ courses, onCourseAdded }: CoursesListProps) {
             onClick={() => setIsAddModalOpen(true)}
           >
             <Plus className="h-4 w-4" />
-            Add Course
+            Add Unit
           </UIButton>
         </div>
 
-        {/* Add Course Modal */}
-        <AddCourseModal
+        {/* Add Unit Modal */}
+        <AddUnitModal
           open={isAddModalOpen}
           onOpenChange={setIsAddModalOpen}
-          onCourseAdded={handleCourseAdded}
+          onUnitAdded={handleUnitAdded}
         />
       </>
     );
@@ -52,9 +51,9 @@ export function CoursesList({ courses, onCourseAdded }: CoursesListProps) {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {courses.map((course, index) => (
+        {units.map((unit, index) => (
           <div 
-            key={course.id} 
+            key={unit.id} 
             className="bg-card/50 border border-border rounded-2xl p-6 hover:bg-card/70 transition-colors duration-200 animate-in fade-in slide-in-from-bottom-2"
             style={{ 
               animationDelay: `${index * 50}ms`,
@@ -65,34 +64,33 @@ export function CoursesList({ courses, onCourseAdded }: CoursesListProps) {
               <div className="w-12 h-12 bg-brand/20 rounded-lg flex items-center justify-center">
                 <BookOpen className="h-6 w-6 text-brand" />
               </div>
-              {course.credits && (
-                <span className="text-xs text-muted-foreground bg-muted/50 px-2 py-1 rounded-full">
-                  {course.credits} credits
-                </span>
-              )}
+              <span className="text-xs text-muted-foreground bg-muted/50 px-2 py-1 rounded-full">
+                {unit.term}
+              </span>
             </div>
             
-            <h3 className="text-lg font-semibold text-foreground mb-2">{course.code}</h3>
-            <h4 className="text-base text-foreground mb-3">{course.title}</h4>
+            <h3 className="text-lg font-semibold text-foreground mb-2">{unit.code}</h3>
+            <h4 className="text-base text-foreground mb-3">{unit.title}</h4>
             
             <div className="space-y-2 text-sm text-muted-foreground">
-              <p><span className="font-medium">Term:</span> {course.term}</p>
-              {course.campus && (
-                <p><span className="font-medium">Campus:</span> {course.campus}</p>
+              <p><span className="font-medium">Term:</span> {unit.term}</p>
+              {unit.campus && (
+                <p><span className="font-medium">Campus:</span> {unit.campus}</p>
               )}
-              {course.instructor && (
-                <p><span className="font-medium">Instructor:</span> {course.instructor}</p>
+              {unit.instructor && (
+                <p><span className="font-medium">Instructor:</span> {unit.instructor}</p>
               )}
             </div>
             
-            {course.description && (
-              <p className="text-sm text-muted-foreground mt-4 line-clamp-2">
-                {course.description}
-              </p>
-            )}
-            
             <div className="mt-6 flex gap-2">
-              <UIButton variant="secondary" className="flex-1 text-sm px-3 py-1">
+              <UIButton 
+                variant="secondary" 
+                className="flex-1 text-sm px-3 py-1"
+                style={{
+                  '--hover-bg': 'black',
+                  '--hover-text': 'white'
+                } as React.CSSProperties}
+              >
                 View Details
               </UIButton>
               <UIButton variant="ghost" className="text-sm px-3 py-1">
@@ -103,11 +101,11 @@ export function CoursesList({ courses, onCourseAdded }: CoursesListProps) {
         ))}
       </div>
 
-      {/* Add Course Modal */}
-      <AddCourseModal
+      {/* Add Unit Modal */}
+      <AddUnitModal
         open={isAddModalOpen}
         onOpenChange={setIsAddModalOpen}
-        onCourseAdded={handleCourseAdded}
+        onUnitAdded={handleUnitAdded}
       />
     </>
   );

@@ -2,18 +2,18 @@
 
 import { useState } from 'react';
 import { Calendar, Plus, Search, Filter, Clock, MapPin, User } from 'lucide-react';
-import { mockExams, mockCourses } from '@/lib/mock';
+import { mockExams, mockUnits } from '@/lib/mock';
 import SectionWrapper from '@/components/SectionWrapper';
 import UIButton from '@/components/UIButton';
 
 export default function ExamsPage() {
   const [exams] = useState(mockExams);
-  const [courses] = useState(mockCourses);
+  const [units] = useState(mockUnits);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const getCourseCode = (courseId: string) => {
-    const course = courses.find(c => c.id === courseId);
-    return course?.code || 'Unknown';
+  const getUnitCode = (unitId: string) => {
+    const unit = units.find(unit => unit.id === unitId);
+    return unit?.code || 'Unknown';
   };
 
   const getTypeColor = (type: string) => {
@@ -28,7 +28,7 @@ export default function ExamsPage() {
 
   const filteredExams = exams.filter(exam =>
     exam.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    getCourseCode(exam.courseId).toLowerCase().includes(searchTerm.toLowerCase())
+    getUnitCode(exam.unitId).toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const formatDate = (date: Date) => {
@@ -95,7 +95,7 @@ export default function ExamsPage() {
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-sm font-medium text-muted-foreground">
-                        {getCourseCode(exam.courseId)}
+                        {getUnitCode(exam.unitId)}
                       </span>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getTypeColor(exam.type)}`}>
                         {exam.type.toUpperCase()}

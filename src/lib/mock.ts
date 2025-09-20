@@ -1,12 +1,12 @@
 import { 
-  Course, 
+  Unit,
   Assignment, 
   Exam, 
   Announcement, 
   StudyTask, 
   Event, 
   GradeItem, 
-  CourseGrade,
+  UnitGrade,
   StudySession,
   Resource,
   Integration,
@@ -18,43 +18,47 @@ import {
 
 // Mock data for development and testing
 
-export const mockCourses: Course[] = [
+export const mockUnits: Unit[] = [
   {
     id: '1',
+    owner_id: 'mock-user-id',
     code: 'COMP3506',
     title: 'Algorithms & Data Structures',
     term: 'Semester 1, 2024',
     campus: 'St Lucia',
-    credits: 2,
+    url: 'https://learn.uq.edu.au/course/view.php?id=12345',
     instructor: 'Dr. Sarah Chen',
-    description: 'Advanced algorithms and data structures for computer science students.'
+    created_at: '2024-01-15T10:00:00Z',
   },
   {
     id: '2',
+    owner_id: 'mock-user-id',
     code: 'MATH2400',
     title: 'Mathematical Analysis',
     term: 'Semester 1, 2024',
     campus: 'St Lucia',
-    credits: 2,
+    url: null,
     instructor: 'Prof. Michael Rodriguez',
-    description: 'Rigorous introduction to mathematical analysis and proof techniques.'
+    created_at: '2024-01-15T10:00:00Z',
   },
   {
     id: '3',
+    owner_id: 'mock-user-id',
     code: 'PHYS2020',
     title: 'Thermodynamics & Statistical Mechanics',
     term: 'Semester 1, 2024',
     campus: 'St Lucia',
-    credits: 2,
+    url: null,
     instructor: 'Dr. Emily Watson',
-    description: 'Fundamental principles of thermodynamics and statistical mechanics.'
+    created_at: '2024-01-15T10:00:00Z',
   }
 ];
+
 
 export const mockAssignments: Assignment[] = [
   {
     id: '1',
-    courseId: '1',
+    unitId: '1',
     title: 'Binary Search Tree Implementation',
     type: 'assignment',
     dueAt: new Date('2024-03-15T23:59:00'),
@@ -64,7 +68,7 @@ export const mockAssignments: Assignment[] = [
   },
   {
     id: '2',
-    courseId: '1',
+    unitId: '1',
     title: 'Algorithm Complexity Analysis',
     type: 'essay',
     dueAt: new Date('2024-03-20T23:59:00'),
@@ -74,7 +78,7 @@ export const mockAssignments: Assignment[] = [
   },
   {
     id: '3',
-    courseId: '2',
+    unitId: '2',
     title: 'Limits and Continuity Proofs',
     type: 'assignment',
     dueAt: new Date('2024-03-18T23:59:00'),
@@ -84,7 +88,7 @@ export const mockAssignments: Assignment[] = [
   },
   {
     id: '4',
-    courseId: '3',
+    unitId: '3',
     title: 'Heat Engine Lab Report',
     type: 'lab',
     dueAt: new Date('2024-03-12T23:59:00'),
@@ -99,7 +103,7 @@ export const mockAssignments: Assignment[] = [
 export const mockExams: Exam[] = [
   {
     id: '1',
-    courseId: '1',
+    unitId: '1',
     title: 'Midterm Exam - Algorithms',
     type: 'midterm',
     startsAt: new Date('2024-04-15T09:00:00'),
@@ -110,21 +114,21 @@ export const mockExams: Exam[] = [
   },
   {
     id: '2',
-    courseId: '2',
+    unitId: '2',
     title: 'Final Exam - Mathematical Analysis',
     type: 'final',
     startsAt: new Date('2024-06-10T14:00:00'),
     endsAt: new Date('2024-06-10T17:00:00'),
     location: 'Building 67, Room 105',
     duration: 180,
-    instructions: 'Open book exam. All course materials allowed.'
+    instructions: 'Open book exam. All unit materials allowed.'
   }
 ];
 
 export const mockAnnouncements: Announcement[] = [
   {
     id: '1',
-    courseId: '1',
+    unitId: '1',
     title: 'Assignment 2 Extension Granted',
     body: 'Due to technical issues with the submission system, Assignment 2 deadline has been extended by 48 hours. New deadline: March 17th, 11:59 PM.',
     postedAt: new Date('2024-03-10T10:30:00'),
@@ -133,7 +137,7 @@ export const mockAnnouncements: Announcement[] = [
   },
   {
     id: '2',
-    courseId: '2',
+    unitId: '2',
     title: 'Office Hours Change',
     body: 'Dr. Rodriguez\'s office hours have changed to Tuesdays 2-4 PM due to a scheduling conflict.',
     postedAt: new Date('2024-03-08T14:15:00'),
@@ -154,7 +158,7 @@ export const mockStudyTasks: StudyTask[] = [
   {
     id: '1',
     title: 'Review Binary Search Tree algorithms',
-    courseId: '1',
+    unitId: '1',
     plannedAt: new Date('2024-03-14T19:00:00'),
     durationMin: 90,
     status: 'planned',
@@ -165,7 +169,7 @@ export const mockStudyTasks: StudyTask[] = [
   {
     id: '2',
     title: 'Complete math problem set 5',
-    courseId: '2',
+    unitId: '2',
     plannedAt: new Date('2024-03-16T15:00:00'),
     durationMin: 120,
     status: 'in_progress',
@@ -182,7 +186,7 @@ export const mockEvents: Event[] = [
     startsAt: new Date('2024-03-14T10:00:00'),
     endsAt: new Date('2024-03-14T11:00:00'),
     type: 'class',
-    courseId: '1',
+    unitId: '1',
     location: 'Building 78, Room 201',
     recurring: {
       frequency: 'weekly',
@@ -196,7 +200,7 @@ export const mockEvents: Event[] = [
     startsAt: new Date('2024-03-15T14:00:00'),
     endsAt: new Date('2024-03-15T15:00:00'),
     type: 'tutorial',
-    courseId: '2',
+    unitId: '2',
     location: 'Building 67, Room 105'
   },
   {
@@ -212,7 +216,7 @@ export const mockEvents: Event[] = [
 export const mockGradeItems: GradeItem[] = [
   {
     id: '1',
-    courseId: '1',
+    unitId: '1',
     name: 'Assignment 1 - Linked Lists',
     weightPct: 15,
     score: 92,
@@ -223,7 +227,7 @@ export const mockGradeItems: GradeItem[] = [
   },
   {
     id: '2',
-    courseId: '1',
+    unitId: '1',
     name: 'Quiz 1 - Algorithm Analysis',
     weightPct: 10,
     score: 18,
@@ -234,7 +238,7 @@ export const mockGradeItems: GradeItem[] = [
   },
   {
     id: '3',
-    courseId: '2',
+    unitId: '2',
     name: 'Problem Set 3',
     weightPct: 20,
     dueDate: new Date('2024-03-20T23:59:00'),
@@ -243,21 +247,21 @@ export const mockGradeItems: GradeItem[] = [
   }
 ];
 
-export const mockCourseGrades: CourseGrade[] = [
+export const mockUnitGrades: UnitGrade[] = [
   {
-    courseId: '1',
+    unitId: '1',
     currentGrade: 87.5,
     letterGrade: 'A-',
     gpa: 3.7,
-    items: mockGradeItems.filter(item => item.courseId === '1'),
+    items: mockGradeItems.filter(item => item.unitId === '1'),
     lastUpdated: new Date('2024-03-10T12:00:00')
   },
   {
-    courseId: '2',
+    unitId: '2',
     currentGrade: 82.0,
     letterGrade: 'B+',
     gpa: 3.3,
-    items: mockGradeItems.filter(item => item.courseId === '2'),
+    items: mockGradeItems.filter(item => item.unitId === '2'),
     lastUpdated: new Date('2024-03-08T15:30:00')
   }
 ];
@@ -265,7 +269,7 @@ export const mockCourseGrades: CourseGrade[] = [
 export const mockStudySessions: StudySession[] = [
   {
     id: '1',
-    courseId: '1',
+    unitId: '1',
     title: 'BST Implementation Practice',
     startTime: new Date('2024-03-13T19:00:00'),
     endTime: new Date('2024-03-13T21:30:00'),
@@ -276,7 +280,7 @@ export const mockStudySessions: StudySession[] = [
   },
   {
     id: '2',
-    courseId: '2',
+    unitId: '2',
     title: 'Calculus Review',
     startTime: new Date('2024-03-14T15:00:00'),
     duration: 60,
@@ -288,7 +292,7 @@ export const mockStudySessions: StudySession[] = [
 export const mockResources: Resource[] = [
   {
     id: '1',
-    courseId: '1',
+    unitId: '1',
     title: 'Introduction to Algorithms (CLRS) - Chapter 12',
     type: 'textbook',
     url: 'https://library.uq.edu.au/record=b1234567',
@@ -298,7 +302,7 @@ export const mockResources: Resource[] = [
   },
   {
     id: '2',
-    courseId: '1',
+    unitId: '1',
     title: 'Lecture 8 - Balanced Trees',
     type: 'lecture_notes',
     url: 'https://learn.uq.edu.au/mod/resource/view.php?id=12345',
@@ -308,11 +312,11 @@ export const mockResources: Resource[] = [
   },
   {
     id: '3',
-    courseId: '2',
-    title: 'Course Discussion Forum',
+    unitId: '2',
+    title: 'Unit Discussion Forum',
     type: 'forum',
     url: 'https://learn.uq.edu.au/mod/forum/view.php?id=67890',
-    description: 'Ask questions and discuss course material',
+    description: 'Ask questions and discuss unit material',
     tags: ['forum', 'discussion'],
     addedAt: new Date('2024-02-15T00:00:00')
   }
@@ -352,7 +356,7 @@ export const mockNotifications: Notification[] = [
     type: 'assignment_due',
     isRead: false,
     createdAt: new Date('2024-03-14T09:00:00'),
-    courseId: '1',
+    unitId: '1',
     actionUrl: '/assignments/1'
   },
   {
@@ -362,7 +366,7 @@ export const mockNotifications: Notification[] = [
     type: 'grade_posted',
     isRead: true,
     createdAt: new Date('2024-03-12T16:30:00'),
-    courseId: '3',
+    unitId: '3',
     actionUrl: '/grades'
   },
   {
@@ -372,7 +376,7 @@ export const mockNotifications: Notification[] = [
     type: 'exam_reminder',
     isRead: false,
     createdAt: new Date('2024-03-13T10:00:00'),
-    courseId: '1',
+    unitId: '1',
     actionUrl: '/exams/1'
   }
 ];
@@ -408,8 +412,8 @@ export const mockUpcomingItems: UpcomingItem[] = [
     title: 'Binary Search Tree Implementation',
     type: 'assignment',
     dueAt: new Date('2024-03-15T23:59:00'),
-    courseId: '1',
-    courseCode: 'COMP3506',
+    unitId: '1',
+    unitCode: 'COMP3506',
     priority: 'high'
   },
   {
@@ -417,8 +421,8 @@ export const mockUpcomingItems: UpcomingItem[] = [
     title: 'Limits and Continuity Proofs',
     type: 'assignment',
     dueAt: new Date('2024-03-18T23:59:00'),
-    courseId: '2',
-    courseCode: 'MATH2400',
+    unitId: '2',
+    unitCode: 'MATH2400',
     priority: 'medium'
   },
   {
@@ -426,8 +430,8 @@ export const mockUpcomingItems: UpcomingItem[] = [
     title: 'Midterm Exam - Algorithms',
     type: 'exam',
     dueAt: new Date('2024-04-15T09:00:00'),
-    courseId: '1',
-    courseCode: 'COMP3506',
+    unitId: '1',
+    unitCode: 'COMP3506',
     priority: 'high'
   }
 ];

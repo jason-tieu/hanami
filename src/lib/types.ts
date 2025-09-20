@@ -1,20 +1,21 @@
 // Core university tracker types
 
-export interface Course {
+export interface Unit {
   id: string;
+  owner_id: string;          // from DB reads only
   code: string;
   title: string;
   term: string;
-  campus?: string;
-  url?: string;
-  credits?: number;
-  instructor?: string;
-  description?: string;
+  campus: string | null;
+  url: string | null;
+  instructor: string | null;
+  created_at: string;        // ISO string
 }
+
 
 export interface Assignment {
   id: string;
-  courseId: string;
+  unitId: string;
   title: string;
   type: 'assignment' | 'project' | 'lab' | 'quiz' | 'essay' | 'presentation';
   dueAt: Date;
@@ -28,7 +29,7 @@ export interface Assignment {
 
 export interface Exam {
   id: string;
-  courseId: string;
+  unitId: string;
   title: string;
   startsAt: Date;
   endsAt: Date;
@@ -41,7 +42,7 @@ export interface Exam {
 
 export interface Announcement {
   id: string;
-  courseId?: string;
+  unitId?: string;
   title: string;
   body: string;
   postedAt: Date;
@@ -53,7 +54,7 @@ export interface Announcement {
 export interface StudyTask {
   id: string;
   title: string;
-  courseId?: string;
+  unitId?: string;
   plannedAt?: Date;
   durationMin?: number;
   status: 'planned' | 'in_progress' | 'completed' | 'cancelled';
@@ -68,7 +69,7 @@ export interface Event {
   startsAt: Date;
   endsAt: Date;
   type: 'class' | 'lab' | 'tutorial' | 'exam' | 'personal' | 'study';
-  courseId?: string;
+  unitId?: string;
   location?: string;
   description?: string;
   recurring?: {
@@ -80,7 +81,7 @@ export interface Event {
 
 export interface GradeItem {
   id: string;
-  courseId: string;
+  unitId: string;
   name: string;
   weightPct: number;
   score?: number;
@@ -90,8 +91,8 @@ export interface GradeItem {
   status: 'pending' | 'graded' | 'excused';
 }
 
-export interface CourseGrade {
-  courseId: string;
+export interface UnitGrade {
+  unitId: string;
   currentGrade?: number;
   letterGrade?: string;
   gpa?: number;
@@ -101,7 +102,7 @@ export interface CourseGrade {
 
 export interface StudySession {
   id: string;
-  courseId?: string;
+  unitId?: string;
   title: string;
   startTime: Date;
   endTime?: Date;
@@ -113,7 +114,7 @@ export interface StudySession {
 
 export interface Resource {
   id: string;
-  courseId: string;
+  unitId: string;
   title: string;
   type: 'lecture_notes' | 'lab_manual' | 'textbook' | 'video' | 'forum' | 'assignment' | 'other';
   url: string;
@@ -138,7 +139,7 @@ export interface Notification {
   type: 'assignment_due' | 'exam_reminder' | 'grade_posted' | 'announcement' | 'general';
   isRead: boolean;
   createdAt: Date;
-  courseId?: string;
+  unitId?: string;
   actionUrl?: string;
 }
 
@@ -167,14 +168,14 @@ export type Priority = 'low' | 'medium' | 'high';
 
 // Filter types
 export interface AssignmentFilters {
-  courseId?: string;
+  unitId?: string;
   status?: AssignmentStatus;
   dueDate?: 'today' | 'tomorrow' | 'this_week' | 'next_week' | 'overdue';
   type?: Assignment['type'];
 }
 
 export interface EventFilters {
-  courseId?: string;
+  unitId?: string;
   type?: EventType;
   dateRange?: {
     start: Date;
@@ -197,7 +198,7 @@ export interface UpcomingItem {
   title: string;
   type: 'assignment' | 'exam' | 'class' | 'study';
   dueAt: Date;
-  courseId: string;
-  courseCode: string;
+  unitId: string;
+  unitCode: string;
   priority: Priority;
 }

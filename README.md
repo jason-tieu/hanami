@@ -1,18 +1,18 @@
 # Hanami - University Tracker
 
-A comprehensive university tracker built with Next.js, TypeScript, Tailwind CSS, and Framer Motion. Manage your academic journey with course tracking, assignment management, and study planning.
+A comprehensive university tracker built with Next.js, TypeScript, Tailwind CSS, and Framer Motion. Manage your academic journey with unit tracking, assignment management, and study planning.
 
 ## 🚀 Features
 
 - **Dashboard**: Overview of assignments, exams, and academic progress
-- **Course Management**: Track enrolled courses and academic information
+- **Unit Management**: Track enrolled units and academic information
 - **Assignment Tracking**: Manage assignments with due dates and status
 - **Exam Scheduler**: View exam timetables and locations
 - **Grade Tracking**: Monitor academic performance and GPA
 - **Study Planner**: Plan study sessions and track learning progress
 - **Calendar Integration**: Sync with external calendar systems
 - **Notifications**: Stay updated with important academic alerts
-- **Resource Management**: Organize course materials and links
+- **Resource Management**: Organize unit materials and links
 - **Modern Design**: Clean, minimal design with dark mode support
 - **Responsive**: Fully responsive across all devices
 - **Performance**: Optimized for speed with static export
@@ -90,7 +90,7 @@ npm run build
 
 ### Getting Started
 
-1. **Add Your Courses**: Navigate to the Courses page and add your enrolled courses
+1. **Add Your Units**: Navigate to the Units page and add your enrolled units
 2. **Create Assignments**: Add assignments with due dates and track their progress
 3. **Schedule Exams**: Input exam dates, times, and locations
 4. **Track Grades**: Monitor your academic performance and GPA
@@ -193,7 +193,7 @@ To add Google Analytics, uncomment the configuration in `src/app/layout.tsx` and
 hanami/
 ├── src/
 │   ├── app/
-│   │   ├── courses/
+│   │   ├── units/
 │   │   ├── assignments/
 │   │   ├── exams/
 │   │   ├── grades/

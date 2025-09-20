@@ -38,7 +38,7 @@ export default function ResourcesPage() {
               Resources
             </h1>
             <p className="text-lg text-muted-foreground">
-              Access your course materials, lecture notes, and study resources.
+              Access your unit materials, lecture notes, and study resources.
             </p>
           </div>
 

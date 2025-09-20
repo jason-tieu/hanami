@@ -42,8 +42,7 @@ export function AuthWidget() {
       // Close menu and redirect to home
       setShowMenu(false);
       router.push('/');
-    } catch (err) {
-      console.error('Sign out error:', err);
+    } catch {
       addToast({
         type: 'error',
         title: 'Sign out failed',

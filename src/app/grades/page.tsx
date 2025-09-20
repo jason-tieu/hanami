@@ -2,17 +2,18 @@
 
 import { useState } from 'react';
 import { TrendingUp, Plus, Search, Filter, BookOpen, Award } from 'lucide-react';
-import { mockCourseGrades, mockCourses } from '@/lib/mock';
+import { mockUnitGrades, mockUnits } from '@/lib/mock';
+import { UnitGrade, GradeItem } from '@/lib/types';
 import SectionWrapper from '@/components/SectionWrapper';
 import UIButton from '@/components/UIButton';
 
 export default function GradesPage() {
-  const [courseGrades] = useState(mockCourseGrades);
-  const [courses] = useState(mockCourses);
+  const [unitGrades] = useState(mockUnitGrades);
+  const [units] = useState(mockUnits);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const getCourseInfo = (courseId: string) => {
-    return courses.find(c => c.id === courseId);
+  const getUnitInfo = (unitId: string) => {
+    return units.find(unit => unit.id === unitId);
   };
 
   const getGpaColor = (gpa: number) => {
@@ -28,16 +29,16 @@ export default function GradesPage() {
     return 'text-red-500';
   };
 
-  const filteredGrades = courseGrades.filter(grade => {
-    const course = getCourseInfo(grade.courseId);
-    return course && (
-      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.code.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredGrades = unitGrades.filter((grade: UnitGrade) => {
+    const unit = getUnitInfo(grade.unitId);
+    return unit && (
+      unit.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      unit.code.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
 
-  const overallGPA = courseGrades.length > 0 
-    ? courseGrades.reduce((sum, grade) => sum + (grade.gpa || 0), 0) / courseGrades.length
+  const overallGPA = unitGrades.length > 0 
+    ? unitGrades.reduce((sum: number, grade: UnitGrade) => sum + (grade.gpa || 0), 0) / unitGrades.length
     : 0;
 
   return (
@@ -71,8 +72,8 @@ export default function GradesPage() {
             <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Courses</p>
-                  <p className="text-3xl font-bold text-foreground">{courseGrades.length}</p>
+                  <p className="text-sm text-muted-foreground">Units</p>
+                  <p className="text-3xl font-bold text-foreground">{unitGrades.length}</p>
                 </div>
                 <BookOpen className="h-8 w-8 text-brand" />
               </div>
@@ -83,8 +84,8 @@ export default function GradesPage() {
                 <div>
                   <p className="text-sm text-muted-foreground">Average Grade</p>
                   <p className="text-3xl font-bold text-foreground">
-                    {courseGrades.length > 0 
-                      ? (courseGrades.reduce((sum, grade) => sum + (grade.currentGrade || 0), 0) / courseGrades.length).toFixed(1)
+                    {unitGrades.length > 0 
+                      ? (unitGrades.reduce((sum: number, grade: UnitGrade) => sum + (grade.currentGrade || 0), 0) / unitGrades.length).toFixed(1)
                       : 'N/A'
                     }%
                   </p>
@@ -100,7 +101,7 @@ export default function GradesPage() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="Search courses..."
+                placeholder="Search units..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 bg-card/50 backdrop-blur-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand/50"
@@ -116,18 +117,18 @@ export default function GradesPage() {
             </UIButton>
           </div>
 
-          {/* Course Grades */}
+          {/* Unit Grades */}
           <div className="space-y-6">
-            {filteredGrades.map((grade) => {
-              const course = getCourseInfo(grade.courseId);
-              if (!course) return null;
+            {filteredGrades.map((grade: UnitGrade) => {
+              const unit = getUnitInfo(grade.unitId);
+              if (!unit) return null;
 
               return (
-                <div key={grade.courseId} className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6">
+                <div key={grade.unitId} className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6">
                   <div className="flex items-start justify-between mb-6">
                     <div>
-                      <h3 className="text-xl font-semibold text-foreground mb-2">{course.code}</h3>
-                      <p className="text-muted-foreground">{course.title}</p>
+                      <h3 className="text-xl font-semibold text-foreground mb-2">{unit.code}</h3>
+                      <p className="text-muted-foreground">{unit.title}</p>
                     </div>
                     
                     <div className="text-right">
@@ -146,7 +147,7 @@ export default function GradesPage() {
                   {/* Grade Items */}
                   <div className="space-y-3">
                     <h4 className="text-sm font-medium text-foreground">Grade Breakdown</h4>
-                    {grade.items.map((item) => (
+                    {grade.items.map((item: GradeItem) => (
                       <div key={item.id} className="flex items-center justify-between py-2 px-3 bg-muted/20 rounded-lg">
                         <div className="flex-1">
                           <span className="text-sm font-medium text-foreground">{item.name}</span>

@@ -11,7 +11,7 @@ export interface UploadResult {
 
 export interface ResourceUploadOptions {
   title: string;
-  courseId: string;
+  unitId: string;
   type: Resource['type'];
   description?: string;
   tags?: string[];
@@ -45,7 +45,7 @@ export class ResourcesHelper {
 
     // Create resource record
     const resource: Omit<Resource, 'id'> = {
-      courseId: options.courseId,
+      unitId: options.unitId,
       title: options.title,
       type: options.type,
       url: publicUrl,
@@ -69,14 +69,14 @@ export class ResourcesHelper {
     };
   }
 
-  async listResources(courseId?: string): Promise<Resource[]> {
+  async listResources(unitId?: string): Promise<Resource[]> {
     let query = this.supabase
       .from('resources')
       .select('*')
       .order('added_at', { ascending: false });
 
-    if (courseId) {
-      query = query.eq('course_id', courseId);
+    if (unitId) {
+      query = query.eq('unit_id', unitId);
     }
 
     const { data, error } = await query;
@@ -105,7 +105,6 @@ export class ResourcesHelper {
       .remove([filePath]);
 
     if (storageError) {
-      console.warn('Failed to delete file from storage:', storageError);
     }
 
     // Delete from database

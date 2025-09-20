@@ -220,29 +220,18 @@
   isolation: isolate;
   overflow: hidden; /* keep effects inside rounded corners */
   /* default/off states for CSS vars */
-  --ui-x: 50%;
-  --ui-y: 50%;
-  --ui-o: 0;
 }
 
-/* Pink glow layer sits above background, below content */
+/* Pink glow layer disabled */
 .ui-btn::before {
-  content: '';
-  position: absolute;
-  inset: -1px; /* bleed 1px to avoid gaps on scale */
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: var(--ui-o, 0);
-  transition: opacity 160ms ease-out;
-  /* Same pink as Tailwind accent: #FF4B8A */
-  background: radial-gradient(
-    160px 160px at var(--ui-x) var(--ui-y),
-    rgba(255, 75, 138, 0.3),
-    rgba(255, 75, 138, 0.12) 45%,
-    rgba(255, 75, 138, 0) 65%
-  );
-  mix-blend-mode: screen; /* pleasing additive glow on dark UI */
-  will-change: background-position;
+  display: none;
+}
+
+
+/* Force hover styles for secondary buttons */
+.ui-btn[style*="--hover-bg"]:hover {
+  background-color: var(--hover-bg) !important;
+  color: var(--hover-text) !important;
 }
 
 /* Reduced motion: just fade, no hotspot tracking */
@@ -373,9 +362,7 @@ body {
 .skill-card {
   isolation: isolate;
   overflow: hidden;
-  --ui-x: 50%;
-  --ui-y: 50%;
-  --ui-o: 0; /* opacity of hotspot */
+  /* opacity of hotspot */
 }
 
 .skill-card::before {
@@ -384,11 +371,11 @@ body {
   inset: -1px; /* slight bleed prevents edge gaps */
   border-radius: inherit;
   pointer-events: none;
-  opacity: var(--ui-o, 0);
+  opacity: 0;
   transition: opacity 160ms ease-out;
   /* Same pink as your accent (#FF4B8A) */
   background: radial-gradient(
-    170px 170px at var(--ui-x) var(--ui-y),
+    170px 170px at 50% 50%,
     rgba(255, 75, 138, 0.22),
     rgba(255, 75, 138, 0.1) 44%,
     rgba(255, 75, 138, 0) 66%

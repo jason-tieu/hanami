@@ -1,6 +1,6 @@
 import { SupabaseClient } from '@supabase/supabase-js';
 import { 
-  Course, 
+  Unit,
   Assignment, 
   Exam, 
   Event, 
@@ -13,46 +13,39 @@ import {
   EventFilters, 
   GradeItemFilters 
 } from '../storage';
+import { UNITS_TABLE, ASSIGNMENTS_TABLE, EXAMS_TABLE, EVENTS_TABLE, GRADE_ITEMS_TABLE } from '../constants';
 
 export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
   return {
-    // Courses
-    async listCourses(): Promise<Course[]> {
-      console.log('🔄 SupabaseAdapter: listCourses called');
-      
+    // Units
+    async listUnits(): Promise<Unit[]> {
       // Get current user for RLS
       const { data: { user }, error: userError } = await supabase.auth.getUser();
-      console.log('🔍 SupabaseAdapter: Current user for listCourses:', user?.email || 'No user');
       
       if (userError) {
-        console.error('❌ SupabaseAdapter: Error getting user for listCourses:', userError);
         throw new Error(`Failed to get user information: ${userError.message}`);
       }
       
       if (!user) {
-        console.log('⚠️ SupabaseAdapter: No user found for listCourses, returning empty array');
         return [];
       }
       
-      console.log('✅ SupabaseAdapter: User authenticated, fetching courses...');
       const { data, error } = await supabase
-        .from('courses')
-        .select('*')
-        .order('created_at', { ascending: true });
+        .from(UNITS_TABLE)
+        .select('id, owner_id, code, title, term, campus, url, instructor, created_at')
+        .order('created_at', { ascending: false });
       
       if (error) {
-        console.error('❌ SupabaseAdapter: Error fetching courses:', error);
         throw error;
       }
       
-      console.log('✅ SupabaseAdapter: Fetched courses from DB:', data?.length || 0, 'courses');
       return data || [];
     },
 
-    async getCourse(id: string): Promise<Course | null> {
+    async getUnit(id: string): Promise<Unit | null> {
       const { data, error } = await supabase
-        .from('courses')
-        .select('*')
+        .from(UNITS_TABLE)
+        .select('id, owner_id, code, title, term, campus, url, instructor, created_at')
         .eq('id', id)
         .single();
       
@@ -63,71 +56,54 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
       return data;
     },
 
-    async createCourse(courseData: Omit<Course, 'id'>): Promise<Course> {
-      console.log('🔄 SupabaseAdapter: createCourse called with:', courseData);
-      console.log('🔍 SupabaseAdapter: Using browser client:', !!supabase);
-      
+    async createUnit(unitData: Omit<Unit, 'id' | 'owner_id' | 'created_at'>): Promise<Unit> {
       // Get current user for RLS
-      console.log('🔍 SupabaseAdapter: Getting current user...');
       const { data: { user }, error: userError } = await supabase.auth.getUser();
       
       if (userError) {
-        console.error('❌ SupabaseAdapter: Error getting user:', userError);
         throw new Error(`Failed to get user information: ${userError.message}`);
       }
       
       if (!user) {
-        console.log('❌ SupabaseAdapter: No user found');
-        throw new Error('Please sign in to add courses.');
+        throw new Error('Please sign in to add units.');
       }
 
-      console.log('✅ SupabaseAdapter: User found:', user.email, 'ID:', user.id);
-
-      const insertData = {
-        ...courseData,
-        owner_id: user.id,
+      const payload = {
+        code: unitData.code,
+        title: unitData.title,
+        term: unitData.term,
+        campus: unitData.campus ?? null,
+        url: unitData.url ?? null,
+        instructor: unitData.instructor ?? null,
       };
-      
-      console.log('📝 SupabaseAdapter: Inserting course with data:', insertData);
       
       try {
         const { data, error } = await supabase
-          .from('courses')
-          .insert([insertData])
-          .select()
+          .from(UNITS_TABLE)
+          .insert([payload])
+          .select('id, owner_id, code, title, term, campus, url, instructor, created_at')
           .single();
         
-        console.log('📊 SupabaseAdapter: Insert response - data:', data, 'error:', error);
-        
         if (error) {
-          console.error('❌ SupabaseAdapter: PostgREST error:', {
-            code: error.code,
-            message: error.message,
-            details: error.details,
-            hint: error.hint
-          });
           throw new Error(`Database error: ${error.message} (${error.code})`);
         }
         
         if (!data) {
-          console.error('❌ SupabaseAdapter: No data returned from insert');
           throw new Error('No data returned from database insert');
         }
         
-        console.log('✅ SupabaseAdapter: Course created successfully from DB -> id:', data.id);
         return data;
       } catch (insertError) {
-        console.error('❌ SupabaseAdapter: Insert failed with exception:', insertError);
         throw insertError;
       }
     },
 
-    async updateCourse(id: string, updates: Partial<Omit<Course, 'id'>>): Promise<Course | null> {
+    async updateUnit(id: string, updates: Partial<Omit<Unit, 'id' | 'owner_id' | 'created_at'>>): Promise<Unit | null> {
       const { data, error } = await supabase
-        .from('courses')
+        .from(UNITS_TABLE)
         .update(updates)
         .eq('id', id)
-        .select()
+        .select('id, owner_id, code, title, term, campus, url, instructor, created_at')
         .single();
       
       if (error) {
@@ -137,9 +113,9 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
       return data;
     },
 
-    async deleteCourse(id: string): Promise<boolean> {
+    async deleteUnit(id: string): Promise<boolean> {
       const { error } = await supabase
-        .from('courses')
+        .from(UNITS_TABLE)
         .delete()
         .eq('id', id);
       
@@ -147,15 +123,16 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
       return true;
     },
 
+
     // Assignments
     async listAssignments(filters?: AssignmentFilters): Promise<Assignment[]> {
       let query = supabase
-        .from('assignments')
+        .from(ASSIGNMENTS_TABLE)
         .select('*')
         .order('due_at', { ascending: true });
 
-      if (filters?.courseId) {
-        query = query.eq('course_id', filters.courseId);
+      if (filters?.unitId) {
+        query = query.eq('unit_id', filters.unitId);
       }
       if (filters?.status) {
         query = query.eq('status', filters.status);
@@ -174,7 +151,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
 
     async getAssignment(id: string): Promise<Assignment | null> {
       const { data, error } = await supabase
-        .from('assignments')
+        .from(ASSIGNMENTS_TABLE)
         .select('*')
         .eq('id', id)
         .single();
@@ -192,7 +169,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
       if (!user) throw new Error('Please sign in to add assignments.');
 
       const { data, error } = await supabase
-        .from('assignments')
+        .from(ASSIGNMENTS_TABLE)
         .insert([{
           ...assignmentData,
           owner_id: user.id,
@@ -201,18 +178,16 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
         .single();
       
       if (error) {
-        console.error('❌ SupabaseAdapter: Assignment creation error:', error);
         throw new Error(`Database error: ${error.message} (${error.code})`);
       }
       if (!data) throw new Error('No data returned from database insert');
       
-      console.log('✅ SupabaseAdapter: Assignment created from DB -> id:', data.id);
       return data;
     },
 
     async updateAssignment(id: string, updates: Partial<Omit<Assignment, 'id'>>): Promise<Assignment | null> {
       const { data, error } = await supabase
-        .from('assignments')
+        .from(ASSIGNMENTS_TABLE)
         .update(updates)
         .eq('id', id)
         .select()
@@ -227,7 +202,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
 
     async deleteAssignment(id: string): Promise<boolean> {
       const { error } = await supabase
-        .from('assignments')
+        .from(ASSIGNMENTS_TABLE)
         .delete()
         .eq('id', id);
       
@@ -238,12 +213,12 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
     // Exams
     async listExams(filters?: ExamFilters): Promise<Exam[]> {
       let query = supabase
-        .from('exams')
+        .from(EXAMS_TABLE)
         .select('*')
         .order('starts_at', { ascending: true });
 
-      if (filters?.courseId) {
-        query = query.eq('course_id', filters.courseId);
+      if (filters?.unitId) {
+        query = query.eq('unit_id', filters.unitId);
       }
 
       const { data, error } = await query;
@@ -253,7 +228,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
 
     async getExam(id: string): Promise<Exam | null> {
       const { data, error } = await supabase
-        .from('exams')
+        .from(EXAMS_TABLE)
         .select('*')
         .eq('id', id)
         .single();
@@ -271,7 +246,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
       if (!user) throw new Error('Please sign in to add exams.');
 
       const { data, error } = await supabase
-        .from('exams')
+        .from(EXAMS_TABLE)
         .insert([{
           ...examData,
           owner_id: user.id,
@@ -280,18 +255,16 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
         .single();
       
       if (error) {
-        console.error('❌ SupabaseAdapter: Exam creation error:', error);
         throw new Error(`Database error: ${error.message} (${error.code})`);
       }
       if (!data) throw new Error('No data returned from database insert');
       
-      console.log('✅ SupabaseAdapter: Exam created from DB -> id:', data.id);
       return data;
     },
 
     async updateExam(id: string, updates: Partial<Omit<Exam, 'id'>>): Promise<Exam | null> {
       const { data, error } = await supabase
-        .from('exams')
+        .from(EXAMS_TABLE)
         .update(updates)
         .eq('id', id)
         .select()
@@ -306,7 +279,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
 
     async deleteExam(id: string): Promise<boolean> {
       const { error } = await supabase
-        .from('exams')
+        .from(EXAMS_TABLE)
         .delete()
         .eq('id', id);
       
@@ -317,12 +290,12 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
     // Events
     async listEvents(filters?: EventFilters): Promise<Event[]> {
       let query = supabase
-        .from('events')
+        .from(EVENTS_TABLE)
         .select('*')
         .order('starts_at', { ascending: true });
 
-      if (filters?.courseId) {
-        query = query.eq('course_id', filters.courseId);
+      if (filters?.unitId) {
+        query = query.eq('unit_id', filters.unitId);
       }
       if (filters?.type) {
         query = query.eq('type', filters.type);
@@ -345,7 +318,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
       if (!user) throw new Error('Please sign in to add events.');
 
       const { data, error } = await supabase
-        .from('events')
+        .from(EVENTS_TABLE)
         .insert([{
           ...eventData,
           owner_id: user.id,
@@ -354,18 +327,16 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
         .single();
       
       if (error) {
-        console.error('❌ SupabaseAdapter: Event creation error:', error);
         throw new Error(`Database error: ${error.message} (${error.code})`);
       }
       if (!data) throw new Error('No data returned from database insert');
       
-      console.log('✅ SupabaseAdapter: Event created from DB -> id:', data.id);
       return data;
     },
 
     async updateEvent(id: string, updates: Partial<Omit<Event, 'id'>>): Promise<Event | null> {
       const { data, error } = await supabase
-        .from('events')
+        .from(EVENTS_TABLE)
         .update(updates)
         .eq('id', id)
         .select()
@@ -380,7 +351,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
 
     async deleteEvent(id: string): Promise<boolean> {
       const { error } = await supabase
-        .from('events')
+        .from(EVENTS_TABLE)
         .delete()
         .eq('id', id);
       
@@ -391,12 +362,12 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
     // Grades
     async listGradeItems(filters?: GradeItemFilters): Promise<GradeItem[]> {
       let query = supabase
-        .from('grade_items')
+        .from(GRADE_ITEMS_TABLE)
         .select('*')
         .order('due_date', { ascending: true });
 
-      if (filters?.courseId) {
-        query = query.eq('course_id', filters.courseId);
+      if (filters?.unitId) {
+        query = query.eq('unit_id', filters.unitId);
       }
 
       const { data, error } = await query;
@@ -410,7 +381,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
       if (!user) throw new Error('Please sign in to add grade items.');
 
       const { data, error } = await supabase
-        .from('grade_items')
+        .from(GRADE_ITEMS_TABLE)
         .insert([{
           ...gradeItemData,
           owner_id: user.id,
@@ -419,18 +390,16 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
         .single();
       
       if (error) {
-        console.error('❌ SupabaseAdapter: Grade item creation error:', error);
         throw new Error(`Database error: ${error.message} (${error.code})`);
       }
       if (!data) throw new Error('No data returned from database insert');
       
-      console.log('✅ SupabaseAdapter: Grade item created from DB -> id:', data.id);
       return data;
     },
 
     async updateGradeItem(id: string, updates: Partial<Omit<GradeItem, 'id'>>): Promise<GradeItem | null> {
       const { data, error } = await supabase
-        .from('grade_items')
+        .from(GRADE_ITEMS_TABLE)
         .update(updates)
         .eq('id', id)
         .select()
@@ -445,7 +414,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
 
     async deleteGradeItem(id: string): Promise<boolean> {
       const { error } = await supabase
-        .from('grade_items')
+        .from(GRADE_ITEMS_TABLE)
         .delete()
         .eq('id', id);
       
@@ -456,16 +425,16 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
     // Utilities
     async clearAll(): Promise<void> {
       // Delete in order to respect foreign key constraints
-      await supabase.from('grade_items').delete().neq('id', '');
-      await supabase.from('assignments').delete().neq('id', '');
-      await supabase.from('exams').delete().neq('id', '');
-      await supabase.from('events').delete().neq('id', '');
-      await supabase.from('courses').delete().neq('id', '');
+      await supabase.from(GRADE_ITEMS_TABLE).delete().neq('id', '');
+      await supabase.from(ASSIGNMENTS_TABLE).delete().neq('id', '');
+      await supabase.from(EXAMS_TABLE).delete().neq('id', '');
+      await supabase.from(EVENTS_TABLE).delete().neq('id', '');
+      await supabase.from(UNITS_TABLE).delete().neq('id', '');
     },
 
     async exportJSON(): Promise<string> {
-      const [courses, assignments, exams, events, grades] = await Promise.all([
-        this.listCourses(),
+      const [units, assignments, exams, events, grades] = await Promise.all([
+        this.listUnits(),
         this.listAssignments(),
         this.listExams(),
         this.listEvents(),
@@ -473,7 +442,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
       ]);
 
       return JSON.stringify({
-        courses,
+        units,
         assignments,
         exams,
         events,
@@ -483,7 +452,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
 
     async importJSON(data: string): Promise<void> {
       const imported = JSON.parse(data) as {
-        courses: Course[];
+        units: Unit[];
         assignments: Assignment[];
         exams: Exam[];
         events: Event[];
@@ -494,20 +463,20 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
       await this.clearAll();
 
       // Insert in order to respect foreign key constraints
-      if (imported.courses.length > 0) {
-        await supabase.from('courses').insert(imported.courses);
+      if (imported.units.length > 0) {
+        await supabase.from(UNITS_TABLE).insert(imported.units);
       }
       if (imported.assignments.length > 0) {
-        await supabase.from('assignments').insert(imported.assignments);
+        await supabase.from(ASSIGNMENTS_TABLE).insert(imported.assignments);
       }
       if (imported.exams.length > 0) {
-        await supabase.from('exams').insert(imported.exams);
+        await supabase.from(EXAMS_TABLE).insert(imported.exams);
       }
       if (imported.events.length > 0) {
-        await supabase.from('events').insert(imported.events);
+        await supabase.from(EVENTS_TABLE).insert(imported.events);
       }
       if (imported.grades.length > 0) {
-        await supabase.from('grade_items').insert(imported.grades);
+        await supabase.from(GRADE_ITEMS_TABLE).insert(imported.grades);
       }
     },
   };

@@ -34,11 +34,9 @@ export async function syncUserProfile(supabase: SupabaseClient, user: User): Pro
       .insert([profileData]);
 
     if (error) {
-      console.error('Failed to create user profile:', error);
       // Don't throw - this is not critical for the auth flow
     }
-  } catch (err) {
-    console.error('Unexpected error syncing user profile:', err);
+  } catch {
     // Don't throw - this is not critical for the auth flow
   }
 }

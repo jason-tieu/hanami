@@ -4,38 +4,39 @@ import { useState } from 'react';
 import { Plus, Loader2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { CustomSelect } from '@/components/ui/custom-select';
 import UIButton from '@/components/UIButton';
 import { useStorage } from '@/lib/storageContext';
 import { useSupabase } from '@/lib/supabase/SupabaseProvider';
 import { useToast } from '@/lib/toast';
-import { Course } from '@/lib/types';
+import { Unit } from '@/lib/types';
+import { cn } from '@/lib/utils';
 
-interface AddCourseModalProps {
+interface AddUnitModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onCourseAdded: (course: Course) => void;
+  onUnitAdded: (unit: Unit) => void;
 }
 
 interface FormData {
   code: string;
   title: string;
-  term: string;
+  semester: string;
+  year: string;
   campus: string;
   instructor: string;
-  credits: string;
   url: string;
-  description: string;
 }
 
 interface FormErrors {
   code?: string;
   title?: string;
-  term?: string;
-  credits?: string;
+  semester?: string;
+  year?: string;
   url?: string;
 }
 
-export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseModalProps) {
+export function AddUnitModal({ open, onOpenChange, onUnitAdded }: AddUnitModalProps) {
   const storage = useStorage();
   const { user } = useSupabase();
   const { addToast } = useToast();
@@ -44,12 +45,11 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
   const [formData, setFormData] = useState<FormData>({
     code: '',
     title: '',
-    term: '',
+    semester: '',
+    year: '',
     campus: '',
     instructor: '',
-    credits: '',
     url: '',
-    description: '',
   });
   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -58,18 +58,16 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
 
     // Required fields
     if (!formData.code.trim()) {
-      newErrors.code = 'Course code is required';
+      newErrors.code = 'Unit code is required';
     }
     if (!formData.title.trim()) {
-      newErrors.title = 'Course title is required';
+      newErrors.title = 'Unit title is required';
     }
-    if (!formData.term.trim()) {
-      newErrors.term = 'Term is required';
+    if (!formData.semester) {
+      newErrors.semester = 'Semester is required';
     }
-
-    // Credits validation
-    if (formData.credits && (isNaN(Number(formData.credits)) || Number(formData.credits) < 0)) {
-      newErrors.credits = 'Credits must be a number ≥ 0';
+    if (!formData.year) {
+      newErrors.year = 'Year is required';
     }
 
     // URL validation
@@ -86,17 +84,13 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log('🚀 AddCourseModal: handleSubmit called');
     e.preventDefault();
     
     if (isSubmitting) {
-      console.log('❌ AddCourseModal: Already submitting, returning');
       return;
     }
     
-    console.log('✅ AddCourseModal: Validating form...');
     if (!validateForm()) {
-      console.log('❌ AddCourseModal: Form validation failed');
       addToast({
         type: 'error',
         title: 'Validation Error',
@@ -105,53 +99,41 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
       return;
     }
 
-    console.log('✅ AddCourseModal: Checking user authentication...');
     if (!user) {
-      console.log('❌ AddCourseModal: No user found');
       addToast({
         type: 'error',
         title: 'Authentication Required',
-        description: 'Please sign in to create courses.',
+        description: 'Please sign in to create units.',
       });
       return;
     }
-
-    console.log('✅ AddCourseModal: User authenticated:', user.email);
     setIsSubmitting(true);
 
     try {
-      const courseData: Omit<Course, 'id'> = {
+      const term = `Semester ${formData.semester}, ${formData.year}`;
+      const unitData: Omit<Unit, 'id' | 'owner_id' | 'created_at'> = {
         code: formData.code.trim(),
         title: formData.title.trim(),
-        term: formData.term.trim(),
-        ...(formData.campus.trim() && { campus: formData.campus.trim() }),
-        ...(formData.instructor.trim() && { instructor: formData.instructor.trim() }),
-        ...(formData.credits && { credits: Number(formData.credits) }),
-        ...(formData.url.trim() && { url: formData.url.trim() }),
-        ...(formData.description.trim() && { description: formData.description.trim() }),
+        term: term,
+        campus: formData.campus.trim() || null,
+        instructor: formData.instructor.trim() || null,
+        url: formData.url.trim() || null,
       };
 
-      console.log('📝 AddCourseModal: Course data prepared:', courseData);
-      console.log('🔄 AddCourseModal: Calling storage.createCourse...');
-      
-      const newCourse = await storage.createCourse(courseData);
-      
-      console.log('✅ AddCourseModal: Course created successfully:', newCourse);
-      console.log('✅ AddCourseModal: Created course from DB -> id:', newCourse.id);
+      const newUnit = await storage.createUnit(unitData);
       
       addToast({
         type: 'success',
-        title: 'Course Added',
-        description: `${newCourse.code} has been added successfully. ID: ${newCourse.id}`,
+        title: 'Unit Added',
+        description: `${newUnit.code} has been added successfully. ID: ${newUnit.id}`,
       });
 
-      onCourseAdded(newCourse);
+      onUnitAdded(newUnit);
       handleClose();
     } catch (error) {
-      console.error('❌ AddCourseModal: Failed to create course:', error);
       addToast({
         type: 'error',
-        title: 'Failed to Create Course',
+        title: 'Failed to Create Unit',
         description: error instanceof Error ? error.message : 'An unexpected error occurred.',
       });
     } finally {
@@ -163,12 +145,11 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
     setFormData({
       code: '',
       title: '',
-      term: '',
+      semester: '',
+      year: '',
       campus: '',
       instructor: '',
-      credits: '',
       url: '',
-      description: '',
     });
     setErrors({});
     onOpenChange(false);
@@ -188,19 +169,19 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Plus className="h-5 w-5 text-brand" />
-            Add New Course
+            Add New Unit
           </DialogTitle>
           <DialogDescription>
-            Create a new course to track your academic progress.
+            Create a new unit to track your academic progress.
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
           <div className="space-y-4">
-            {/* Course Code */}
+            {/* Unit Code */}
             <div>
               <label htmlFor="code" className="block text-sm font-medium text-foreground mb-1">
-                Course Code <span className="text-red-500">*</span>
+                Unit Code <span className="text-red-500">*</span>
               </label>
               <Input
                 id="code"
@@ -222,7 +203,7 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
             {/* Title */}
             <div>
               <label htmlFor="title" className="block text-sm font-medium text-foreground mb-1">
-                Course Title <span className="text-red-500">*</span>
+                Unit Title <span className="text-red-500">*</span>
               </label>
               <Input
                 id="title"
@@ -241,24 +222,61 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
               )}
             </div>
 
-            {/* Term */}
+            {/* Semester */}
             <div>
-              <label htmlFor="term" className="block text-sm font-medium text-foreground mb-1">
-                Term <span className="text-red-500">*</span>
+              <label htmlFor="semester" className="block text-sm font-medium text-foreground mb-1">
+                Semester <span className="text-red-500">*</span>
               </label>
-              <Input
-                id="term"
-                type="text"
-                placeholder="e.g., Semester 1, 2025"
-                value={formData.term}
-                onChange={(e) => handleInputChange('term', e.target.value)}
-                className={errors.term ? 'border-red-500 focus-visible:ring-red-500' : ''}
-                aria-invalid={!!errors.term}
-                aria-describedby={errors.term ? 'term-error' : undefined}
+              <CustomSelect
+                id="semester"
+                value={formData.semester}
+                onChange={(value) => handleInputChange('semester', value)}
+                placeholder="Select semester"
+                className={cn(
+                  'transition-all duration-200',
+                  errors.semester && 'border-red-500 focus-visible:ring-red-500'
+                )}
+                aria-invalid={!!errors.semester}
+                {...(errors.semester && { 'aria-describedby': 'semester-error' })}
+                options={[
+                  { value: '1', label: 'Semester 1' },
+                  { value: '2', label: 'Semester 2' }
+                ]}
               />
-              {errors.term && (
-                <p id="term-error" className="text-sm text-red-500 mt-1">
-                  {errors.term}
+              {errors.semester && (
+                <p id="semester-error" className="text-sm text-red-500 mt-1">
+                  {errors.semester}
+                </p>
+              )}
+            </div>
+
+            {/* Year */}
+            <div>
+              <label htmlFor="year" className="block text-sm font-medium text-foreground mb-1">
+                Year <span className="text-red-500">*</span>
+              </label>
+              <CustomSelect
+                id="year"
+                value={formData.year}
+                onChange={(value) => handleInputChange('year', value)}
+                placeholder="Select year"
+                className={cn(
+                  'transition-all duration-200',
+                  errors.year && 'border-red-500 focus-visible:ring-red-500'
+                )}
+                aria-invalid={!!errors.year}
+                {...(errors.year && { 'aria-describedby': 'year-error' })}
+                options={Array.from({ length: 6 }, (_, i) => {
+                  const year = new Date().getFullYear() + i;
+                  return {
+                    value: year.toString(),
+                    label: year.toString()
+                  };
+                })}
+              />
+              {errors.year && (
+                <p id="year-error" className="text-sm text-red-500 mt-1">
+                  {errors.year}
                 </p>
               )}
             </div>
@@ -291,33 +309,10 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
               />
             </div>
 
-            {/* Credits */}
-            <div>
-              <label htmlFor="credits" className="block text-sm font-medium text-foreground mb-1">
-                Credits
-              </label>
-              <Input
-                id="credits"
-                type="number"
-                min="0"
-                placeholder="e.g., 2"
-                value={formData.credits}
-                onChange={(e) => handleInputChange('credits', e.target.value)}
-                className={errors.credits ? 'border-red-500 focus-visible:ring-red-500' : ''}
-                aria-invalid={!!errors.credits}
-                aria-describedby={errors.credits ? 'credits-error' : undefined}
-              />
-              {errors.credits && (
-                <p id="credits-error" className="text-sm text-red-500 mt-1">
-                  {errors.credits}
-                </p>
-              )}
-            </div>
-
             {/* URL */}
             <div>
               <label htmlFor="url" className="block text-sm font-medium text-foreground mb-1">
-                Course URL
+                Unit URL
               </label>
               <Input
                 id="url"
@@ -334,21 +329,6 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
                   {errors.url}
                 </p>
               )}
-            </div>
-
-            {/* Description */}
-            <div>
-              <label htmlFor="description" className="block text-sm font-medium text-foreground mb-1">
-                Description
-              </label>
-              <textarea
-                id="description"
-                rows={3}
-                placeholder="Brief description of the course..."
-                value={formData.description}
-                onChange={(e) => handleInputChange('description', e.target.value)}
-                className="flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] placeholder:text-muted-foreground"
-              />
             </div>
           </div>
 
@@ -374,7 +354,6 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
               variant="primary"
               className="flex-1"
               onClick={(e) => {
-                console.log('🖱️ AddCourseModal: Button clicked');
                 handleSubmit(e);
               }}
             >
@@ -386,7 +365,7 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
               ) : (
                 <>
                   <Plus className="h-4 w-4" />
-                  Create Course
+                  Create Unit
                 </>
               )}
             </UIButton>

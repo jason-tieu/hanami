@@ -29,7 +29,7 @@ export default function UIButton({
     primary:
       'bg-gradient-to-r from-accent-pink/80 to-accent-pink/60 text-black dark:text-white hover:from-accent-pink/90 hover:to-accent-pink/70 shadow-lg shadow-accent-pink/25 hover:shadow-xl hover:shadow-accent-pink/40 hover:scale-[1.02]',
     secondary:
-      'bg-brand text-white hover:bg-secondary hover:text-black shadow-lg shadow-brand/25 hover:shadow-xl hover:shadow-secondary/40 dark:hover:bg-white dark:hover:text-black dark:hover:shadow-white/40 hover:scale-[1.02] border-0',
+      'bg-brand text-white hover:!bg-black hover:!text-white dark:hover:!bg-white dark:hover:!text-black shadow-lg shadow-brand/25 hover:shadow-xl hover:shadow-secondary/40 dark:hover:shadow-white/40 hover:scale-[1.02] border-0',
     ghost:
       'bg-muted text-muted-foreground hover:bg-accent border-border hover:border-accent-foreground shadow-sm hover:shadow-md dark:bg-white/5 dark:text-neutral-200 dark:hover:bg-white/10 dark:border-white/10 dark:hover:border-white/20 hover:scale-[1.02]',
   } as const;
@@ -56,27 +56,20 @@ export default function UIButton({
 
   // Hover glow: write CSS vars to the interactive element
   const setHoverVars = (el: HTMLElement, x: number, y: number, show = true) => {
-    el.style.setProperty('--ui-x', `${x}px`);
-    el.style.setProperty('--ui-y', `${y}px`);
-    el.style.setProperty('--ui-o', show ? '1' : '0');
+    // Hover effects removed
   };
 
   // Throttled mouse move to improve performance
   const onMove = React.useCallback((e: React.MouseEvent<HTMLElement>) => {
-    const el = e.currentTarget as HTMLElement;
-    const r = el.getBoundingClientRect();
-    setHoverVars(el, e.clientX - r.left, e.clientY - r.top, true);
+    // Hover effects removed
   }, []);
   
   const onEnter = React.useCallback((e: React.MouseEvent<HTMLElement>) => {
-    const el = e.currentTarget as HTMLElement;
-    const r = el.getBoundingClientRect();
-    setHoverVars(el, e.clientX - r.left, e.clientY - r.top, true);
+    // Hover effects removed
   }, []);
   
   const onLeave = React.useCallback((e: React.MouseEvent<HTMLElement>) => {
-    const el = e.currentTarget as HTMLElement;
-    el.style.setProperty('--ui-o', '0');
+    // Hover effects removed
   }, []);
 
   // ---- asChild path: make the CHILD the interactive element ----

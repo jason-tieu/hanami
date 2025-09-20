@@ -1,57 +1,66 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Course } from '@/lib/types';
+import { useEffect, useState, useCallback } from 'react';
+import { Unit } from '@/lib/types';
 import { useStorage } from '@/lib/storageContext';
 import { useSession } from '@/lib/supabase/SupabaseProvider';
-import { CoursesList } from './courses-list';
+import { UnitsList } from './units-list';
 
-export function CoursesData() {
+interface UnitsDataProps {
+  onRefreshRequest?: (refreshFn: () => void) => void;
+}
+
+export function UnitsData({ onRefreshRequest }: UnitsDataProps) {
   const storage = useStorage();
   const { session, isLoading } = useSession();
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [isLoadingCourses, setIsLoadingCourses] = useState(true);
+  const [units, setUnits] = useState<Unit[]>([]);
+  const [isLoadingUnits, setIsLoadingUnits] = useState(true);
   const [hasInitiallyLoaded, setHasInitiallyLoaded] = useState(false);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
-  // Load courses when session becomes available
+  // Load units when session becomes available or when refresh is triggered
   useEffect(() => {
-    const loadCourses = async () => {
+    const loadUnits = async () => {
       try {
-        console.log('🔄 CoursesData: Loading courses from storage...');
-        console.log('🔄 CoursesData: Session loading:', isLoading);
-        console.log('🔄 CoursesData: Session:', !!session);
-        
         // Wait for session to load
         if (isLoading) {
-          console.log('⏳ CoursesData: Waiting for session to load...');
           return;
         }
         
-        console.log('🔄 CoursesData: Calling storage.listCourses()...');
-        const storageCourses = await storage.listCourses();
-        console.log('✅ CoursesData: Loaded courses:', storageCourses);
-        setCourses(storageCourses);
+        const storageUnits = await storage.listUnits();
+        setUnits(storageUnits);
         setHasInitiallyLoaded(true);
-      } catch (error) {
-        console.error('❌ CoursesData: Failed to load courses:', error);
-        setCourses([]);
+      } catch {
+        setUnits([]);
         setHasInitiallyLoaded(true);
       } finally {
-        setIsLoadingCourses(false);
+        setIsLoadingUnits(false);
       }
     };
 
-    loadCourses();
-  }, [storage, isLoading, session]);
+    loadUnits();
+  }, [storage, isLoading, session, refreshTrigger]);
 
-  // Handle course added from modal
-  const handleCourseAdded = (newCourse: Course) => {
-    console.log('➕ CoursesData: Course added to UI:', newCourse);
-    setCourses(prev => [...prev, newCourse]);
+  // Expose refresh function to parent components
+  const refreshUnits = useCallback(() => {
+    setIsLoadingUnits(true);
+    setRefreshTrigger(prev => prev + 1);
+  }, []);
+
+  // Pass refresh function to parent on mount
+  useEffect(() => {
+    if (onRefreshRequest) {
+      onRefreshRequest(refreshUnits);
+    }
+  }, [onRefreshRequest, refreshUnits]);
+
+  // Handle unit added from modal
+  const handleUnitAdded = (newUnit: Unit) => {
+    setUnits(prev => [...prev, newUnit]);
   };
 
   // Show skeleton while loading OR if we haven't initially loaded yet
-  if (isLoadingCourses || !hasInitiallyLoaded) {
+  if (isLoadingUnits || !hasInitiallyLoaded) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in duration-200">
         {Array.from({ length: 6 }).map((_, i) => (
@@ -79,9 +88,9 @@ export function CoursesData() {
 
   return (
     <div className="animate-in fade-in duration-300">
-      <CoursesList 
-        courses={courses} 
-        onCourseAdded={handleCourseAdded}
+      <UnitsList 
+        units={units} 
+        onUnitAdded={handleUnitAdded}
       />
     </div>
   );

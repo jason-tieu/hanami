@@ -29,11 +29,11 @@ export const metadata: Metadata = {
     template: '%s | Hanami — University Tracker',
   },
   description:
-    'A comprehensive university tracker to manage courses, assignments, exams, and academic progress. Stay organized with your academic journey.',
+    'A comprehensive university tracker to manage units, assignments, exams, and academic progress. Stay organized with your academic journey.',
   keywords: [
     'university tracker',
     'academic planner',
-    'course management',
+    'unit management',
     'assignment tracker',
     'exam scheduler',
     'grade tracker',
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     'university tools',
     'academic organization',
     'student dashboard',
-    'course planner',
+    'unit planner',
     'assignment management',
     'exam preparation',
     'academic progress',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     url: 'https://hanami.app/',
     title: 'Hanami — University Tracker & Academic Planner',
     description:
-      'A comprehensive university tracker to manage courses, assignments, exams, and academic progress. Stay organized with your academic journey.',
+      'A comprehensive university tracker to manage units, assignments, exams, and academic progress. Stay organized with your academic journey.',
     siteName: 'Hanami — University Tracker',
     images: [
       {
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Hanami — University Tracker & Academic Planner',
     description:
-      'A comprehensive university tracker to manage courses, assignments, exams, and academic progress. Stay organized with your academic journey.',
+      'A comprehensive university tracker to manage units, assignments, exams, and academic progress. Stay organized with your academic journey.',
     images: ['/og.png'],
     creator: '@hanami_app',
   },
@@ -124,7 +124,7 @@ export default function RootLayout({
               '@type': 'WebApplication',
               name: 'Hanami',
               url: 'https://hanami.app',
-              description: 'A comprehensive university tracker to manage courses, assignments, exams, and academic progress.',
+              description: 'A comprehensive university tracker to manage units, assignments, exams, and academic progress.',
               applicationCategory: 'EducationalApplication',
               operatingSystem: 'Web Browser',
               offers: {
@@ -133,7 +133,7 @@ export default function RootLayout({
                 priceCurrency: 'USD',
               },
               featureList: [
-                'Course Management',
+                'Unit Management',
                 'Assignment Tracking',
                 'Exam Scheduling',
                 'Grade Tracking',

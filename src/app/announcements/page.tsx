@@ -44,7 +44,7 @@ export default function AnnouncementsPage() {
               Announcements
             </h1>
             <p className="text-lg text-muted-foreground">
-              Stay updated with course announcements and university news.
+              Stay updated with unit announcements and university news.
             </p>
           </div>
 

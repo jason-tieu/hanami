@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NEXT_PUBLIC_STORAGE_DRIVER=supabase next dev --turbopack",
-    "build": "cross-env NEXT_PUBLIC_STORAGE_DRIVER=supabase next build --turbopack",
+    "build": "cross-env NEXT_PUBLIC_STORAGE_DRIVER=supabase NODE_OPTIONS=\"--no-deprecation\" next build --turbopack",
     "start": "cross-env NEXT_PUBLIC_STORAGE_DRIVER=supabase next start",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",

@@ -1,5 +1,5 @@
 import { 
-  Course, 
+  Unit,
   Assignment, 
   Exam, 
   Event, 
@@ -10,35 +10,36 @@ import {
 
 // Filter interfaces for list operations
 export interface AssignmentFilters {
-  courseId?: string;
+  unitId?: string;
   status?: AssignmentStatus;
   dueBefore?: Date;
   dueAfter?: Date;
 }
 
 export interface ExamFilters {
-  courseId?: string;
+  unitId?: string;
 }
 
 export interface EventFilters {
   from?: Date;
   to?: Date;
-  courseId?: string;
+  unitId?: string;
   type?: EventType;
 }
 
 export interface GradeItemFilters {
-  courseId?: string;
+  unitId?: string;
 }
 
 // Storage port interface - defines the contract for all storage implementations
 export interface StoragePort {
-  // Courses
-  listCourses(): Promise<Course[]>;
-  getCourse(id: string): Promise<Course | null>;
-  createCourse(course: Omit<Course, 'id'>): Promise<Course>;
-  updateCourse(id: string, updates: Partial<Omit<Course, 'id'>>): Promise<Course | null>;
-  deleteCourse(id: string): Promise<boolean>;
+  // Units
+  listUnits(): Promise<Unit[]>;
+  getUnit(id: string): Promise<Unit | null>;
+  createUnit(unit: Omit<Unit, 'id' | 'owner_id' | 'created_at'>): Promise<Unit>;
+  updateUnit(id: string, updates: Partial<Omit<Unit, 'id' | 'owner_id' | 'created_at'>>): Promise<Unit | null>;
+  deleteUnit(id: string): Promise<boolean>;
+
 
   // Assignments
   listAssignments(filters?: AssignmentFilters): Promise<Assignment[]>;

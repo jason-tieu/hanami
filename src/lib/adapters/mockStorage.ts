@@ -1,5 +1,5 @@
 import { 
-  Course, 
+  Unit,
   Assignment, 
   Exam, 
   Event, 
@@ -15,7 +15,7 @@ import {
 
 // Internal database shape
 interface DBShape {
-  courses: Course[];
+  units: Unit[];
   assignments: Assignment[];
   exams: Exam[];
   events: Event[];
@@ -29,7 +29,7 @@ function generateId(): string {
 
 // Filter helpers
 function matchesAssignmentFilters(assignment: Assignment, filters: AssignmentFilters): boolean {
-  if (filters.courseId && assignment.courseId !== filters.courseId) return false;
+  if (filters.unitId && assignment.unitId !== filters.unitId) return false;
   if (filters.status && assignment.status !== filters.status) return false;
   if (filters.dueBefore && assignment.dueAt > filters.dueBefore) return false;
   if (filters.dueAfter && assignment.dueAt < filters.dueAfter) return false;
@@ -37,12 +37,12 @@ function matchesAssignmentFilters(assignment: Assignment, filters: AssignmentFil
 }
 
 function matchesExamFilters(exam: Exam, filters: ExamFilters): boolean {
-  if (filters.courseId && exam.courseId !== filters.courseId) return false;
+  if (filters.unitId && exam.unitId !== filters.unitId) return false;
   return true;
 }
 
 function matchesEventFilters(event: Event, filters: EventFilters): boolean {
-  if (filters.courseId && event.courseId !== filters.courseId) return false;
+  if (filters.unitId && event.unitId !== filters.unitId) return false;
   if (filters.type && event.type !== filters.type) return false;
   if (filters.from && event.startsAt < filters.from) return false;
   if (filters.to && event.endsAt > filters.to) return false;
@@ -50,14 +50,14 @@ function matchesEventFilters(event: Event, filters: EventFilters): boolean {
 }
 
 function matchesGradeItemFilters(gradeItem: GradeItem, filters: GradeItemFilters): boolean {
-  if (filters.courseId && gradeItem.courseId !== filters.courseId) return false;
+  if (filters.unitId && gradeItem.unitId !== filters.unitId) return false;
   return true;
 }
 
 export function createMockStorage(initial?: Partial<DBShape>): StoragePort {
   // Initialize database with provided data or empty collections
   const db: DBShape = {
-    courses: initial?.courses || [],
+    units: initial?.units || [],
     assignments: initial?.assignments || [],
     exams: initial?.exams || [],
     events: initial?.events || [],
@@ -65,45 +65,48 @@ export function createMockStorage(initial?: Partial<DBShape>): StoragePort {
   };
 
   return {
-    // Courses
-    async listCourses(): Promise<Course[]> {
-      return [...db.courses];
+    // Units
+    async listUnits(): Promise<Unit[]> {
+      return [...db.units];
     },
 
-    async getCourse(id: string): Promise<Course | null> {
-      return db.courses.find(course => course.id === id) || null;
+    async getUnit(id: string): Promise<Unit | null> {
+      return db.units.find(unit => unit.id === id) || null;
     },
 
-    async createCourse(courseData: Omit<Course, 'id'>): Promise<Course> {
-      const course: Course = {
-        ...courseData,
+    async createUnit(unitData: Omit<Unit, 'id' | 'owner_id' | 'created_at'>): Promise<Unit> {
+      const unit: Unit = {
+        ...unitData,
         id: generateId(),
+        owner_id: 'mock-user-id',
+        created_at: new Date().toISOString(),
       };
-      db.courses.push(course);
-      return course;
+      db.units.push(unit);
+      return unit;
     },
 
-    async updateCourse(id: string, updates: Partial<Omit<Course, 'id'>>): Promise<Course | null> {
-      const index = db.courses.findIndex(course => course.id === id);
+    async updateUnit(id: string, updates: Partial<Omit<Unit, 'id' | 'owner_id' | 'created_at'>>): Promise<Unit | null> {
+      const index = db.units.findIndex(unit => unit.id === id);
       if (index === -1) return null;
       
-      db.courses[index] = { ...db.courses[index], ...updates };
-      return db.courses[index];
+      db.units[index] = { ...db.units[index], ...updates };
+      return db.units[index];
     },
 
-    async deleteCourse(id: string): Promise<boolean> {
-      const index = db.courses.findIndex(course => course.id === id);
+    async deleteUnit(id: string): Promise<boolean> {
+      const index = db.units.findIndex(unit => unit.id === id);
       if (index === -1) return false;
       
-      db.courses.splice(index, 1);
+      db.units.splice(index, 1);
       // Also remove related assignments, exams, events, and grades
-      db.assignments = db.assignments.filter(assignment => assignment.courseId !== id);
-      db.exams = db.exams.filter(exam => exam.courseId !== id);
-      db.events = db.events.filter(event => event.courseId !== id);
-      db.grades = db.grades.filter(grade => grade.courseId !== id);
+      db.assignments = db.assignments.filter(assignment => assignment.unitId !== id);
+      db.exams = db.exams.filter(exam => exam.unitId !== id);
+      db.events = db.events.filter(event => event.unitId !== id);
+      db.grades = db.grades.filter(grade => grade.unitId !== id);
       
       return true;
     },
+
 
     // Assignments
     async listAssignments(filters?: AssignmentFilters): Promise<Assignment[]> {
@@ -239,7 +242,7 @@ export function createMockStorage(initial?: Partial<DBShape>): StoragePort {
 
     // Utilities
     async clearAll(): Promise<void> {
-      db.courses = [];
+      db.units = [];
       db.assignments = [];
       db.exams = [];
       db.events = [];
@@ -252,7 +255,7 @@ export function createMockStorage(initial?: Partial<DBShape>): StoragePort {
 
     async importJSON(data: string): Promise<void> {
       const imported = JSON.parse(data) as DBShape;
-      db.courses = imported.courses || [];
+      db.units = imported.units || [];
       db.assignments = imported.assignments || [];
       db.exams = imported.exams || [];
       db.events = imported.events || [];

@@ -21,7 +21,7 @@ import { AuthWidget } from './AuthWidget';
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
-  { name: 'Courses', href: '/courses', icon: BookOpen },
+  { name: 'Units', href: '/units', icon: BookOpen },
   { name: 'Assignments', href: '/assignments', icon: ClipboardList },
   { name: 'Exams', href: '/exams', icon: Calendar },
   { name: 'Timetable', href: '/timetable', icon: Clock },

@@ -60,9 +60,8 @@ function SignInForm() {
         title: 'Check your email',
         description: 'We sent you a magic link to sign in.',
       });
-    } catch (err) {
+    } catch {
       setError('An unexpected error occurred. Please try again.');
-      console.error('Sign in error:', err);
     } finally {
       setIsLoading(false);
     }
@@ -83,9 +82,8 @@ function SignInForm() {
       if (error) {
         setError(error.message);
       }
-    } catch (err) {
+    } catch {
       setError('An unexpected error occurred. Please try again.');
-      console.error('Google sign in error:', err);
     } finally {
       setIsLoading(false);
     }

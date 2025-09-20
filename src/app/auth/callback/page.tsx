@@ -24,7 +24,6 @@ function AuthCallbackForm() {
         const { data, error } = await supabase.auth.getSession();
         
         if (error) {
-          console.error('Auth callback error:', error);
           setStatus('error');
           setMessage('Authentication failed. Please try again.');
           addToast({
@@ -57,8 +56,7 @@ function AuthCallbackForm() {
             description: 'No session found. Please try again.',
           });
         }
-      } catch (err) {
-        console.error('Unexpected error:', err);
+      } catch {
         setStatus('error');
         setMessage('An unexpected error occurred. Please try again.');
         addToast({

@@ -2,19 +2,19 @@
 
 import { useState } from 'react';
 import { ClipboardList, Plus, Search, Filter, Calendar, BookOpen } from 'lucide-react';
-import { mockAssignments, mockCourses } from '@/lib/mock';
+import { mockAssignments, mockUnits } from '@/lib/mock';
 import SectionWrapper from '@/components/SectionWrapper';
 import UIButton from '@/components/UIButton';
 
 export default function AssignmentsPage() {
   const [assignments] = useState(mockAssignments);
-  const [courses] = useState(mockCourses);
+  const [units] = useState(mockUnits);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
 
-  const getCourseCode = (courseId: string) => {
-    const course = courses.find(c => c.id === courseId);
-    return course?.code || 'Unknown';
+  const getUnitCode = (unitId: string) => {
+    const unit = units.find(unit => unit.id === unitId);
+    return unit?.code || 'Unknown';
   };
 
   const getStatusColor = (status: string) => {
@@ -42,7 +42,7 @@ export default function AssignmentsPage() {
 
   const filteredAssignments = assignments.filter(assignment => {
     const matchesSearch = assignment.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         getCourseCode(assignment.courseId).toLowerCase().includes(searchTerm.toLowerCase());
+                          getUnitCode(assignment.unitId).toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'all' || assignment.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
@@ -113,7 +113,7 @@ export default function AssignmentsPage() {
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-3">
                       <span className="text-sm font-medium text-muted-foreground">
-                        {getCourseCode(assignment.courseId)}
+                        {getUnitCode(assignment.unitId)}
                       </span>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(assignment.status)}`}>
                         {assignment.status.replace('_', ' ').toUpperCase()}

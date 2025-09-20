@@ -2,14 +2,16 @@
 
 import { useState } from 'react';
 import { Search, Filter, RefreshCw, Plus } from 'lucide-react';
-import { Course } from '@/lib/types';
+import { Unit } from '@/lib/types';
 import { useToast } from '@/lib/toast';
-import { useStorage } from '@/lib/storageContext';
 import UIButton from '@/components/UIButton';
-import { AddCourseModal } from '@/components/AddCourseModal';
+import { AddUnitModal } from '@/components/AddUnitModal';
 
-export function CoursesActions() {
-  const storage = useStorage();
+interface UnitsActionsProps {
+  onRefresh?: (() => void) | null;
+}
+
+export function UnitsActions({ onRefresh }: UnitsActionsProps) {
   const { addToast } = useToast();
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -22,39 +24,38 @@ export function CoursesActions() {
     // Search will be handled by client-side filtering
   };
 
-  // Handle course added from modal
-  const handleCourseAdded = (newCourse: Course) => {
-    console.log('➕ CoursesActions: Course added to UI:', newCourse);
-    // Refresh the page to show new course
-    window.location.reload();
+  // Handle unit added from modal
+  const handleUnitAdded = (_newUnit: Unit) => {
+    // Trigger refresh to show new unit
+    if (onRefresh) {
+      onRefresh();
+    }
   };
 
-  // Refresh courses manually
+  // Refresh units manually
   const handleRefresh = async () => {
+    if (!onRefresh) return;
+    
     setIsRefreshing(true);
     try {
-      console.log('🔄 CoursesActions: Manually refreshing courses...');
-      const storageCourses = await storage.listCourses();
-      console.log('✅ CoursesActions: Refreshed courses count:', storageCourses.length);
-      console.log('✅ CoursesActions: Refreshed courses:', storageCourses);
-      // Refresh the page to show updated courses
-      window.location.reload();
+      // Call the refresh function from UnitsData
+      onRefresh();
       
       // Show refresh success toast
       addToast({
         type: 'success',
-        title: 'Courses Refreshed',
-        description: `Loaded ${storageCourses.length} courses from database.`,
+        title: 'Units Refreshed',
+        description: 'Unit list is being refreshed from database.',
       });
-    } catch (error) {
-      console.error('❌ CoursesActions: Failed to refresh courses:', error);
+    } catch {
       addToast({
         type: 'error',
         title: 'Refresh Failed',
-        description: 'Failed to refresh courses from database.',
+        description: 'Failed to refresh units from database.',
       });
     } finally {
-      setIsRefreshing(false);
+      // Reset refreshing state after a short delay
+      setTimeout(() => setIsRefreshing(false), 1000);
     }
   };
 
@@ -65,7 +66,7 @@ export function CoursesActions() {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <input
             type="text"
-            placeholder="Search courses..."
+            placeholder="Search units..."
             value={searchTerm}
             onChange={handleSearchChange}
             className="w-full pl-10 pr-4 py-2 bg-card/50 backdrop-blur-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand/50"
@@ -89,15 +90,15 @@ export function CoursesActions() {
           onClick={() => setIsAddModalOpen(true)}
         >
           <Plus className="h-4 w-4" />
-          Add Course
+          Add Unit
         </UIButton>
       </div>
 
-      {/* Add Course Modal */}
-      <AddCourseModal
+      {/* Add Unit Modal */}
+      <AddUnitModal
         open={isAddModalOpen}
         onOpenChange={setIsAddModalOpen}
-        onCourseAdded={handleCourseAdded}
+        onUnitAdded={handleUnitAdded}
       />
     </>
   );

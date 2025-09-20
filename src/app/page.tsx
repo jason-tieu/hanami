@@ -12,7 +12,7 @@ export default function Dashboard() {
   const [stats] = useState(mockDashboardStats);
   const [upcomingItems] = useState(mockUpcomingItems);
   const [storageStats, setStorageStats] = useState({
-    courses: 0,
+    units: 0,
     assignments: 0,
     exams: 0,
   });
@@ -21,19 +21,18 @@ export default function Dashboard() {
   useEffect(() => {
     const loadStorageData = async () => {
       try {
-        const [courses, assignments, exams] = await Promise.all([
-          storage.listCourses(),
+        const [units, assignments, exams] = await Promise.all([
+          storage.listUnits(),
           storage.listAssignments(),
           storage.listExams(),
         ]);
         
         setStorageStats({
-          courses: courses.length,
+          units: units.length,
           assignments: assignments.length,
           exams: exams.length,
         });
-      } catch (error) {
-        console.error('Failed to load storage data:', error);
+      } catch {
       }
     };
 
@@ -118,7 +117,7 @@ export default function Dashboard() {
           {/* Storage Stats Indicator */}
           <div className="mt-4 text-center">
             <p className="text-xs text-muted-foreground">
-              Storage: {storageStats.courses} courses, {storageStats.assignments} assignments, {storageStats.exams} exams
+              Storage: {storageStats.units} units, {storageStats.assignments} assignments, {storageStats.exams} exams
             </p>
           </div>
 
@@ -142,7 +141,7 @@ export default function Dashboard() {
                           <span className={`text-xs font-medium ${getPriorityColor(item.priority)}`}>
                             {item.priority.toUpperCase()}
                           </span>
-                          <span className="text-xs text-muted-foreground">{item.courseCode}</span>
+                          <span className="text-xs text-muted-foreground">{item.unitCode}</span>
                         </div>
                         <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
                         <p className="text-sm text-muted-foreground">

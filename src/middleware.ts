@@ -62,7 +62,7 @@ export async function middleware(request: NextRequest) {
 
   // Protected routes - require authentication
   const protectedRoutes = [
-    '/courses',
+    '/units',
     '/assignments', 
     '/exams',
     '/timetable',
