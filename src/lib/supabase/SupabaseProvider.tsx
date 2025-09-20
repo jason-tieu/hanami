@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { createBrowserClient } from './browserClient';
+import { syncUserProfile } from './profileSync';
 import type { SupabaseClient, User, Session } from '@supabase/supabase-js';
 
 interface SupabaseContextType {
@@ -36,6 +37,11 @@ export function SupabaseProvider({ children }: SupabaseProviderProps) {
       async (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
+        
+        // Sync user profile on sign in
+        if (event === 'SIGNED_IN' && session?.user) {
+          syncUserProfile(supabase, session.user);
+        }
       }
     );
 
