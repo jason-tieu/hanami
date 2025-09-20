@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { BookOpen, Plus, Search, Filter } from 'lucide-react';
+import { BookOpen, Plus, Search, Filter, RefreshCw } from 'lucide-react';
 import { useStorage } from '@/lib/storageContext';
 import { Course } from '@/lib/types';
 import SectionWrapper from '@/components/SectionWrapper';
@@ -14,15 +14,18 @@ export default function CoursesPage() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   // Load courses from storage on mount
   useEffect(() => {
     const loadCourses = async () => {
       try {
+        console.log('🔄 CoursesPage: Loading courses from storage...');
         const storageCourses = await storage.listCourses();
+        console.log('✅ CoursesPage: Loaded courses:', storageCourses);
         setCourses(storageCourses);
       } catch (error) {
-        console.error('Failed to load courses:', error);
+        console.error('❌ CoursesPage: Failed to load courses:', error);
         setCourses([]);
       }
     };
@@ -32,7 +35,27 @@ export default function CoursesPage() {
 
   // Handle course added from modal
   const handleCourseAdded = (newCourse: Course) => {
-    setCourses(prev => [...prev, newCourse]);
+    console.log('➕ CoursesPage: Course added to UI:', newCourse);
+    setCourses(prev => {
+      const updated = [...prev, newCourse];
+      console.log('📝 CoursesPage: Updated courses list:', updated);
+      return updated;
+    });
+  };
+
+  // Refresh courses manually
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      console.log('🔄 CoursesPage: Manually refreshing courses...');
+      const storageCourses = await storage.listCourses();
+      console.log('✅ CoursesPage: Refreshed courses:', storageCourses);
+      setCourses(storageCourses);
+    } catch (error) {
+      console.error('❌ CoursesPage: Failed to refresh courses:', error);
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
   const filteredCourses = courses.filter(course =>
@@ -72,6 +95,15 @@ export default function CoursesPage() {
             <UIButton variant="secondary" className="flex items-center gap-2">
               <Filter className="h-4 w-4" />
               Filter
+            </UIButton>
+            <UIButton 
+              variant="secondary" 
+              className="flex items-center gap-2"
+              onClick={handleRefresh}
+              disabled={isRefreshing}
+            >
+              <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+              {isRefreshing ? 'Refreshing...' : 'Refresh'}
             </UIButton>
             <UIButton 
               variant="primary" 

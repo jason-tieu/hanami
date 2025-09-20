@@ -67,15 +67,29 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
       
       console.log('📝 SupabaseAdapter: Inserting course with data:', insertData);
       
+      console.log('📝 SupabaseAdapter: About to insert into database...');
       const { data, error } = await supabase
         .from('courses')
         .insert([insertData])
         .select()
         .single();
       
+      console.log('📊 SupabaseAdapter: Insert response - data:', data, 'error:', error);
+      
       if (error) {
         console.error('❌ SupabaseAdapter: Database error:', error);
+        console.error('❌ SupabaseAdapter: Error details:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
         throw error;
+      }
+      
+      if (!data) {
+        console.error('❌ SupabaseAdapter: No data returned from insert');
+        throw new Error('No data returned from database insert');
       }
       
       console.log('✅ SupabaseAdapter: Course created successfully:', data);

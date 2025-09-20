@@ -4,7 +4,7 @@ import { useSupabase } from '@/lib/supabase/SupabaseProvider';
 import { useStorage } from '@/lib/storageContext';
 
 export function DebugAuth() {
-  const { session, user, isLoading } = useSupabase();
+  const { session, user } = useSupabase();
   const storage = useStorage();
 
   const testCourseCreation = async () => {
@@ -12,6 +12,12 @@ export function DebugAuth() {
       console.log('🧪 DebugAuth: Testing course creation...');
       console.log('🧪 DebugAuth: Session:', session);
       console.log('🧪 DebugAuth: User:', user);
+      
+      // Test direct Supabase call first
+      console.log('🧪 DebugAuth: Testing direct Supabase call...');
+      const { supabase } = useSupabase();
+      const { data: { user: directUser }, error: userError } = await supabase.auth.getUser();
+      console.log('🧪 DebugAuth: Direct user check:', { user: directUser, error: userError });
       
       const testCourse = {
         code: 'DEBUG123',
@@ -24,12 +30,13 @@ export function DebugAuth() {
       console.log('✅ DebugAuth: Course created successfully:', result);
     } catch (error) {
       console.error('❌ DebugAuth: Course creation failed:', error);
+      console.error('❌ DebugAuth: Error details:', {
+        message: error.message,
+        stack: error.stack,
+        name: error.name
+      });
     }
   };
-
-  if (isLoading) {
-    return <div>Loading auth state...</div>;
-  }
 
   return (
     <div className="p-4 border rounded-lg bg-muted/50">
