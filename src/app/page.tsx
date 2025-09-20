@@ -1,14 +1,44 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Calendar, Clock, TrendingUp, BookOpen, AlertCircle } from 'lucide-react';
 import { mockDashboardStats, mockUpcomingItems } from '@/lib/mock';
+import { useStorage } from '@/lib/storageContext';
 import SectionWrapper from '@/components/SectionWrapper';
 import UIButton from '@/components/UIButton';
 
 export default function Dashboard() {
+  const storage = useStorage();
   const [stats] = useState(mockDashboardStats);
   const [upcomingItems] = useState(mockUpcomingItems);
+  const [storageStats, setStorageStats] = useState({
+    courses: 0,
+    assignments: 0,
+    exams: 0,
+  });
+
+  // Load data from storage on mount
+  useEffect(() => {
+    const loadStorageData = async () => {
+      try {
+        const [courses, assignments, exams] = await Promise.all([
+          storage.listCourses(),
+          storage.listAssignments(),
+          storage.listExams(),
+        ]);
+        
+        setStorageStats({
+          courses: courses.length,
+          assignments: assignments.length,
+          exams: exams.length,
+        });
+      } catch (error) {
+        console.error('Failed to load storage data:', error);
+      }
+    };
+
+    loadStorageData();
+  }, [storage]);
 
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('en-AU', {
@@ -83,6 +113,13 @@ export default function Dashboard() {
                 <TrendingUp className="h-8 w-8 text-green-500" />
               </div>
             </div>
+          </div>
+
+          {/* Storage Stats Indicator */}
+          <div className="mt-4 text-center">
+            <p className="text-xs text-muted-foreground">
+              Storage: {storageStats.courses} courses, {storageStats.assignments} assignments, {storageStats.exams} exams
+            </p>
           </div>
 
           {/* Main Content Grid */}

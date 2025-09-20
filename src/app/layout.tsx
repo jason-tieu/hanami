@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { Shell } from '@/components/shell/shell';
 import SpeedInsightsClient from '@/components/SpeedInsightsClient';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { StorageProvider } from '@/lib/storageContext';
 import './globals.css';
 
 const inter = Inter({
@@ -151,11 +152,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Shell>{children}</Shell>
-          {/* Floating Theme Toggle */}
-          <div className="fixed bottom-6 right-6 z-50">
-            <ThemeToggle />
-          </div>
+          <StorageProvider>
+            <Shell>{children}</Shell>
+            {/* Floating Theme Toggle */}
+            <div className="fixed bottom-6 right-6 z-50">
+              <ThemeToggle />
+            </div>
+          </StorageProvider>
         </ThemeProvider>
         <SpeedInsightsClient />
         <Analytics />

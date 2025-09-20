@@ -1,14 +1,55 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BookOpen, Plus, Search, Filter } from 'lucide-react';
 import { mockCourses } from '@/lib/mock';
+import { useStorage } from '@/lib/storageContext';
+import { Course } from '@/lib/types';
 import SectionWrapper from '@/components/SectionWrapper';
 import UIButton from '@/components/UIButton';
 
 export default function CoursesPage() {
-  const [courses] = useState(mockCourses);
+  const storage = useStorage();
+  const [courses, setCourses] = useState<Course[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Load courses from storage on mount
+  useEffect(() => {
+    const loadCourses = async () => {
+      try {
+        const storageCourses = await storage.listCourses();
+        setCourses(storageCourses);
+      } catch (error) {
+        console.error('Failed to load courses:', error);
+        // Fallback to mock data
+        setCourses(mockCourses);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadCourses();
+  }, [storage]);
+
+  // Add course function
+  const handleAddCourse = async () => {
+    try {
+      const newCourse = await storage.createCourse({
+        code: 'NEW101',
+        title: 'New Course (Mock)',
+        term: 'Semester 1, 2024',
+        campus: 'St Lucia',
+        credits: 2,
+        instructor: 'Dr. Sample',
+        description: 'This is a sample course created via storage.',
+      });
+      
+      setCourses(prev => [...prev, newCourse]);
+    } catch (error) {
+      console.error('Failed to add course:', error);
+    }
+  };
 
   const filteredCourses = courses.filter(course =>
     course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -45,9 +86,13 @@ export default function CoursesPage() {
               <Filter className="h-4 w-4" />
               Filter
             </UIButton>
-            <UIButton variant="primary" className="flex items-center gap-2">
+            <UIButton 
+              variant="primary" 
+              className="flex items-center gap-2"
+              onClick={handleAddCourse}
+            >
               <Plus className="h-4 w-4" />
-              Add Course
+              {isLoading ? 'Adding...' : 'Add Course (Mock)'}
             </UIButton>
           </div>
 
@@ -98,9 +143,13 @@ export default function CoursesPage() {
               <p className="text-muted-foreground mb-6">
                 {searchTerm ? 'Try adjusting your search terms.' : 'Get started by adding your first course.'}
               </p>
-              <UIButton variant="primary" className="flex items-center gap-2">
+              <UIButton 
+                variant="primary" 
+                className="flex items-center gap-2"
+                onClick={handleAddCourse}
+              >
                 <Plus className="h-4 w-4" />
-                Add Course
+                {isLoading ? 'Adding...' : 'Add Course (Mock)'}
               </UIButton>
             </div>
           )}

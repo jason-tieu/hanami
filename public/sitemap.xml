@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://jason-tieu.dev/grades/</loc><lastmod>2025-09-19T12:32:41.192Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-<url><loc>https://jason-tieu.dev/</loc><lastmod>2025-09-19T12:32:41.192Z</lastmod><changefreq>weekly</changefreq><priority>1</priority></url>
-<url><loc>https://jason-tieu.dev/planner/</loc><lastmod>2025-09-19T12:32:41.192Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-<url><loc>https://jason-tieu.dev/announcements/</loc><lastmod>2025-09-19T12:32:41.192Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-<url><loc>https://jason-tieu.dev/courses/</loc><lastmod>2025-09-19T12:32:41.192Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-<url><loc>https://jason-tieu.dev/settings/</loc><lastmod>2025-09-19T12:32:41.192Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-<url><loc>https://jason-tieu.dev/integrations/</loc><lastmod>2025-09-19T12:32:41.192Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-<url><loc>https://jason-tieu.dev/calendar/</loc><lastmod>2025-09-19T12:32:41.192Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-<url><loc>https://jason-tieu.dev/timetable/</loc><lastmod>2025-09-19T12:32:41.192Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-<url><loc>https://jason-tieu.dev/resources/</loc><lastmod>2025-09-19T12:32:41.192Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-<url><loc>https://jason-tieu.dev/exams/</loc><lastmod>2025-09-19T12:32:41.193Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-<url><loc>https://jason-tieu.dev/notifications/</loc><lastmod>2025-09-19T12:32:41.193Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-<url><loc>https://jason-tieu.dev/assignments/</loc><lastmod>2025-09-19T12:32:41.193Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://jason-tieu.dev/calendar/</loc><lastmod>2025-09-20T08:13:44.205Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://jason-tieu.dev/settings/</loc><lastmod>2025-09-20T08:13:44.206Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://jason-tieu.dev/integrations/</loc><lastmod>2025-09-20T08:13:44.206Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://jason-tieu.dev/announcements/</loc><lastmod>2025-09-20T08:13:44.206Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://jason-tieu.dev/assignments/</loc><lastmod>2025-09-20T08:13:44.206Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://jason-tieu.dev/planner/</loc><lastmod>2025-09-20T08:13:44.206Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://jason-tieu.dev/notifications/</loc><lastmod>2025-09-20T08:13:44.206Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://jason-tieu.dev/exams/</loc><lastmod>2025-09-20T08:13:44.206Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://jason-tieu.dev/timetable/</loc><lastmod>2025-09-20T08:13:44.206Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://jason-tieu.dev/resources/</loc><lastmod>2025-09-20T08:13:44.206Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://jason-tieu.dev/grades/</loc><lastmod>2025-09-20T08:13:44.206Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://jason-tieu.dev/</loc><lastmod>2025-09-20T08:13:44.206Z</lastmod><changefreq>weekly</changefreq><priority>1</priority></url>
+<url><loc>https://jason-tieu.dev/courses/</loc><lastmod>2025-09-20T08:13:44.206Z</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>
