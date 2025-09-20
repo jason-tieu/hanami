@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { BookOpen, Plus, Search, Filter, RefreshCw } from 'lucide-react';
 import { useStorage } from '@/lib/storageContext';
 import { Course } from '@/lib/types';
+import { useToast } from '@/lib/toast';
 import SectionWrapper from '@/components/SectionWrapper';
 import UIButton from '@/components/UIButton';
 import { AddCourseModal } from '@/components/AddCourseModal';
@@ -11,6 +12,7 @@ import { DebugAuth } from '@/components/DebugAuth';
 
 export default function CoursesPage() {
   const storage = useStorage();
+  const { addToast } = useToast();
   const [courses, setCourses] = useState<Course[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -49,10 +51,23 @@ export default function CoursesPage() {
     try {
       console.log('🔄 CoursesPage: Manually refreshing courses...');
       const storageCourses = await storage.listCourses();
+      console.log('✅ CoursesPage: Refreshed courses count:', storageCourses.length);
       console.log('✅ CoursesPage: Refreshed courses:', storageCourses);
       setCourses(storageCourses);
+      
+      // Show refresh success toast
+      addToast({
+        type: 'success',
+        title: 'Courses Refreshed',
+        description: `Loaded ${storageCourses.length} courses from database.`,
+      });
     } catch (error) {
       console.error('❌ CoursesPage: Failed to refresh courses:', error);
+      addToast({
+        type: 'error',
+        title: 'Refresh Failed',
+        description: 'Failed to refresh courses from database.',
+      });
     } finally {
       setIsRefreshing(false);
     }
@@ -67,15 +82,20 @@ export default function CoursesPage() {
     <main className="relative">
       <SectionWrapper className="overflow-hidden">
         <div className="relative z-20 mx-auto max-w-6xl px-6">
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
-              Courses
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Manage your enrolled courses and track your academic progress.
-            </p>
-          </div>
+                  {/* Header */}
+                  <div className="mb-8">
+                    <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
+                      Courses
+                    </h1>
+                    <p className="text-lg text-muted-foreground">
+                      Manage your enrolled courses and track your academic progress.
+                    </p>
+                    {process.env.NODE_ENV === 'development' && (
+                      <div className="mt-2 text-sm text-muted-foreground">
+                        Driver: <span className="font-mono bg-muted px-2 py-1 rounded">{process.env.STORAGE_DRIVER || 'mock'}</span>
+                      </div>
+                    )}
+                  </div>
 
           {/* Debug Auth */}
           <DebugAuth />

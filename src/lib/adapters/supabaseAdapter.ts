@@ -43,6 +43,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
 
     async createCourse(courseData: Omit<Course, 'id'>): Promise<Course> {
       console.log('🔄 SupabaseAdapter: createCourse called with:', courseData);
+      console.log('🔍 SupabaseAdapter: Using browser client:', !!supabase);
       
       // Get current user for RLS
       console.log('🔍 SupabaseAdapter: Getting current user...');
@@ -50,7 +51,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
       
       if (userError) {
         console.error('❌ SupabaseAdapter: Error getting user:', userError);
-        throw new Error('Failed to get user information.');
+        throw new Error(`Failed to get user information: ${userError.message}`);
       }
       
       if (!user) {
@@ -67,8 +68,6 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
       
       console.log('📝 SupabaseAdapter: Inserting course with data:', insertData);
       
-      console.log('📝 SupabaseAdapter: About to insert into database...');
-      
       try {
         const { data, error } = await supabase
           .from('courses')
@@ -79,14 +78,13 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
         console.log('📊 SupabaseAdapter: Insert response - data:', data, 'error:', error);
         
         if (error) {
-          console.error('❌ SupabaseAdapter: Database error:', error);
-          console.error('❌ SupabaseAdapter: Error details:', {
+          console.error('❌ SupabaseAdapter: PostgREST error:', {
+            code: error.code,
             message: error.message,
             details: error.details,
-            hint: error.hint,
-            code: error.code
+            hint: error.hint
           });
-          throw error;
+          throw new Error(`Database error: ${error.message} (${error.code})`);
         }
         
         if (!data) {
@@ -94,15 +92,10 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
           throw new Error('No data returned from database insert');
         }
         
-        console.log('✅ SupabaseAdapter: Course created successfully:', data);
+        console.log('✅ SupabaseAdapter: Course created successfully from DB -> id:', data.id);
         return data;
       } catch (insertError) {
         console.error('❌ SupabaseAdapter: Insert failed with exception:', insertError);
-        console.error('❌ SupabaseAdapter: Exception details:', {
-          message: insertError.message,
-          stack: insertError.stack,
-          name: insertError.name
-        });
         throw insertError;
       }
     },
@@ -172,10 +165,9 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
     },
 
     async createAssignment(assignmentData: Omit<Assignment, 'id'>): Promise<Assignment> {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        throw new Error('Please sign in to add assignments.');
-      }
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (userError) throw new Error(`Failed to get user information: ${userError.message}`);
+      if (!user) throw new Error('Please sign in to add assignments.');
 
       const { data, error } = await supabase
         .from('assignments')
@@ -186,7 +178,13 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
         .select()
         .single();
       
-      if (error) throw error;
+      if (error) {
+        console.error('❌ SupabaseAdapter: Assignment creation error:', error);
+        throw new Error(`Database error: ${error.message} (${error.code})`);
+      }
+      if (!data) throw new Error('No data returned from database insert');
+      
+      console.log('✅ SupabaseAdapter: Assignment created from DB -> id:', data.id);
       return data;
     },
 
@@ -246,10 +244,9 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
     },
 
     async createExam(examData: Omit<Exam, 'id'>): Promise<Exam> {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        throw new Error('Please sign in to add exams.');
-      }
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (userError) throw new Error(`Failed to get user information: ${userError.message}`);
+      if (!user) throw new Error('Please sign in to add exams.');
 
       const { data, error } = await supabase
         .from('exams')
@@ -260,7 +257,13 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
         .select()
         .single();
       
-      if (error) throw error;
+      if (error) {
+        console.error('❌ SupabaseAdapter: Exam creation error:', error);
+        throw new Error(`Database error: ${error.message} (${error.code})`);
+      }
+      if (!data) throw new Error('No data returned from database insert');
+      
+      console.log('✅ SupabaseAdapter: Exam created from DB -> id:', data.id);
       return data;
     },
 
@@ -315,10 +318,9 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
     },
 
     async createEvent(eventData: Omit<Event, 'id'>): Promise<Event> {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        throw new Error('Please sign in to add events.');
-      }
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (userError) throw new Error(`Failed to get user information: ${userError.message}`);
+      if (!user) throw new Error('Please sign in to add events.');
 
       const { data, error } = await supabase
         .from('events')
@@ -329,7 +331,13 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
         .select()
         .single();
       
-      if (error) throw error;
+      if (error) {
+        console.error('❌ SupabaseAdapter: Event creation error:', error);
+        throw new Error(`Database error: ${error.message} (${error.code})`);
+      }
+      if (!data) throw new Error('No data returned from database insert');
+      
+      console.log('✅ SupabaseAdapter: Event created from DB -> id:', data.id);
       return data;
     },
 
@@ -375,10 +383,9 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
     },
 
     async createGradeItem(gradeItemData: Omit<GradeItem, 'id'>): Promise<GradeItem> {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        throw new Error('Please sign in to add grade items.');
-      }
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (userError) throw new Error(`Failed to get user information: ${userError.message}`);
+      if (!user) throw new Error('Please sign in to add grade items.');
 
       const { data, error } = await supabase
         .from('grade_items')
@@ -389,7 +396,13 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
         .select()
         .single();
       
-      if (error) throw error;
+      if (error) {
+        console.error('❌ SupabaseAdapter: Grade item creation error:', error);
+        throw new Error(`Database error: ${error.message} (${error.code})`);
+      }
+      if (!data) throw new Error('No data returned from database insert');
+      
+      console.log('✅ SupabaseAdapter: Grade item created from DB -> id:', data.id);
       return data;
     },
 

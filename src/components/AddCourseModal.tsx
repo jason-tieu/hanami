@@ -137,11 +137,12 @@ export function AddCourseModal({ open, onOpenChange, onCourseAdded }: AddCourseM
       const newCourse = await storage.createCourse(courseData);
       
       console.log('✅ AddCourseModal: Course created successfully:', newCourse);
+      console.log('✅ AddCourseModal: Created course from DB -> id:', newCourse.id);
       
       addToast({
         type: 'success',
         title: 'Course Added',
-        description: `${newCourse.code} has been added successfully.`,
+        description: `${newCourse.code} has been added successfully. ID: ${newCourse.id}`,
       });
 
       onCourseAdded(newCourse);
