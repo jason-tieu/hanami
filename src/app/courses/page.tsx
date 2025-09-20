@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
 import SectionWrapper from '@/components/SectionWrapper';
-import { DebugAuth } from '@/components/DebugAuth';
 import { CoursesActions } from './courses-actions';
 import { CoursesData } from './courses-data';
 
@@ -23,9 +22,6 @@ export default function CoursesPage() {
               </div>
             )}
           </div>
-
-          {/* Debug Auth */}
-          <DebugAuth />
 
           {/* Actions */}
           <CoursesActions />

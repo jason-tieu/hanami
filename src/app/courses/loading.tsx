@@ -18,18 +18,8 @@ export default function CoursesLoading() {
             )}
           </div>
 
-          {/* Debug Auth Skeleton */}
-          <div className="p-4 border rounded-lg bg-muted/80 mb-8 animate-in fade-in duration-200 delay-50">
-            <Skeleton className="h-6 w-32 mb-2" />
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-24" />
-              <Skeleton className="h-4 w-32" />
-              <Skeleton className="h-4 w-20" />
-            </div>
-          </div>
-
           {/* Actions Skeleton */}
-          <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-in fade-in duration-200 delay-100">
+          <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-in fade-in duration-200 delay-50">
             <div className="flex-1 relative">
               <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
                 <Search className="h-4 w-4 text-muted-foreground" />
