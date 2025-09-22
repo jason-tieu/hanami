@@ -132,6 +132,45 @@ export interface Integration {
   settings?: Record<string, unknown>;
 }
 
+// Canvas API types
+export interface CanvasSelfProfile {
+  id: number;
+  name?: string;
+  short_name?: string;
+  sortable_name?: string;
+  avatar_url?: string;
+  primary_email?: string;
+  login_id?: string;
+  integration_id?: string;
+  time_zone?: string;
+  locale?: string;
+  effective_locale?: string;
+  calendar?: {
+    ics?: string;
+  };
+}
+
+export interface LMSAccount {
+  id: string;
+  owner_id: string;
+  provider: 'canvas';
+  base_url: string;
+  external_user_id: string;
+  name?: string;
+  short_name?: string;
+  sortable_name?: string;
+  avatar_url?: string;
+  primary_email?: string;
+  login_id?: string;
+  integration_id?: string;
+  time_zone?: string;
+  locale?: string;
+  effective_locale?: string;
+  calendar_ics?: string;
+  last_profile_sync_at?: string;
+  created_at: string;
+}
+
 export interface Notification {
   id: string;
   title: string;

@@ -327,9 +327,8 @@ export const mockIntegrations: Integration[] = [
     id: '1',
     name: 'Canvas LMS',
     type: 'canvas',
-    status: 'connected',
-    lastSync: new Date('2024-03-14T08:30:00'),
-    settings: { autoSync: true, syncFrequency: 'daily' }
+    status: 'disconnected',
+    settings: {}
   },
   {
     id: '2',

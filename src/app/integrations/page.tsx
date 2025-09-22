@@ -1,13 +1,105 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, Plus, CheckCircle2, XCircle, RefreshCw } from 'lucide-react';
-import { mockIntegrations } from '@/lib/mock';
 import SectionWrapper from '@/components/SectionWrapper';
 import UIButton from '@/components/UIButton';
+import CanvasConnectModal from '@/components/CanvasConnectModal';
+import { verifyCanvasToken, storeCanvasConnection } from '@/lib/canvas-api';
+import { fetchLMSConnections, disconnectLMSConnection, type LMSConnection } from '@/lib/integrations-api';
+import { useSession } from '@/lib/supabase/SupabaseProvider';
+import { syncCanvas } from '@/lib/integrations/actions';
+
+interface Integration {
+  id: string;
+  name: string;
+  type: string;
+  status: 'connected' | 'disconnected' | 'error';
+  lastSync?: Date;
+  connectionId?: string; // Add connection ID for sync/disconnect operations
+}
 
 export default function IntegrationsPage() {
-  const [integrations] = useState(mockIntegrations);
+  const [integrations, setIntegrations] = useState<Integration[]>([]);
+  const [canvasModalOpen, setCanvasModalOpen] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [syncingConnections, setSyncingConnections] = useState<Set<string>>(new Set());
+  const [disconnectingConnections, setDisconnectingConnections] = useState<Set<string>>(new Set());
+  const { session, user, isLoading: authLoading } = useSession();
+
+  // Convert LMS connections to integration format
+  const convertConnectionsToIntegrations = (connections: LMSConnection[]): Integration[] => {
+    const integrationMap = new Map<string, Integration>();
+    
+    // Initialize with default integrations
+    const defaultIntegrations: Integration[] = [
+      {
+        id: 'canvas',
+        name: 'Canvas LMS',
+        type: 'canvas',
+        status: 'disconnected'
+      }
+    ];
+
+    // Add default integrations to map
+    defaultIntegrations.forEach(integration => {
+      integrationMap.set(integration.id, integration);
+    });
+
+    // Update with real connection data
+    connections.forEach(connection => {
+      if (connection.provider === 'canvas') {
+        integrationMap.set('canvas', {
+          id: 'canvas',
+          name: 'Canvas LMS',
+          type: 'canvas',
+          status: connection.status,
+          lastSync: connection.access_meta.last_synced_at 
+            ? new Date(connection.access_meta.last_synced_at)
+            : undefined,
+          connectionId: connection.id
+        });
+      }
+    });
+
+    return Array.from(integrationMap.values());
+  };
+
+  // Fetch connections from database
+  const loadConnections = async () => {
+    if (!session?.access_token) return;
+
+    try {
+      setIsLoading(true);
+      const response = await fetchLMSConnections(session.access_token);
+      if (response.success && response.connections) {
+        const integrations = convertConnectionsToIntegrations(response.connections);
+        setIntegrations(integrations);
+        console.log('Loaded connections:', integrations);
+      }
+    } catch (error) {
+      console.error('Failed to load connections:', error);
+      // Fallback to default integrations
+      setIntegrations([
+        {
+          id: 'canvas',
+          name: 'Canvas LMS',
+          type: 'canvas',
+          status: 'disconnected'
+        }
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Load connections when session is available
+  useEffect(() => {
+    if (session?.access_token && !authLoading) {
+      loadConnections();
+    }
+  }, [session?.access_token, authLoading]);
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -35,6 +127,186 @@ export default function IntegrationsPage() {
       minute: '2-digit'
     }).format(date);
   };
+
+  const handleCanvasConnect = async (baseUrl: string, token: string) => {
+    if (!session?.access_token) {
+      throw new Error('You must be signed in to connect Canvas');
+    }
+
+    setIsConnecting(true);
+    try {
+      // Verify the token first
+      const verifyResult = await verifyCanvasToken(baseUrl, token);
+      if (!verifyResult.success) {
+        throw new Error(verifyResult.error || 'Token verification failed');
+      }
+
+      // Store the connection with profile data and access token
+      const storeResult = await storeCanvasConnection(baseUrl, token, verifyResult.profile, session.access_token);
+      if (!storeResult.success) {
+        throw new Error(storeResult.error || 'Failed to store connection');
+      }
+
+      // Close modal and refresh connections
+      setCanvasModalOpen(false);
+      
+      // Show success message based on action
+      const action = storeResult.action || 'created';
+      console.log(`Canvas connection ${action} successfully:`, {
+        connectionId: storeResult.connectionId,
+        action
+      });
+      
+      // Reload connections to show updated status
+      await loadConnections();
+      
+    } catch (error) {
+      console.error('Canvas connection error:', error);
+      throw error; // Re-throw to let the modal handle the error display
+    } finally {
+      setIsConnecting(false);
+    }
+  };
+
+  const handleSync = async (integration: Integration) => {
+    if (!session?.access_token) {
+      console.error('Missing access token for sync');
+      return;
+    }
+
+    setSyncingConnections(prev => new Set(prev).add(integration.id));
+    
+    try {
+      console.log('Syncing Canvas data and profile...');
+      
+      
+      const result = await syncCanvas(session.access_token);
+      
+      if (result.ok && result.summary) {
+        const { added, updated, skipped, total, profileSaved } = result.summary;
+        
+        console.log('Canvas sync successful:', {
+          profileSaved,
+          added,
+          updated,
+          skipped,
+          total,
+        });
+        
+        // Show success message
+        const message = `Synced ✓ — ${added} added, ${updated} updated, ${skipped} skipped`;
+        console.log(message);
+        
+        // TODO: Show success toast with message
+        
+        // Reload connections to update last sync time
+        await loadConnections();
+      } else {
+        console.error('Canvas sync failed:', result.error);
+        
+        // Handle specific error cases
+        if (result.error?.includes('token expired') || result.error?.includes('reconnect')) {
+          console.log('Canvas token expired, user needs to reconnect');
+          // TODO: Show error toast: "Please reconnect Canvas"
+        } else {
+          // TODO: Show error toast with result.error
+        }
+      }
+    } catch (error) {
+      console.error('Canvas sync error:', error);
+      // TODO: Show error toast
+    } finally {
+      setSyncingConnections(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(integration.id);
+        return newSet;
+      });
+    }
+  };
+
+  const handleDisconnect = async (integration: Integration) => {
+    if (!session?.access_token || !integration.connectionId) {
+      console.error('Missing access token or connection ID for disconnect');
+      return;
+    }
+
+    if (!confirm(`Are you sure you want to disconnect ${integration.name}? This will remove all synced data.`)) {
+      return;
+    }
+
+    setDisconnectingConnections(prev => new Set(prev).add(integration.id));
+    
+    try {
+      console.log('Disconnecting Canvas connection:', integration.connectionId);
+      
+      const result = await disconnectLMSConnection(integration.connectionId, session.access_token);
+      
+      if (result.success) {
+        console.log('Canvas disconnect successful');
+        // Reload connections to update status
+        await loadConnections();
+      } else {
+        console.error('Canvas disconnect failed:', result.error);
+        // TODO: Show error toast
+      }
+    } catch (error) {
+      console.error('Canvas disconnect error:', error);
+      // TODO: Show error toast
+    } finally {
+      setDisconnectingConnections(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(integration.id);
+        return newSet;
+      });
+    }
+  };
+
+  const handleCanvasConnectClick = () => {
+    if (!user) {
+      // Redirect to sign in or show error
+      console.error('User must be signed in to connect Canvas');
+      return;
+    }
+    setCanvasModalOpen(true);
+  };
+
+  // Show loading state while checking authentication or loading connections
+  if (authLoading || isLoading) {
+    return (
+      <main className="relative">
+        <SectionWrapper className="overflow-hidden">
+          <div className="relative z-20 mx-auto max-w-6xl px-6">
+            <div className="flex items-center justify-center h-64">
+              <div className="text-muted-foreground">Loading integrations...</div>
+            </div>
+          </div>
+        </SectionWrapper>
+      </main>
+    );
+  }
+
+  // Show sign-in prompt if not authenticated
+  if (!user) {
+    return (
+      <main className="relative">
+        <SectionWrapper className="overflow-hidden">
+          <div className="relative z-20 mx-auto max-w-6xl px-6">
+            <div className="text-center">
+              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
+                Integrations
+              </h1>
+              <p className="text-lg text-muted-foreground mb-8">
+                Please sign in to manage your integrations.
+              </p>
+              <UIButton variant="primary" asChild>
+                <a href="/auth/sign-in">Sign In</a>
+              </UIButton>
+            </div>
+          </div>
+        </SectionWrapper>
+      </main>
+    );
+  }
 
   return (
     <main className="relative">
@@ -78,16 +350,30 @@ export default function IntegrationsPage() {
                 <div className="flex gap-2">
                   {integration.status === 'connected' ? (
                     <>
-                      <UIButton variant="secondary" className="flex-1 text-sm px-3 py-1">
-                        <RefreshCw className="h-4 w-4 mr-1" />
-                        Sync Now
+                      <UIButton 
+                        variant="secondary" 
+                        className="flex-1 text-sm px-3 py-1"
+                        onClick={() => handleSync(integration)}
+                        disabled={syncingConnections.has(integration.id)}
+                      >
+                        <RefreshCw className={`h-4 w-4 mr-1 ${syncingConnections.has(integration.id) ? 'animate-spin' : ''}`} />
+                        {syncingConnections.has(integration.id) ? 'Syncing...' : 'Sync All'}
                       </UIButton>
-                      <UIButton variant="ghost" className="text-sm px-3 py-1">
-                        Disconnect
+                      <UIButton 
+                        variant="ghost" 
+                        className="text-sm px-3 py-1"
+                        onClick={() => handleDisconnect(integration)}
+                        disabled={disconnectingConnections.has(integration.id)}
+                      >
+                        {disconnectingConnections.has(integration.id) ? 'Disconnecting...' : 'Disconnect'}
                       </UIButton>
                     </>
                   ) : (
-                    <UIButton variant="primary" className="flex-1 text-sm px-3 py-1">
+                    <UIButton 
+                      variant="primary" 
+                      className="flex-1 text-sm px-3 py-1"
+                      onClick={integration.type === 'canvas' ? handleCanvasConnectClick : () => {}}
+                    >
                       Connect
                     </UIButton>
                   )}
@@ -108,6 +394,14 @@ export default function IntegrationsPage() {
           </div>
         </div>
       </SectionWrapper>
+
+      {/* Canvas Connect Modal */}
+      <CanvasConnectModal
+        open={canvasModalOpen}
+        onOpenChange={setCanvasModalOpen}
+        onConnect={handleCanvasConnect}
+        isConnecting={isConnecting}
+      />
     </main>
   );
 }

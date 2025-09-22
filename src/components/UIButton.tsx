@@ -7,6 +7,8 @@ type UIButtonProps = React.PropsWithChildren<{
   variant?: 'primary' | 'secondary' | 'ghost';
   asChild?: boolean; // when true, style & wire up the child element directly (e.g., <Link>)
   onClick?: React.MouseEventHandler<HTMLElement>;
+  disabled?: boolean;
+  style?: React.CSSProperties;
 }>;
 
 export default function UIButton({
@@ -14,16 +16,21 @@ export default function UIButton({
   variant = 'primary',
   asChild = false,
   onClick,
+  disabled = false,
+  style,
   children,
 }: UIButtonProps) {
   const base =
     'ui-btn relative inline-flex items-center justify-center rounded-2xl px-4 py-2 text-base font-medium ' +
-    'cursor-pointer select-none ' +
+    'select-none ' +
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ' +
     'transition-all duration-200 ease-out ' +
-    'active:scale-[0.98] ' +
     'backdrop-blur-sm border border-border/120 ' +
-    'min-h-[44px]';
+    'min-h-[44px] ' +
+    (disabled 
+      ? 'cursor-not-allowed opacity-50 pointer-events-none' 
+      : 'cursor-pointer active:scale-[0.98]'
+    );
 
   const styles = {
     primary:
@@ -89,9 +96,11 @@ export default function UIButton({
       | undefined;
 
     const mergedOnClick: React.MouseEventHandler<HTMLElement> = e => {
-      createRipple(e.currentTarget as HTMLElement, e);
-      childOnClick?.(e);
-      onClick?.(e);
+      if (!disabled) {
+        createRipple(e.currentTarget as HTMLElement, e);
+        childOnClick?.(e);
+        onClick?.(e);
+      }
     };
 
     const mergedOnMove: React.MouseEventHandler<HTMLElement> = e => {
@@ -128,8 +137,10 @@ export default function UIButton({
 
   // ---- default <button> path ----
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = e => {
-    createRipple(e.currentTarget as HTMLElement, e);
-    onClick?.(e);
+    if (!disabled) {
+      createRipple(e.currentTarget as HTMLElement, e);
+      onClick?.(e);
+    }
   };
 
   return (
@@ -140,6 +151,8 @@ export default function UIButton({
       onMouseMove={onMove}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
+      disabled={disabled}
+      style={style}
     >
       <span className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl ui-ripple-host" />
       <span className="relative z-10 inline-flex items-center justify-center gap-2 w-full">
