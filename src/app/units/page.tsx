@@ -20,11 +20,6 @@ export default function UnitsPage() {
             <p className="text-lg text-muted-foreground">
               Manage your enrolled units and track your academic progress.
             </p>
-            {process.env.NODE_ENV === 'development' && (
-              <div className="mt-2 text-sm text-muted-foreground">
-                Driver: <span className="font-mono bg-muted px-2 py-1 rounded" id="driver-display">Loading...</span>
-              </div>
-            )}
           </div>
 
           {/* Actions */}
@@ -36,8 +31,8 @@ export default function UnitsPage() {
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in duration-200"
             >
               {Array.from({ length: 6 }).map((_, i) => (
-                <div 
-                  key={i} 
+                <div
+                  key={i}
                   className="bg-card/80 border border-border rounded-2xl p-6 animate-pulse"
                   style={{ animationDelay: `${i * 50}ms` }}
                 >

@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/serverClient';
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Test database connection by querying lms_connections
     const { data, error } = await supabase

@@ -5,6 +5,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { cleanSyllabus, primaryTeacherName } from '../utils/canvas';
 import { parseSemesterYear } from '../../lib/canvas/parse';
+import { cleanUnitTitle } from '../utils/unitTitle';
+import { cleanUnitCode } from '../utils/unitCode';
 
 export type UnitPayload = {
   owner_id: string;
@@ -66,11 +68,17 @@ export async function upsertUnit(
   const year = semesterYear?.year ?? null;
   const term = semester && year ? `S${semester} ${year}` : null;
 
+  // Clean the title and code
+  const rawTitle = course.name ?? 'Untitled Course';
+  const rawCode = course.course_code ?? course.sis_course_id ?? null;
+  const cleanedCode = cleanUnitCode(rawCode);
+  const cleanedTitle = cleanUnitTitle(rawTitle, rawCode); // Use raw code for title cleaning since it needs the full code to match
+
   const payload: UnitPayload = {
     owner_id: ownerId,
     canvas_course_id: course.id,
-    code: course.course_code ?? course.sis_course_id ?? null,
-    title: course.name ?? 'Untitled Course',
+    code: cleanedCode,
+    title: cleanedTitle,
     url: course.html_url ?? null,
     unit_url: course.calendar?.ics ?? null,
     semester,

@@ -3,13 +3,21 @@
 export interface Unit {
   id: string;
   owner_id: string;          // from DB reads only
-  code: string;
+  code: string | null;
   title: string;
-  term: string;
+  term: string | null;
+  semester: number | null;
+  year: number | null;
+  term_display: string | null;
   campus: string | null;
   url: string | null;
+  unit_url: string | null;
   instructor: string | null;
+  credits: number | null;
+  description: string | null;
+  canvas_course_id: number | null;
   created_at: string;        // ISO string
+  updated_at: string | null; // ISO string
 }
 
 

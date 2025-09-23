@@ -14,6 +14,8 @@ import {
   GradeItemFilters 
 } from '../storage';
 import { UNITS_TABLE, ASSIGNMENTS_TABLE, EXAMS_TABLE, EVENTS_TABLE, GRADE_ITEMS_TABLE } from '../constants';
+import { cleanUnitTitle } from '../formatters/unitTitle';
+import { cleanUnitCode } from '../formatters/unitCode';
 
 export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
   return {
@@ -32,7 +34,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
       
       const { data, error } = await supabase
         .from(UNITS_TABLE)
-        .select('id, owner_id, code, title, term, campus, url, instructor, created_at')
+        .select('id, owner_id, code, title, term, semester, year, term_display, campus, url, unit_url, instructor, credits, description, canvas_course_id, created_at, updated_at')
         .order('created_at', { ascending: false });
       
       if (error) {
@@ -45,7 +47,7 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
     async getUnit(id: string): Promise<Unit | null> {
       const { data, error } = await supabase
         .from(UNITS_TABLE)
-        .select('id, owner_id, code, title, term, campus, url, instructor, created_at')
+        .select('id, owner_id, code, title, term, semester, year, term_display, campus, url, unit_url, instructor, credits, description, canvas_course_id, created_at, updated_at')
         .eq('id', id)
         .single();
       
@@ -68,9 +70,13 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
         throw new Error('Please sign in to add units.');
       }
 
+      // Clean the title and code
+      const cleanedCode = cleanUnitCode(unitData.code);
+      const cleanedTitle = cleanUnitTitle(unitData.title, unitData.code); // Use original code for title cleaning
+
       const payload = {
-        code: unitData.code,
-        title: unitData.title,
+        code: cleanedCode,
+        title: cleanedTitle,
         term: unitData.term,
         campus: unitData.campus ?? null,
         url: unitData.url ?? null,
@@ -99,9 +105,18 @@ export function createSupabaseStorage(supabase: SupabaseClient): StoragePort {
     },
 
     async updateUnit(id: string, updates: Partial<Omit<Unit, 'id' | 'owner_id' | 'created_at'>>): Promise<Unit | null> {
+      // Clean the title and code if they're being updated
+      const processedUpdates = { ...updates };
+      if (updates.code) {
+        processedUpdates.code = cleanUnitCode(updates.code);
+      }
+      if (updates.title && updates.code) {
+        processedUpdates.title = cleanUnitTitle(updates.title, updates.code);
+      }
+
       const { data, error } = await supabase
         .from(UNITS_TABLE)
-        .update(updates)
+        .update(processedUpdates)
         .eq('id', id)
         .select('id, owner_id, code, title, term, campus, url, instructor, created_at')
         .single();
